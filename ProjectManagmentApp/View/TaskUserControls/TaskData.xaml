@@ -1,0 +1,161 @@
+﻿<UserControl
+    x:Class="ProjectManagmentApp.View.TaskUserControls.TaskData"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectManagmentApp.View.TaskUserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:ProjectManagmentApp.Model"
+    mc:Ignorable="d"
+    Loaded="UserControl_Loaded">
+
+    <ScrollViewer>
+        <StackPanel Name="TaskDataContent" 
+                Orientation="Vertical" 
+                Margin="50"
+                Padding="25"
+                Background="{StaticResource PrimaryColor}"
+                CornerRadius="3">
+            <RelativePanel>
+                <TextBlock Text="{x:Bind zTask.TaskName}"
+                       FontSize="26"
+                       FontWeight="Bold"/>
+                <Button Content="&#xE10A;"
+                    Name="CloseTask"
+                    FontFamily="Segoe MDL2 Assets"
+                    HorizontalAlignment="Right"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Padding="2"
+                    Width="30"
+                    Height="30"
+                    CornerRadius="2"
+                    Click="CloseTask_Click"/>
+            </RelativePanel>
+            <TextBlock Name="result"/>
+            <StackPanel Orientation="Horizontal"
+                    Margin="0,15,0,0">
+                <TextBlock Text="Priority :" 
+                       Padding="0,0,5,0"/>
+                <Ellipse Name="PriorityCircle" 
+                     Width="10" 
+                     Fill="{x:Bind PriorityColor}"
+                     Height="10" 
+                     HorizontalAlignment="Center"/>
+                <TextBlock Text="{x:Bind zTask.Priority}"
+                       Padding="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                    Margin="0,10">
+                <TextBlock Text="Description : "
+                       FontWeight="Bold"/>
+                <TextBlock Text="{x:Bind zTask.Description}"
+                           TextWrapping="WrapWholeWords"
+                           FontWeight="Bold"/>
+            </StackPanel>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Text="Assigned Date" 
+                       Margin="0,0,15,0"/>
+                <TextBlock Text="{x:Bind zTask.AssignedDate.ToLongDateString()}"
+                       Grid.Column="1"/>
+
+                <TextBlock Text="Due Date "
+                       Grid.Row="1"/>
+                <TextBlock Text="{x:Bind zTask.DueDate.ToLongDateString()}"
+                       Grid.Row="1"
+                       Grid.Column="1"/>
+
+                <TextBlock Text="Assigned By "
+                       Grid.Row="2"/>
+                <TextBlock Text="{x:Bind AssignedBy}"
+                       Grid.Column="1"
+                       Grid.Row="2"/>
+
+                <TextBlock Text="Assigned To "
+                       Grid.Row="3"/>
+                <TextBlock Text="{x:Bind AssignedTo}"
+                       Grid.Column="1"
+                       Grid.Row="3"/>
+
+            </Grid>
+            <StackPanel Orientation="Horizontal"
+                    Margin="0,10"
+                    Background="{StaticResource SecondaryColor}"
+                    CornerRadius="3"
+                    Padding="4">
+                <Button Name="LikeReaction"
+                    FontFamily="Segoe MDL2 Assets"
+                    Foreground="HotPink"
+                    Background="{StaticResource SecondaryColor}"
+                    FontSize="20"
+                    Click="LikeReaction_Click"
+                    Padding="0"/>
+                <TextBlock Name="NoOfLikesTB"
+                       VerticalAlignment="Center" 
+                       Padding="5,0"
+                       Foreground="{ThemeResource SystemBaseMediumColor}"/>
+                <Button Name="ShowComment"
+                    Click="ShowComment_Click"
+                    Content="Comment"
+                    Margin="10,0"
+                    Padding="0"
+                    Background="{ThemeResource SecondaryColor}"/>
+            </StackPanel>
+            <RelativePanel Name="CommentBox"
+                       Visibility="Collapsed">
+                <TextBox 
+                    Name="AddComment"
+                     PlaceholderText="Add a Comment"
+                     RelativePanel.AlignLeftWithPanel="True"
+                     Margin="0,0,40,0"
+                     RelativePanel.AlignRightWith="SendClick"/>
+                <Button Name="SendClick"
+                    Click="SendClick_Click"
+                    Content="&#xE122;"
+                    FontSize="28"
+                    Background="{StaticResource PrimaryColor}"
+                    FontFamily="Segoe MDL2 Assets"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    RelativePanel.AlignRightWithPanel="True"/>
+            </RelativePanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Comments"
+                       FontSize="20"
+                       FontWeight="Bold"/>
+                <Ellipse Width="5"
+                     Height="5"
+                     Fill="{ThemeResource SystemBaseMediumColor}"
+                     Margin="10,0"
+                     VerticalAlignment="Center"/>
+                <TextBlock Name="NoOfCommentsTB"
+                       Foreground="{ThemeResource SystemBaseMediumColor}"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+
+
+            <ListView x:Name="CommentsList">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Comment">
+                        <local:CommentList />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+    </ScrollViewer>
+    
+</UserControl>

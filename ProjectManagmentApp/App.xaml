@@ -1,0 +1,13 @@
+﻿<Application
+    x:Class="ProjectManagmentApp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectManagmentApp">
+    <Application.Resources>
+        <SolidColorBrush x:Key="PrimaryColor" Color="{ThemeResource SystemAltHighColor}"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="{ThemeResource SystemChromeLowColor}"/>
+        <SolidColorBrush x:Key="TertairyColor" Color="{ThemeResource SystemAccentColor}"/>
+        <SolidColorBrush x:Key="TextColor" Color="#ddf"/>
+    </Application.Resources>
+    
+</Application>

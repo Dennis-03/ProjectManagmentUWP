@@ -1,0 +1,98 @@
+﻿<Page
+    x:Class="ProjectManagmentApp.View.MyTasksView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:model="using:ProjectManagmentApp.Model" 
+    xmlns:local="using:ProjectManagmentApp.View.TaskUserControls"
+    mc:Ignorable="d"
+    Background="{StaticResource SecondaryColor}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical"
+                    Margin="0,20">
+                <Button Margin="40,0,0,10"
+                        Name="InCompleteTasksButton"
+                        Foreground="{ThemeResource TertairyColor}"
+                        Background="{StaticResource SecondaryColor}"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Click="InCompleteTasksButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="Segoe MDL2 Assets"
+                                   VerticalAlignment="Center"
+                                   Name="InCompleteDropLogo"
+                                   Margin="0,0,10,0"/>
+                        <TextBlock Text="In-Complete Tasks"/>
+                    </StackPanel>
+                </Button>
+                <ListView Name="InCompleteTaskList" 
+                          Background="{StaticResource PrimaryColor}"
+                          Margin="30,0"
+                          CornerRadius="5"
+                          ItemsSource="{x:Bind inCompleteTaskList}"
+                          IsItemClickEnabled="True" 
+                          ItemClick="TaskList_ItemClick">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ZTask" >
+                            <local:TaskList />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Margin="40,40,0,10"
+                        Name="CompletedTasksButton"
+                        FontSize="18"
+                        Foreground="{ThemeResource TertairyColor}"
+                        Background="{StaticResource SecondaryColor}"
+                        FontWeight="Bold"
+                        Click="CompletedTasksButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="Segoe MDL2 Assets"
+                                   VerticalAlignment="Center"
+                                   Text="&#xE017;"
+                                   Name="CompletedDropLogo"
+                                   Margin="0,0,10,0"/>
+                        <TextBlock Text="Completed Tasks"/>
+                    </StackPanel>
+                </Button>
+                <ListView Name="CompletedTaskList"
+                          Background="{StaticResource PrimaryColor}"
+                          Margin="30,0"
+                          CornerRadius="5"
+                          ItemsSource="{x:Bind completedTaskList}"
+                          IsItemClickEnabled="True" 
+                          ItemClick="TaskList_ItemClick">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ZTask" >
+                            <local:TaskList />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Column="1"
+                    Margin="0,20,0,0">
+            <Button Name="MarkCompleted"
+                    Content="Completed"
+                    Background="{StaticResource PrimaryColor}"
+                    Visibility="Collapsed"
+                    Foreground="Green"
+                    BorderBrush="Green"
+                    HorizontalAlignment="Right"
+                    CornerRadius="4"
+                    Margin="0,10,50,0"
+                    Click="MarkCompleted_Click"/>
+            <Frame Name="TaskDetailsFrame"
+                   Margin="0,-30,0,0"/>
+            
+        </StackPanel>
+    </Grid>
+</Page>

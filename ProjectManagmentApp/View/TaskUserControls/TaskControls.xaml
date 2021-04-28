@@ -1,0 +1,94 @@
+﻿<UserControl
+    x:Class="ProjectManagmentApp.View.TaskUserControls.TaskControls"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectManagmentApp.View.TaskUserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:model="using:ProjectManagmentApp.Model"
+    mc:Ignorable="d"
+    Loaded="UserControl_Loaded"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <StackPanel VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Background="{StaticResource PrimaryColor}"
+                Padding="20"
+                CornerRadius="5">
+        <TextBlock Text="Create new Task"
+                   TextAlignment="Center"
+                   Style="{StaticResource TitleTextBlockStyle}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Task Name"
+                       VerticalAlignment="Center"/>
+            <TextBox Name="ITaskName"
+                     Margin="0,20"
+                     Grid.Column="1"/>
+
+            <TextBlock Text="Description"
+                       Grid.Row="1"/>
+            <TextBox Name="ITaskDescripion"
+                     Grid.Row="1"
+                     Grid.Column="1"/>
+
+            <TextBlock Text="Priority" 
+                       VerticalAlignment="Center"
+                       Margin="0,0,40,0"
+                       Grid.Row="2"/>
+            <ComboBox Name="PriorityComboBox"
+                      Grid.Column="1"
+                      Grid.Row="2"
+                      Margin="0,20"
+                      Width="350"
+                      SelectionChanged="PriorityComboBox_SelectionChanged">
+                <ComboBoxItem Content="Low" IsSelected="True"/>
+                <ComboBoxItem Content="Medium"/>
+                <ComboBoxItem Content="High"/>
+            </ComboBox>
+
+            <TextBlock Text="Assign To"
+                       Grid.Row="3"/>
+
+            <ComboBox Name="UserSelectCB"
+                      Grid.Row="3"
+                      Grid.Column="1"
+                      Width="350"
+                      SelectionChanged="UserSelectCB_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="model:User">
+                        <TextBlock Text="{x:Bind UserName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Text="Due Date"
+                       Grid.Row="4"
+                       VerticalAlignment="Center"/>
+            <DatePicker Name="IDueDate"
+                        Margin="0,20"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        DateChanged="IDueDate_DateChanged"/>
+        </Grid>
+        <Button Name="CreateTask"
+                Style="{StaticResource TextBlockButtonStyle}"
+                Content="Create task"
+                Click="CreateTask_Click"
+                HorizontalAlignment="Center"/>
+        <TextBlock Name="DisplayResult"/>
+
+    </StackPanel>
+</UserControl>

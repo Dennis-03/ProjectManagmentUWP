@@ -1,0 +1,78 @@
+﻿<Page
+    x:Class="ProjectManagmentApp.View.TaskView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectManagmentApp.View.TaskUserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:model="using:ProjectManagmentApp.Model"
+    mc:Ignorable="d"
+    Background="{StaticResource SecondaryColor}">
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TaskDetailsFrame.(Grid.Row)" Value="1"/>
+                        <Setter Target="TaskDetailsFrame.(Grid.Column)" Value="0"/>
+                        <Setter Target="TaskDetailsFrame.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskListContainer.(Grid.ColumnSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TaskDetailsFrame.(Grid.Row)" Value="2"/>
+                        <Setter Target="TaskDetailsFrame.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Text="{x:Bind displayString}"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="40,20,0,0"/>
+
+        <ScrollViewer Name="TaskListContainer"
+                      Grid.Row="2">
+            <StackPanel Orientation="Vertical"
+                    Margin="0,20">
+                <TextBlock Text="All Tasks"
+                           Margin="40,0,0,10"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+                <ListView Name="TaskList" 
+                          Background="{StaticResource PrimaryColor}"
+                          Margin="30,0"
+                          CornerRadius="5"
+                          ItemsSource="{x:Bind taskList}"
+                          IsItemClickEnabled="True"
+                          ItemClick="TaskList_ItemClick">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ZTask">
+                            <local:TaskList />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        <Frame Name="TaskDetailsFrame"
+               Grid.Row="2"/>
+    </Grid>
+</Page>
