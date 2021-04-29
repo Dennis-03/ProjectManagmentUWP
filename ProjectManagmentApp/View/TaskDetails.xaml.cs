@@ -26,32 +26,32 @@ namespace ProjectManagmentApp.View
     /// </summary>
     public sealed partial class TaskDetails : Page
     {
-        private ZTask zTask;
-        private string assignedTo;
-        private string assignedBy;
-        private ObservableCollection<Comment> comments;
-        public SolidColorBrush PriorityColor;
+        private ZTask _zTask;
+        private string _assignedTo;
+        private string _assignedBy;
+        private ObservableCollection<Comment> _comments;
+        private SolidColorBrush _priorityColor;
 
 
         UserManager userManager = UserManager.GetUserManager();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            zTask = (ZTask)e.Parameter;
-            assignedTo = userManager.GetUser(zTask.AssignedTo).UserName;
-            assignedBy = userManager.GetUser(zTask.AssignedBy).UserName;
-            comments =new ObservableCollection<Comment>(zTask.Comment);
-            if (zTask.Priority == Constants.PriorityEnum.Low)
+            _zTask = (ZTask)e.Parameter;
+            _assignedTo = userManager.GetUser(_zTask.AssignedTo).UserName;
+            _assignedBy = userManager.GetUser(_zTask.AssignedBy).UserName;
+            _comments =new ObservableCollection<Comment>(_zTask.Comment);
+            if (_zTask.Priority == Constants.PriorityEnum.Low)
             {
-                PriorityColor = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+                _priorityColor = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
             }
-            else if (zTask.Priority == Constants.PriorityEnum.Medium)
+            else if (_zTask.Priority == Constants.PriorityEnum.Medium)
             {
-                PriorityColor = new SolidColorBrush(Color.FromArgb(255, 255, 160, 0));
+                _priorityColor = new SolidColorBrush(Color.FromArgb(255, 255, 160, 0));
             }
             else
             {
-                PriorityColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                _priorityColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             }
 
 

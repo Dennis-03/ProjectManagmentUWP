@@ -24,10 +24,10 @@ namespace ProjectManagmentApp.View.TaskUserControls
 {
     public sealed partial class TaskData : UserControl
     {
-        public int NoOfLikes = 0;
-        public int NoOfComments = 0;
-        private ZTask ztask;
-        private long userId;
+        private int _noOfLikes = 0;
+        private int _noOfComments = 0;
+        private ZTask _ztask;
+        private long _userId;
 
         TaskManager taskManager = TaskManager.GetTaskManager();
         CommentManager commentManager = CommentManager.GetCommentManager();
@@ -41,12 +41,12 @@ namespace ProjectManagmentApp.View.TaskUserControls
         }
         public static readonly DependencyProperty CommentsProperty = DependencyProperty.Register("Comments", typeof(ObservableCollection<Comment>), typeof(TaskData), null);
 
-        public ZTask zTask
+        public ZTask ZTask
         {
-            get { return (ZTask)GetValue(zTaskProperty); }
-            set { SetValue(zTaskProperty, value); }
+            get { return (ZTask)GetValue(ZTaskProperty); }
+            set { SetValue(ZTaskProperty, value); }
         }
-        public static readonly DependencyProperty zTaskProperty = DependencyProperty.Register("zTask", typeof(ZTask), typeof(TaskData), null);
+        public static readonly DependencyProperty ZTaskProperty = DependencyProperty.Register("ZTask", typeof(ZTask), typeof(TaskData), null);
 
         public string AssignedTo
         {
@@ -72,25 +72,32 @@ namespace ProjectManagmentApp.View.TaskUserControls
         public TaskData()
         {
             this.InitializeComponent();
-            userId = userManager.GetUserId();
+            _userId = userManager.GetUserId();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ztask = zTask;
-            //CommentsList.ItemsSource = comments;
-            NoOfLikes = ztask.Reaction.Count;
-            NoOfLikesTB.Text = NoOfLikes.ToString();
-            NoOfComments = Comments.Count;
-            NoOfCommentsTB.Text = NoOfComments.ToString();
+            _ztask = ZTask;
+            _noOfLikes = _ztask.Reaction.Count;
+            NoOfLikesTB.Text = _noOfLikes.ToString();
+            _noOfComments = Comments.Count;
+            NoOfCommentsTB.Text = _noOfComments.ToString();
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
-            ztask.Reaction.ForEach(like => {
-                if (like.ReactedById == userId)
+            _ztask.Reaction.ForEach(like => {
+                if (like.ReactedById == _userId)
                 {
                     buttonIcon = HttpUtility.HtmlDecode("&#xE00B;");
                 }
             });
             LikeReaction.Content = buttonIcon;
+            if (_ztask.Completed==false&&_ztask.AssignedTo==_userId)
+            {
+                MarkCompleted.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MarkCompleted.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void ShowComment_Click(object sender, RoutedEventArgs e)
@@ -103,31 +110,39 @@ namespace ProjectManagmentApp.View.TaskUserControls
             Comment comment = new Comment
             {
                 CommentString = AddComment.Text,
-                TaskID = ztask.Id,
-                UserId = userId,
+                TaskID = _ztask.Id,
+                UserId = _userId,
                 commentedDateTime=DateTime.Now
             };
             commentManager.AddComment(comment);
             Comments.Add(comment);
             CommentBox.Visibility = Visibility.Collapsed;
             AddComment.Text = "";
-            NoOfComments += 1;
-            NoOfCommentsTB.Text = NoOfComments.ToString();
+            _noOfComments += 1;
+            NoOfCommentsTB.Text = _noOfComments.ToString();
         }
 
         private void LikeReaction_Click(object sender, RoutedEventArgs e)
         {
             LikeReaction.Content = HttpUtility.HtmlDecode("&#xE00B;");
-            bool status = reactionManager.AddReactionToTask(userId, ztask.Id);
+            bool status = reactionManager.AddReactionToTask(_userId, _ztask.Id);
             if (status) {
-                NoOfLikes += 1;
-                NoOfLikesTB.Text = NoOfLikes.ToString();
+                _noOfLikes += 1;
+                NoOfLikesTB.Text = _noOfLikes.ToString();
             }
         }
 
         private void CloseTask_Click(object sender, RoutedEventArgs e)
         {
             TaskDataContent.Visibility = Visibility.Collapsed;
+        }
+
+        private void MarkCompleted_Click(object sender, RoutedEventArgs e)
+        {
+            _ztask.Completed = true;
+            taskManager.MarkCompleted(_ztask.Id);
+            SetValue(ZTaskProperty, _ztask);
+            MarkCompleted.Visibility = Visibility.Collapsed;
         }
     }
 }

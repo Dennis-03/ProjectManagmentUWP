@@ -17,9 +17,9 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TaskDetailsFrame.(Grid.Row)" Value="1"/>
-                        <Setter Target="TaskDetailsFrame.(Grid.Column)" Value="0"/>
-                        <Setter Target="TaskDetailsFrame.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="1"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="0"/>
+                        <Setter Target="TaskDetailsSV.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="TaskListContainer.(Grid.ColumnSpan)" Value="2"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -28,8 +28,8 @@
                         <AdaptiveTrigger MinWindowWidth="900"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TaskDetailsFrame.(Grid.Row)" Value="2"/>
-                        <Setter Target="TaskDetailsFrame.(Grid.Column)" Value="1"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="1"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -44,7 +44,7 @@
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         
-        <TextBlock Text="{x:Bind displayString}"
+        <TextBlock Text="{x:Bind _displayString}"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="40,20,0,0"/>
@@ -61,7 +61,7 @@
                           Background="{StaticResource PrimaryColor}"
                           Margin="30,0"
                           CornerRadius="5"
-                          ItemsSource="{x:Bind taskList}"
+                          ItemsSource="{x:Bind _taskList}"
                           IsItemClickEnabled="True"
                           ItemClick="TaskList_ItemClick">
                     <ListView.ItemTemplate>
@@ -72,7 +72,11 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <Frame Name="TaskDetailsFrame"
-               Grid.Row="2"/>
+        <ScrollViewer 
+            Name="TaskDetailsSV"
+            Grid.Row="2" 
+            Grid.Column="1">
+            <Frame Name="TaskDetailsFrame"/>
+        </ScrollViewer>
     </Grid>
 </Page>

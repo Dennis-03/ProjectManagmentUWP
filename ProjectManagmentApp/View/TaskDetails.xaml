@@ -8,10 +8,10 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <local:TaskData zTask="{x:Bind zTask}" 
-                        AssignedTo="{x:Bind assignedTo}" 
-                        AssignedBy="{x:Bind assignedBy}" 
-                        PriorityColor="{x:Bind PriorityColor}"
-                        Comments="{x:Bind comments}"/>
+        <local:TaskData ZTask="{x:Bind _zTask}" 
+                        AssignedTo="{x:Bind _assignedTo}" 
+                        AssignedBy="{x:Bind _assignedBy}" 
+                        PriorityColor="{x:Bind _priorityColor}"
+                        Comments="{x:Bind _comments}"/>
     </StackPanel>
 </Page>

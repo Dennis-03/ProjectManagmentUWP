@@ -23,10 +23,8 @@ namespace ProjectManagmentApp.View
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class SignIn : Page
-    {
-
+    { 
         UserManager userManager = UserManager.GetUserManager();
-
 
         public SignIn()
         {

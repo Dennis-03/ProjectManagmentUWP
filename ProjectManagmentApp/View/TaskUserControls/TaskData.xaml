@@ -17,7 +17,7 @@
                 Background="{StaticResource PrimaryColor}"
                 CornerRadius="3">
             <RelativePanel>
-                <TextBlock Text="{x:Bind zTask.TaskName}"
+                <TextBlock Text="{x:Bind ZTask.TaskName}"
                        FontSize="26"
                        FontWeight="Bold"/>
                 <Button Content="&#xE10A;"
@@ -41,7 +41,7 @@
                      Fill="{x:Bind PriorityColor}"
                      Height="10" 
                      HorizontalAlignment="Center"/>
-                <TextBlock Text="{x:Bind zTask.Priority}"
+                <TextBlock Text="{x:Bind ZTask.Priority}"
                        Padding="5,0,0,0"/>
             </StackPanel>
 
@@ -49,7 +49,7 @@
                     Margin="0,10">
                 <TextBlock Text="Description : "
                        FontWeight="Bold"/>
-                <TextBlock Text="{x:Bind zTask.Description}"
+                <TextBlock Text="{x:Bind ZTask.Description}"
                            TextWrapping="WrapWholeWords"
                            FontWeight="Bold"/>
             </StackPanel>
@@ -65,16 +65,14 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
-
                 <TextBlock Text="Assigned Date" 
                        Margin="0,0,15,0"/>
-                <TextBlock Text="{x:Bind zTask.AssignedDate.ToLongDateString()}"
+                <TextBlock Text="{x:Bind ZTask.AssignedDate.ToLongDateString()}"
                        Grid.Column="1"/>
 
                 <TextBlock Text="Due Date "
                        Grid.Row="1"/>
-                <TextBlock Text="{x:Bind zTask.DueDate.ToLongDateString()}"
+                <TextBlock Text="{x:Bind ZTask.DueDate.ToLongDateString()}"
                        Grid.Row="1"
                        Grid.Column="1"/>
 
@@ -89,31 +87,51 @@
                 <TextBlock Text="{x:Bind AssignedTo}"
                        Grid.Column="1"
                        Grid.Row="3"/>
-
             </Grid>
-            <StackPanel Orientation="Horizontal"
+            <RelativePanel
                     Margin="0,10"
                     Background="{StaticResource SecondaryColor}"
                     CornerRadius="3"
-                    Padding="4">
-                <Button Name="LikeReaction"
+                    Padding="10,2">
+                <Button 
+                    Name="LikeReaction"
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="HotPink"
                     Background="{StaticResource SecondaryColor}"
                     FontSize="20"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
                     Click="LikeReaction_Click"
                     Padding="0"/>
-                <TextBlock Name="NoOfLikesTB"
-                       VerticalAlignment="Center" 
-                       Padding="5,0"
-                       Foreground="{ThemeResource SystemBaseMediumColor}"/>
-                <Button Name="ShowComment"
+                <TextBlock 
+                    Name="NoOfLikesTB"
+                    VerticalAlignment="Center"
+                    Padding="5,0"
+                    RelativePanel.RightOf="LikeReaction"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Foreground="{ThemeResource SystemBaseMediumColor}"/>
+                <Button 
+                    Name="ShowComment"
                     Click="ShowComment_Click"
                     Content="Comment"
                     Margin="10,0"
                     Padding="0"
+                    RelativePanel.RightOf="NoOfLikesTB"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
                     Background="{ThemeResource SecondaryColor}"/>
-            </StackPanel>
+                <Button 
+                    Name="MarkCompleted"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Content="Completed"
+                    Background="{StaticResource PrimaryColor}"
+                    Click="MarkCompleted_Click"
+                    Foreground="Green"
+                    BorderBrush="Green"
+                    HorizontalAlignment="Right"
+                    CornerRadius="4"
+                    Visibility="Collapsed"/>
+            </RelativePanel>
+            
+            
             <RelativePanel Name="CommentBox"
                        Visibility="Collapsed">
                 <TextBox 

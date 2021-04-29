@@ -29,7 +29,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         CommentManager commentManager = CommentManager.GetCommentManager();
         private long userId;
         private int NoOfLikes;
-        private Comment comment;
+        private Comment _comment;
 
         public CommentList()
         {
@@ -38,17 +38,17 @@ namespace ProjectManagmentApp.View.TaskUserControls
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            comment = CommentData;
+        {   
+            _comment = CommentData;
             userId = userManager.GetUserId();
-            UserNameTB.Text = userManager.GetUser(comment.UserId).UserName; ;
-            CommentedDateTimeTB.Text = comment.commentedDateTime.ToShortTimeString();
-            NoOfLikes = comment.Reaction.Count();
+            UserNameTB.Text = userManager.GetUser(_comment.UserId).UserName;
+            CommentedDateTimeTB.Text = _comment.commentedDateTime.ToShortTimeString();
+            NoOfLikes = _comment.Reaction.Count();
             LikeCountTB.Text = NoOfLikes.ToString();
-            UserCommentTB.Text = comment.CommentString;
+            UserCommentTB.Text = _comment.CommentString;
 
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
-            comment.Reaction.ForEach(like=> {
+            _comment.Reaction.ForEach(like=> {
                 if (like.ReactedById == userId)
                     buttonIcon = HttpUtility.HtmlDecode("&#xE00B;");
             });
@@ -57,7 +57,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void LikeComment_Click(object sender, RoutedEventArgs e)
         {
-            bool status=reactionManager.AddReactionToComment(userId, comment.Id, comment.TaskID);
+            bool status=reactionManager.AddReactionToComment(userId, _comment.Id, _comment.TaskID);
             if (status)
             {
                 LikeCommentBtn.Content = HttpUtility.HtmlDecode("&#xE00B;");
@@ -71,9 +71,9 @@ namespace ProjectManagmentApp.View.TaskUserControls
             var button = sender as Button;
             Comment addComment = new Comment
             {
-                TaskID = comment.TaskID,
+                TaskID = _comment.TaskID,
                 CommentString = CommentTB.Text,
-                ParentId = comment.Id,
+                ParentId = _comment.Id,
                 commentedDateTime=DateTime.Now,
                 UserId=userId
             };

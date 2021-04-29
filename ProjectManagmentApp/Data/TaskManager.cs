@@ -66,6 +66,7 @@ namespace ProjectManagmentApp.Data
                     task.DueDate = updateTask.DueDate;
                     task.Comment = updateTask.Comment;
                     task.Completed = updateTask.Completed;
+                    task.Reaction = updateTask.Reaction;
                 }
             }
         }

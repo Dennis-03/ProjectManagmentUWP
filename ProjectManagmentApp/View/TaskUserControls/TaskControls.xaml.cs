@@ -26,7 +26,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         TaskManager taskManager = TaskManager.GetTaskManager();
 
         private ZTask zTask = new ZTask();
-        private List<User> users;
+        private List<User> _users;
 
         public ZTask ZTask
         {
@@ -42,8 +42,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            users = new List<User>(userManager.GetAllUsers());
-            UserSelectCB.ItemsSource = users;
+            _users = new List<User>(userManager.GetAllUsers());
+            UserSelectCB.ItemsSource = _users;
             zTask.AssignedBy = userManager.GetUserId();
             zTask.AssignedDate = DateTime.Now;
             //PriorityComboBox.SelectedItem = ZTask.Priority.ToString();

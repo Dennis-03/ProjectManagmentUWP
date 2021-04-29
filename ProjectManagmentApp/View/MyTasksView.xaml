@@ -10,12 +10,42 @@
     Background="{StaticResource SecondaryColor}">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="1"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="0"/>
+                        <Setter Target="TaskDetailsSV.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskListContainer.(Grid.ColumnSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer>
+        <ScrollViewer Name="TaskListContainer"
+                      Grid.Row="2">
             <StackPanel Orientation="Vertical"
                     Margin="0,20">
                 <Button Margin="40,0,0,10"
@@ -33,13 +63,13 @@
                         <TextBlock Text="In-Complete Tasks"/>
                     </StackPanel>
                 </Button>
-                <ListView Name="InCompleteTaskList" 
+                <ListView Name="InCompleteTaskList"
                           Background="{StaticResource PrimaryColor}"
                           Margin="30,0"
                           CornerRadius="5"
-                          ItemsSource="{x:Bind inCompleteTaskList}"
+                          ItemsSource="{x:Bind _inCompleteTaskList,Mode=OneWay}"
                           IsItemClickEnabled="True" 
-                          ItemClick="TaskList_ItemClick">
+                          ItemClick="InCompleteTaskList_ItemClick">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ZTask" >
                             <local:TaskList />
@@ -67,9 +97,9 @@
                           Background="{StaticResource PrimaryColor}"
                           Margin="30,0"
                           CornerRadius="5"
-                          ItemsSource="{x:Bind completedTaskList}"
+                          ItemsSource="{x:Bind _completedTaskList,Mode=OneWay}"
                           IsItemClickEnabled="True" 
-                          ItemClick="TaskList_ItemClick">
+                          ItemClick="CompletedTaskList_ItemClick">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ZTask" >
                             <local:TaskList />
@@ -78,21 +108,14 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Grid.Column="1"
+        <ScrollViewer 
+            Name="TaskDetailsSV"
+            Grid.Row="2" 
+            Grid.Column="1">
+            <StackPanel Grid.Column="1"
                     Margin="0,20,0,0">
-            <Button Name="MarkCompleted"
-                    Content="Completed"
-                    Background="{StaticResource PrimaryColor}"
-                    Visibility="Collapsed"
-                    Foreground="Green"
-                    BorderBrush="Green"
-                    HorizontalAlignment="Right"
-                    CornerRadius="4"
-                    Margin="0,10,50,0"
-                    Click="MarkCompleted_Click"/>
-            <Frame Name="TaskDetailsFrame"
-                   Margin="0,-30,0,0"/>
-            
-        </StackPanel>
+                <Frame Name="TaskDetailsFrame"/>
+            </StackPanel>   
+        </ScrollViewer>
     </Grid>
 </Page>

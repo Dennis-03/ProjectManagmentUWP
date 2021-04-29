@@ -2,11 +2,10 @@
     x:Class="ProjectManagmentApp.View.EditTask"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ProjectManagmentApp.View"
+    xmlns:local="using:ProjectManagmentApp.View.TaskUserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:model="using:ProjectManagmentApp.Model" 
-    xmlns:local1="using:ProjectManagmentApp.View.TaskUserControls"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{StaticResource SecondaryColor}">
@@ -19,10 +18,10 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TaskDetailsFrameEdit.(Grid.Row)" Value="1"/>
-                        <Setter Target="TaskDetailsFrameEdit.(Grid.Column)" Value="0"/>
-                        <Setter Target="TaskDetailsFrameEdit.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="TaskListContainerEdit.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="1"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="0"/>
+                        <Setter Target="TaskDetailsSV.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskListContainer.(Grid.ColumnSpan)" Value="2"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -30,8 +29,8 @@
                         <AdaptiveTrigger MinWindowWidth="900"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TaskDetailsFrameEdit.(Grid.Row)" Value="2"/>
-                        <Setter Target="TaskDetailsFrameEdit.(Grid.Column)" Value="1"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="1"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -45,33 +44,36 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-
-        <TextBlock Name="DisplayTB"/>
-        <ScrollViewer Name="TaskListContainerEdit"
+        <TextBlock Name="COUNTER"/>
+        <ScrollViewer Name="TaskListContainer"
                       Grid.Row="2">
             <StackPanel Orientation="Vertical"
                     Margin="0,20">
-                <TextBlock Text="Your Tasks"
+                <TextBlock Text="Tasks Assigned By Me"
                            Margin="40,0,0,10"
                            FontSize="18"
                            FontWeight="Bold"/>
-                <ListView Name="TaskList" 
+                <ListView Name="MyTaskList" 
                           Background="{StaticResource PrimaryColor}"
                           Margin="30,0"
                           CornerRadius="5"
-                          ItemsSource="{x:Bind taskList}"
+                          ItemsSource="{x:Bind MyZTasks,Mode=OneWay}"
                           IsItemClickEnabled="True"
                           ItemClick="TaskList_ItemClick">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ZTask">
-                            <local1:TaskList />
+                            <local:TaskList />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <Frame Name="TaskDetailsFrameEdit"
-               Grid.Row="2"/>
+        <ScrollViewer 
+            Name="TaskDetailsSV"
+            Grid.Row="2" 
+            Grid.Column="1">
+            <Frame Name="TaskDetailsFrameEdit"/>
+        </ScrollViewer>
     </Grid>
 
 </Page>

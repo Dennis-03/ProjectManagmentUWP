@@ -2,6 +2,7 @@
 using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,17 +28,18 @@ namespace ProjectManagmentApp.View
         TaskManager taskManager = TaskManager.GetTaskManager();
         UserManager userManager = UserManager.GetUserManager();
 
-        private List<ZTask> inCompleteTaskList;
-        private List<ZTask> completedTaskList;
+        private ObservableCollection<ZTask> _inCompleteTaskList;
+        private ObservableCollection<ZTask> _completedTaskList;
+        private ObservableCollection<ZTask> _taskList;
         public long TaskId;
-
 
         public MyTasksView()
         {
             long userId = userManager.GetUserId();
             this.InitializeComponent();
-            inCompleteTaskList = new List<ZTask>(taskManager.GetUserTasks(userId).FindAll(task => task.Completed==false));
-            completedTaskList = new List<ZTask>(taskManager.GetUserTasks(userId).FindAll(task => task.Completed==true));
+            _taskList = new ObservableCollection<ZTask>(taskManager.GetUserTasks(userId));
+            _inCompleteTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed==false));
+            _completedTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed==true));
             InCompleteDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");
             CompletedDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");
         }
@@ -70,26 +72,22 @@ namespace ProjectManagmentApp.View
             }
         }
 
-        private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
+        private void InCompleteTaskList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            CompletedTaskList.SelectedItem = null;
             ZTask clickedItem = (ZTask)e.ClickedItem;
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
             TaskId = clickedItem.Id;
             TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
-            if (clickedItem.Completed == false)
-            {
-                MarkCompleted.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                MarkCompleted.Visibility = Visibility.Collapsed;
-            }
         }
 
-        private void MarkCompleted_Click(object sender, RoutedEventArgs e)
+        private void CompletedTaskList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            taskManager.MarkCompleted(TaskId);
-            Frame.Navigate(typeof(MyTasksView));
+            InCompleteTaskList.SelectedItem = null;
+            ZTask clickedItem = (ZTask)e.ClickedItem;
+            ZTask zTask = taskManager.GetZTask(clickedItem.Id);
+            TaskId = clickedItem.Id;
+            TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
         }
     }
 }

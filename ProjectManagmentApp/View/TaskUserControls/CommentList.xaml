@@ -63,7 +63,6 @@
                 </Button.Flyout>
             </Button>
         </StackPanel>
-        <Line Stroke="Gray" X1="0" X2="1000" Margin="100,-30,100,0" Grid.Row="3" Grid.ColumnSpan="2"/>
         <Button Name="LikeCommentBtn" 
                 FontFamily="Segoe MDL2 Assets"
                 Foreground="HotPink"

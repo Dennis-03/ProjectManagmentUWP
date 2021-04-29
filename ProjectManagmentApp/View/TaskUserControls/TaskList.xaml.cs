@@ -23,20 +23,12 @@ namespace ProjectManagmentApp.View.TaskUserControls
     public sealed partial class TaskList : UserControl
     {
         public ZTask ZTask { get { return this.DataContext as ZTask; } }
-        private ZTask zTask;
 
         UserManager userManager = UserManager.GetUserManager();
-        //private string assignedTo;
         public TaskList()
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            zTask = ZTask;
-            //assignedTo = userManager.GetUser(zTask.AssignedTo).UserName;
         }
     }
 }

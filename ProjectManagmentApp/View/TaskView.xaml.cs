@@ -27,11 +27,11 @@ namespace ProjectManagmentApp.View
     /// </summary>
     public sealed partial class TaskView : Page
     {
-        private ObservableCollection<ZTask> taskList;
+        private ObservableCollection<ZTask> _taskList;
         TaskManager taskManager = TaskManager.GetTaskManager();
         UserManager userManager = UserManager.GetUserManager();
-        private string UserName;
-        private string displayString;
+        private string _userName;
+        private string _displayString;
 
         public TaskView()
         {
@@ -39,11 +39,11 @@ namespace ProjectManagmentApp.View
             taskManager.AddTask("Complete UWP Training", "Complete all the pending UWP videos", PriorityEnum.High, 2, 1, DateTime.Now, DateTime.Now,false);
             taskManager.AddTask("UWP Training", "Complete all the pending UWP videos", PriorityEnum.Medium, 1, 2, DateTime.Now, DateTime.Now, false);
             taskManager.AddTask("Complete Pending tasks", "Complete all the pending UWP videos Complete all the pending UWP videos", PriorityEnum.Low, 1, 2, DateTime.Now, DateTime.Now, true);
-            taskList = new ObservableCollection<ZTask>(taskManager.ListAllTasks());
-            UserName = userManager.GetUser(userManager.GetUserId()).UserName;
-            if (!string.IsNullOrEmpty(UserName))
+            _taskList = new ObservableCollection<ZTask>(taskManager.ListAllTasks());
+            _userName = userManager.GetUser(userManager.GetUserId()).UserName;
+            if (!string.IsNullOrEmpty(_userName))
             {
-                displayString = String.Format("Welcome {0} !!!",UserName);
+                _displayString = String.Format("Welcome {0} !!!",_userName);
             }
         }
 

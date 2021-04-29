@@ -64,7 +64,6 @@
                        Grid.Row="3"/>
 
             <ComboBox Name="UserSelectCB"
-                      IsEditable="True"
                       Grid.Row="3"
                       Grid.Column="1"
                       Width="350"
@@ -85,12 +84,5 @@
                         Grid.Column="1"
                         DateChanged="IDueDate_DateChanged"/>
         </Grid>
-        <Button Name="CreateTask"
-                Style="{StaticResource TextBlockButtonStyle}"
-                Content="Create task"
-                Click="CreateTask_Click"
-                HorizontalAlignment="Center"/>
-        <TextBlock Name="DisplayResult"/>
-
     </StackPanel>
 </UserControl>
