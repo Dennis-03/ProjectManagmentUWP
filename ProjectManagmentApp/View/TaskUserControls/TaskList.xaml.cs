@@ -26,7 +26,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private ZTask zTask;
 
         UserManager userManager = UserManager.GetUserManager();
-        private string assignedTo;
+        //private string assignedTo;
         public TaskList()
         {
             this.InitializeComponent();
@@ -36,7 +36,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             zTask = ZTask;
-            assignedTo = userManager.GetUser(zTask.AssignedTo).UserName;
+            //assignedTo = userManager.GetUser(zTask.AssignedTo).UserName;
         }
     }
 }

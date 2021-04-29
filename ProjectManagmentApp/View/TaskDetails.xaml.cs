@@ -29,7 +29,7 @@ namespace ProjectManagmentApp.View
         private ZTask zTask;
         private string assignedTo;
         private string assignedBy;
-        private List<Comment> comments;
+        private ObservableCollection<Comment> comments;
         public SolidColorBrush PriorityColor;
 
 
@@ -40,7 +40,7 @@ namespace ProjectManagmentApp.View
             zTask = (ZTask)e.Parameter;
             assignedTo = userManager.GetUser(zTask.AssignedTo).UserName;
             assignedBy = userManager.GetUser(zTask.AssignedBy).UserName;
-            comments = zTask.Comment;
+            comments =new ObservableCollection<Comment>(zTask.Comment);
             if (zTask.Priority == Constants.PriorityEnum.Low)
             {
                 PriorityColor = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));

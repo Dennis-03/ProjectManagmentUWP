@@ -27,7 +27,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
         public int NoOfLikes = 0;
         public int NoOfComments = 0;
         private ZTask ztask;
-        private ObservableCollection<Comment> comments;
         private long userId;
 
         TaskManager taskManager = TaskManager.GetTaskManager();
@@ -35,12 +34,12 @@ namespace ProjectManagmentApp.View.TaskUserControls
         ReactionManager reactionManager = ReactionManager.GetReactionManager();
         UserManager userManager = UserManager.GetUserManager();
 
-        public List<Comment> Comments
+        public ObservableCollection<Comment> Comments
         {
-            get { return (List<Comment>)GetValue(CommentsProperty); }
+            get { return (ObservableCollection<Comment>)GetValue(CommentsProperty); }
             set { SetValue(CommentsProperty, value); }
         }
-        public static readonly DependencyProperty CommentsProperty = DependencyProperty.Register("Comments", typeof(Comment), typeof(TaskData), null);
+        public static readonly DependencyProperty CommentsProperty = DependencyProperty.Register("Comments", typeof(ObservableCollection<Comment>), typeof(TaskData), null);
 
         public ZTask zTask
         {
@@ -79,11 +78,10 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ztask = zTask;
-            comments = new ObservableCollection<Comment>(Comments);
-            CommentsList.ItemsSource = comments;
+            //CommentsList.ItemsSource = comments;
             NoOfLikes = ztask.Reaction.Count;
             NoOfLikesTB.Text = NoOfLikes.ToString();
-            NoOfComments = comments.Count;
+            NoOfComments = Comments.Count;
             NoOfCommentsTB.Text = NoOfComments.ToString();
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             ztask.Reaction.ForEach(like => {
@@ -110,7 +108,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 commentedDateTime=DateTime.Now
             };
             commentManager.AddComment(comment);
-            comments.Add(comment);
+            Comments.Add(comment);
             CommentBox.Visibility = Visibility.Collapsed;
             AddComment.Text = "";
             NoOfComments += 1;

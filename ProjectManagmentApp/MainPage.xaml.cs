@@ -77,7 +77,6 @@ namespace ProjectManagmentApp
         }
 
 
-
         public void LogoutUser()
         {
             userManager.Logout();

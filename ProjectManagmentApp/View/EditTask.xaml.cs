@@ -33,6 +33,7 @@ namespace ProjectManagmentApp.View
         public EditTask()
         {
             this.InitializeComponent();
+            taskList = new ObservableCollection<ZTask>(taskManager.GetUserCreatedTasks(userId));
             userId = userManager.GetUserId();
         }
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
@@ -44,8 +45,6 @@ namespace ProjectManagmentApp.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            taskList = new ObservableCollection<ZTask>(taskManager.GetUserCreatedTasks(userId));
-            DisplayTB.Text = taskList[0].Description;
         }
     }
 }

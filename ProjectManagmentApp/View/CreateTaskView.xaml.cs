@@ -25,35 +25,20 @@ namespace ProjectManagmentApp.View
     /// </summary>
     public sealed partial class CreateTaskView : Page
     {
-        private ZTask ztask = new ZTask();
+        private ZTask _zTask= new ZTask();
+        TaskManager taskManager = TaskManager.GetTaskManager();
 
         public CreateTaskView()
         {
             this.InitializeComponent();
+            _zTask.Priority = PriorityEnum.Medium;
+            _zTask.TaskName = "Dennis";
+            _zTask.AssignedTo = 1;  
         }
 
-        //private void CreateTask_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ztask.TaskName = ITaskName.Text;
-        //    ztask.Description = ITaskDescripion.Text;
-        //    ztask.Priority = Enum.Parse<PriorityEnum>(PriorityComboBox.Text);
-        //    DisplayResult.Text = $"{ztask.TaskName},{ztask.Description},{ztask.AssignedTo},{ztask.Priority},{ztask.DueDate},{ztask.Completed}";
-        //}
-
-        //private void IDueDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)
-        //{
-        //    DateTimeOffset date = (DateTimeOffset)IDueDate.SelectedDate;
-        //    ztask.DueDate = date.DateTime;
-        //}
-
-        //private void IAssigedTo_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        //{
-
-        //}
-
-        //private void PriorityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
+        private void CreateTask_Click(object sender, RoutedEventArgs e)
+        {
+            taskManager.AddTask(_zTask);
+        }
     }
 }

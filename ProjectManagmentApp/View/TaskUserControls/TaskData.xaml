@@ -147,7 +147,7 @@
             </StackPanel>
 
 
-            <ListView x:Name="CommentsList">
+            <ListView x:Name="CommentsList" ItemsSource="{x:Bind Comments,Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Comment">
                         <local:CommentList />
