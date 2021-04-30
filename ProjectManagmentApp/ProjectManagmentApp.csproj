@@ -150,6 +150,9 @@
     <Compile Include="View\TaskDetails.xaml.cs">
       <DependentUpon>TaskDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TaskEditor.xaml.cs">
+      <DependentUpon>TaskEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TaskUserControls\CommentList.xaml.cs">
       <DependentUpon>CommentList.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TaskDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TaskEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

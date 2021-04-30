@@ -25,7 +25,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         UserManager userManager = UserManager.GetUserManager();
         TaskManager taskManager = TaskManager.GetTaskManager();
 
-        private ZTask zTask = new ZTask();
+        private ZTask _zTask = new ZTask();
         private List<User> _users;
 
         public ZTask ZTask
@@ -42,10 +42,11 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            _zTask = ZTask;
             _users = new List<User>(userManager.GetAllUsers());
             UserSelectCB.ItemsSource = _users;
-            zTask.AssignedBy = userManager.GetUserId();
-            zTask.AssignedDate = DateTime.Now;
+            _zTask.AssignedBy = userManager.GetUserId();
+            _zTask.AssignedDate = DateTime.Now;
             //PriorityComboBox.SelectedItem = ZTask.Priority.ToString();
             if (ZTask.Priority == PriorityEnum.High)
             {
@@ -59,43 +60,49 @@ namespace ProjectManagmentApp.View.TaskUserControls
             {
                 PriorityComboBox.SelectedIndex = 0;
             }
+            int index =_users.FindIndex(user=> user.Id==ZTask.AssignedTo);
+            UserSelectCB.SelectedIndex = index;
+            if (ZTask.DueDate.Year > 2000)
+            {
+                IDueDate.Date = DateTime.SpecifyKind(ZTask.DueDate, DateTimeKind.Utc);
+            }
         }
 
         private void IDueDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
             DateTimeOffset date = (DateTimeOffset)IDueDate.SelectedDate;
-            zTask.DueDate = date.DateTime;
-            SetValue(ZTaskProperty, zTask);
+            _zTask.DueDate = date.DateTime;
+            SetValue(ZTaskProperty, _zTask);
         }
 
         private void PriorityComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var combo = (ComboBox)sender;
             var item = (ComboBoxItem)combo.SelectedItem;
-            zTask.Priority = Enum.Parse<PriorityEnum>(item.Content.ToString());
-            SetValue(ZTaskProperty, zTask);
+            _zTask.Priority = Enum.Parse<PriorityEnum>(item.Content.ToString());
+            SetValue(ZTaskProperty, _zTask);
         }
 
         private void UserSelectCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var combo = (ComboBox)sender;
             var user = (User)combo.SelectedItem;
-            zTask.AssignedTo = (long)user.Id;
-            SetValue(ZTaskProperty, zTask);
+            _zTask.AssignedTo = (long)user.Id;
+            SetValue(ZTaskProperty, _zTask);
         }
 
         private void ITaskDescripion_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = (TextBox)sender;
-            zTask.Description = textBox.Text;
-            SetValue(ZTaskProperty, zTask);
+            _zTask.Description = textBox.Text;
+            SetValue(ZTaskProperty, _zTask);
         }
 
         private void ITaskName_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = (TextBox)sender;
-            zTask.TaskName = textBox.Text;
-            SetValue(ZTaskProperty, zTask);
+            _zTask.TaskName = textBox.Text;
+            SetValue(ZTaskProperty, _zTask);
         }
 
         private void CreateTask_Click(object sender, RoutedEventArgs e)

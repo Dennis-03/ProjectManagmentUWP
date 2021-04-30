@@ -33,6 +33,11 @@ namespace ProjectManagmentApp
             this.InitializeComponent();
             userManager.AddUser("Dennis", "dennis");
             userManager.AddUser("Saravana", "saravana");
+            userManager.AddUser("Weee", "saravana");
+            userManager.AddUser("Zeeeee", "saravana");
+            userManager.AddUser("Ceeeeee", "saravana");
+            userManager.AddUser("Seeee", "saravana");
+
             MainSplitView.OpenPaneLength = 200;
             MainSplitView.CompactPaneLength = 50;
             TitleBlock.Visibility = Visibility.Visible;
@@ -91,6 +96,22 @@ namespace ProjectManagmentApp
             MainSplitView.OpenPaneLength = 0;
             TitleBlock.Visibility = Visibility.Collapsed;
             NavigationMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                Frame.GoBack();
+            }
+        }
+
+        private void ForwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Frame.CanGoForward)
+            {
+                Frame.GoForward();
+            }
         }
     }
 }

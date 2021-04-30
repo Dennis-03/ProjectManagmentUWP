@@ -18,31 +18,21 @@ namespace ProjectManagmentApp.View
         TaskManager taskManager = TaskManager.GetTaskManager();
         UserManager userManager = UserManager.GetUserManager();
 
-        public ObservableCollection<ZTask> MyZTasks
-        {
-            get { return (ObservableCollection<ZTask>)GetValue(MyZTasksProperty); }
-            set { SetValue(MyZTasksProperty, value); }
-        }
-        public DependencyProperty MyZTasksProperty = DependencyProperty.Register("MyZTasksProperty", typeof(ObservableCollection<ZTask>), typeof(EditTask), null);
-
         public EditTask()
         {
             this.InitializeComponent();
+            _userId = userManager.GetUserId();
+            _taskList = new ObservableCollection<ZTask>(taskManager.GetUserCreatedTasks(_userId));
         }
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
         {
             ZTask clickedItem = (ZTask)e.ClickedItem;
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
-            TaskDetailsFrameEdit.Navigate(typeof(TaskDetails), zTask);
+            TaskDetailsFrameEdit.Navigate(typeof(TaskEditor), zTask);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _taskList = new ObservableCollection<ZTask>(taskManager.GetUserCreatedTasks(_userId));
-            SetValue(MyZTasksProperty, _taskList);
-            COUNTER.Text = _taskList.Count.ToString();
-            _userId = userManager.GetUserId();
-            MyTaskList.ItemsSource = MyZTasks;
         }
     }
 }

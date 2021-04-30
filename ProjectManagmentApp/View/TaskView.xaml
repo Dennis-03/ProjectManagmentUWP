@@ -70,7 +70,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </StackPanel>
+            </StackPanel> 
         </ScrollViewer>
         <ScrollViewer 
             Name="TaskDetailsSV"

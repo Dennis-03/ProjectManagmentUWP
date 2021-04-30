@@ -1,6 +1,4 @@
-﻿using ProjectManagmentApp.Constants;
-using ProjectManagmentApp.Data;
-using ProjectManagmentApp.Model;
+﻿using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,20 +21,22 @@ namespace ProjectManagmentApp.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CreateTaskView : Page
+    public sealed partial class TaskEditor : Page
     {
-        private ZTask _zTask= new ZTask();
-        TaskManager taskManager = TaskManager.GetTaskManager();
+        ZTask ZTask;
 
-        public CreateTaskView()
+        public TaskEditor()
         {
             this.InitializeComponent();
-            _zTask.Priority = PriorityEnum.Low;
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ZTask = (ZTask)e.Parameter;
         }
 
-        private void CreateTask_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
-            taskManager.AddTask(_zTask);
+            TaskEditorContainer.Visibility = Visibility.Collapsed;
         }
     }
 }

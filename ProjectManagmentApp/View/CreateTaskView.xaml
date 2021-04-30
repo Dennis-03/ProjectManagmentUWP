@@ -9,11 +9,16 @@
     Background="{ThemeResource SecondaryColor}">
 
     <StackPanel
+        Margin="0,50,0,20"
         VerticalAlignment="Center"
         HorizontalAlignment="Center"
         Background="{StaticResource PrimaryColor}"
         Padding="20"
         CornerRadius="5">
+        <TextBlock 
+            Text="Create New Task"
+            TextAlignment="Center"
+            Style="{StaticResource TitleTextBlockStyle}"/>
         <local:TaskControls ZTask="{x:Bind _zTask,Mode=TwoWay}"/>
         <Button 
             Name="CreateTask"
