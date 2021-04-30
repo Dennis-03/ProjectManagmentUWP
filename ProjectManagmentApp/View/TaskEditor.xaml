@@ -36,7 +36,28 @@
         </RelativePanel>
 
         <local:TaskControls ZTask="{x:Bind ZTask,Mode=TwoWay}"/>
-        <Button Name="UpdateTask"
-                Content="Update Task"/>
+        <StackPanel 
+            Orientation="Horizontal"
+            HorizontalAlignment="Center">
+            <Button 
+                Name="UpdateTask"
+                Content="Update"
+                Background="{ThemeResource PrimaryColor}"
+                Foreground="Green"
+                Padding="10,5"
+                BorderThickness="2"
+                CornerRadius="2"
+                BorderBrush="Green"/>
+            <Button 
+                Name="DeleteTask"
+                Content="Delete"
+                Background="{ThemeResource PrimaryColor}"
+                Foreground="Red"
+                Padding="10,5"
+                Margin="40,0,0,0"
+                BorderThickness="2"
+                CornerRadius="2"
+                BorderBrush="red"/>
+        </StackPanel>
     </StackPanel>
 </Page>

@@ -9,13 +9,16 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <StackPanel Margin="10"
-                Padding="10"
-                CornerRadius="3" >
-        <TextBlock Text="{x:Bind ZTask.TaskName}"
-                   FontSize="18"/>
-        <TextBlock Text="{x:Bind ZTask.Description}"
-                   FontSize="12"
-                   TextWrapping="Wrap"/>
+    <StackPanel
+            Margin="10"
+            Padding="10"
+            CornerRadius="3" >
+        <TextBlock 
+            Text="{x:Bind ZTask.TaskName}"
+            FontSize="18"/>
+        <TextBlock 
+            Text="{x:Bind ZTask.Description}"
+            FontSize="12"
+            TextWrapping="Wrap"/>
     </StackPanel>
 </UserControl>

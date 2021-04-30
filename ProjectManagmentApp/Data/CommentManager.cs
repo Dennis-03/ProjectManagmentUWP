@@ -27,11 +27,18 @@ namespace ProjectManagmentApp.Data
                 CommentString = commentString,
                 TaskID = taskId,
                 UserId=userId,
+                ParentId=null,
                 commentedDateTime = DateTime.Now
             };
             ZTask zTask = taskManager.GetZTask(taskId);
             zTask.Comment.Add(addComment);
             taskManager.UpdateTask(zTask);
+        }
+
+        public void AddReply(Comment Reply)
+        {
+            ZTask zTask = taskManager.GetZTask(Reply.TaskID);
+            //Comment comment = zTask.Comment.Find(mycomment => mycomment.Reply== Reply.Id);
         }
 
         public void AddComment(Comment comment)
