@@ -1,6 +1,7 @@
 ﻿using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,56 +11,57 @@ namespace ProjectManagmentApp.Data
     class UserManager
     {
         private static readonly UserManager _instance = new UserManager();
+        Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+        SQLite.Net.SQLiteConnection conn;
+
         private UserManager()
         {
+            string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            conn.CreateTable<User>();
         }
         public static UserManager GetUserManager()
         {
             return _instance;
         }
 
-        List<User> UserList = new List<User>();
-        Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
         long id = 1;
         public bool AddUser(string userName, string password)
         {
-            User existingUser = UserList.Find(user => user.UserName == userName);
+            User existingUser = conn.Table<User>().FirstOrDefault(user => user.UserName == userName);
             if (existingUser != null)
             {
                 return false;
             }
-
-            User addUser = new User
+            conn.Insert(new User
             {
                 Password = password,
                 UserName = userName,
-                Id = id++,
-            };
-            UserList.Add(addUser);
+                Id = id++
+            });
             return true;
         }
 
         public User VerifyUser(string userName, string password)
         {
-            foreach (var user in UserList)
+            User existingUser = conn.Table<User>().FirstOrDefault(user => user.UserName == userName);
+            if (existingUser == null||existingUser.Password != password )
             {
-                if (user.UserName == userName && user.Password == password)
-                {
-                    return user;
-                }
+                return null;
             }
-            return null;
+            return existingUser;
         }
 
         public User GetUser(long Id)
         {
-            return UserList.Find(user => user.Id == Id);
+            return conn.Table<User>().FirstOrDefault(user=>user.Id==Id);
         }
 
         public List<User> GetAllUsers()
         {
-            return UserList;
+            return new List<User>(conn.Table<User>());
         }
 
         public long GetUserId()
@@ -72,7 +74,7 @@ namespace ProjectManagmentApp.Data
         }
         public void Logout()
         {
-            localSettings.Values["Id"] = null;
+            localSettings.Values["Id"] =Convert.ToInt64(0);
         }
     }
 }

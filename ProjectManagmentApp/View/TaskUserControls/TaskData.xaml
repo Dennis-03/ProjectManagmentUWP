@@ -104,7 +104,7 @@
                     Padding="0"/>
                 <TextBlock 
                     Name="NoOfLikesTB"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Center" 
                     Padding="5,0"
                     RelativePanel.RightOf="LikeReaction"
                     RelativePanel.AlignVerticalCenterWithPanel="True"

@@ -26,8 +26,6 @@ namespace ProjectManagmentApp
     {
         UserManager userManager = UserManager.GetUserManager();
 
-        Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -43,6 +41,12 @@ namespace ProjectManagmentApp
             TitleBlock.Visibility = Visibility.Visible;
             NavigationMenu.Visibility = Visibility.Visible;
             TasksMenu.IsSelected = true;
+            if (userManager.GetUserId() == 0)
+            {
+                MainRenderFrame.Navigate(typeof(SignIn));
+                HideMenu();
+            }
+
         }
 
         private void Hamburger_button_Click(object sender, RoutedEventArgs e)

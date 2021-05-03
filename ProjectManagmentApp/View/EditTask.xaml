@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:model="using:ProjectManagmentApp.Model" 
     mc:Ignorable="d"
-    Loaded="Page_Loaded"
     Background="{StaticResource SecondaryColor}">
 
     <Grid>
@@ -48,7 +47,7 @@
                       Grid.Row="2">
             <StackPanel Orientation="Vertical"
                     Margin="0,20">
-                <TextBlock Text="Tasks Assigned By Me"
+                <TextBlock Text="Tasks Assigned By You"
                            Margin="40,0,0,10"
                            FontSize="18"
                            FontWeight="Bold"/>

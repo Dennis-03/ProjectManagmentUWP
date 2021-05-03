@@ -1,4 +1,6 @@
 ﻿using ProjectManagmentApp.Constants;
+using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +12,8 @@ namespace ProjectManagmentApp.Model
 {   
     public class ZTask : INotifyPropertyChanged
     {
-        public long Id = DateTime.Now.Ticks;
+        [PrimaryKey]
+        public long Id { get; set; }
         public string TaskName { get; set; }
         public string Description { get; set; }
 
@@ -32,9 +35,11 @@ namespace ProjectManagmentApp.Model
         }
 
         private List<Comment> _Comment = new List<Comment>();
+        [Ignore]
         public List<Comment> Comment { get { return _Comment; } set { _Comment = value; } }
 
         private List<Reaction> _Reaction = new List<Reaction>();
+        [Ignore]
         public List<Reaction> Reaction { get { return _Reaction; } set { _Reaction = value; } }
 
         public event PropertyChangedEventHandler PropertyChanged;

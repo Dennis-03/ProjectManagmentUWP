@@ -78,7 +78,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 UserId=userId
             };
             commentManager.AddComment(addComment);
-            ButtonFlyout.Hide();
+            ButtonFlyout.Hide();    
         }
     }
 }

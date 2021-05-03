@@ -38,7 +38,9 @@ namespace ProjectManagmentApp.Data
         public void AddReply(Comment Reply)
         {
             ZTask zTask = taskManager.GetZTask(Reply.TaskID);
-            //Comment comment = zTask.Comment.Find(mycomment => mycomment.Reply== Reply.Id);
+            Comment comment = zTask.Comment.Find(mycomment => mycomment.Id == Reply.Id);
+            comment.Reply.Add(Reply);
+            taskManager.UpdateTask(zTask);
         }
 
         public void AddComment(Comment comment)

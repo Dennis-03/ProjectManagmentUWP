@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace ProjectManagmentApp.Model
 {
     public class Reaction
     {
-        long Id = DateTime.Now.Ticks;
+        [PrimaryKey]
+        public long Id { get; set; }
         public long ReactedToId { get; set; }
         public long ReactedById { get; set; }
     }

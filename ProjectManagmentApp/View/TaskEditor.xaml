@@ -14,7 +14,7 @@
         VerticalAlignment="Center"
         HorizontalAlignment="Center"
         Background="{StaticResource PrimaryColor}"
-        Padding="20"
+        Padding="40"
         CornerRadius="5">
         <RelativePanel>
             <Button 
@@ -47,7 +47,8 @@
                 Padding="10,5"
                 BorderThickness="2"
                 CornerRadius="2"
-                BorderBrush="Green"/>
+                BorderBrush="Green"
+                Click="UpdateTask_Click"/>
             <Button 
                 Name="DeleteTask"
                 Content="Delete"
@@ -57,7 +58,8 @@
                 Margin="40,0,0,0"
                 BorderThickness="2"
                 CornerRadius="2"
-                BorderBrush="red"/>
+                BorderBrush="red"
+                Click="DeleteTask_Click"/>
         </StackPanel>
     </StackPanel>
 </Page>

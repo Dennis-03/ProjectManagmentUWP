@@ -30,9 +30,5 @@ namespace ProjectManagmentApp.View
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
             TaskDetailsFrameEdit.Navigate(typeof(TaskEditor), zTask);
         }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

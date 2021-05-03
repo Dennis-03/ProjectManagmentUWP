@@ -1,4 +1,5 @@
-﻿using ProjectManagmentApp.Model;
+﻿using ProjectManagmentApp.Data;
+using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,7 @@ namespace ProjectManagmentApp.View
     public sealed partial class TaskEditor : Page
     {
         ZTask ZTask;
+        TaskManager taskManager = TaskManager.GetTaskManager();
 
         public TaskEditor()
         {
@@ -36,6 +38,18 @@ namespace ProjectManagmentApp.View
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            TaskEditorContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void UpdateTask_Click(object sender, RoutedEventArgs e)
+        {
+            taskManager.UpdateTask(ZTask); 
+            TaskEditorContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+            taskManager.DeleteTask(ZTask.Id); 
             TaskEditorContainer.Visibility = Visibility.Collapsed;
         }
     }
