@@ -29,12 +29,6 @@ namespace ProjectManagmentApp
         public MainPage()
         {
             this.InitializeComponent();
-            userManager.AddUser("Dennis", "dennis");
-            userManager.AddUser("Saravana", "saravana");
-            userManager.AddUser("Weee", "saravana");
-            userManager.AddUser("Zeeeee", "saravana");
-            userManager.AddUser("Ceeeeee", "saravana");
-            userManager.AddUser("Seeee", "saravana");
 
             MainSplitView.OpenPaneLength = 200;
             MainSplitView.CompactPaneLength = 50;

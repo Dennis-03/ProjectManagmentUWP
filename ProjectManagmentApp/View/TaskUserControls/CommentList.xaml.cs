@@ -57,7 +57,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void LikeComment_Click(object sender, RoutedEventArgs e)
         {
-            bool status=reactionManager.AddReactionToComment(userId, _comment.Id, _comment.TaskID);
+            bool status=reactionManager.AddReaction(userId, _comment.Id);
             if (status)
             {
                 LikeCommentBtn.Content = HttpUtility.HtmlDecode("&#xE00B;");
@@ -68,7 +68,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
             Comment addComment = new Comment
             {
                 TaskID = _comment.TaskID,

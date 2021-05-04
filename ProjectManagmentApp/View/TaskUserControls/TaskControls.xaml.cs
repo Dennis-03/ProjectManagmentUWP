@@ -87,7 +87,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {
             var combo = (ComboBox)sender;
             var user = (User)combo.SelectedItem;
-            _zTask.AssignedTo = (long)user.Id;
+            _zTask.AssignedTo = user.Id;
             SetValue(ZTaskProperty, _zTask);
         }
 

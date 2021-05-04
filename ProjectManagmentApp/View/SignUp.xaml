@@ -37,10 +37,15 @@
             <Button Name="SignUpButton"
                     Content="Submit"
                     Click="SignUpButton_Click"
+                    Background="{StaticResource PrimaryColor}"
+                    Foreground="{StaticResource TertairyColor}"
+                    BorderBrush="{StaticResource TertairyColor}"
+                    CornerRadius="3"
                     HorizontalAlignment="Center"/>
             <Button Name="SignIn"
                     Click="SignIn_Click"
                     Content="Sign In"
+                    Margin="0,10,0,0"
                     Background="{StaticResource PrimaryColor}"
                     HorizontalAlignment="Center"
                     Foreground="{StaticResource TertairyColor}"/>

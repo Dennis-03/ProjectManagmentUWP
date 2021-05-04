@@ -27,23 +27,11 @@ namespace ProjectManagmentApp.Data
             return _instance;
         }
 
-        private List<ZTask> TaskList = new List<ZTask>();
+        CommentManager commentManager = CommentManager.GetCommentManager();
+        ReactionManager reactionManager = ReactionManager.GetReactionManager();
 
         public void AddTask(string taskString,string description, PriorityEnum priority, long assignedTo, long assignedBy, DateTime assignedDate, DateTime dueDate,bool completed)
         {
-            ZTask addTask = new ZTask
-            {
-                Id = DateTime.Now.Ticks,
-                TaskName = taskString,
-                Description=description,
-                AssignedTo = assignedTo,
-                AssignedBy = assignedBy,
-                AssignedDate = assignedDate,
-                DueDate = dueDate,
-                Priority = priority,
-                Completed=completed
-            };
-            //TaskList.Add(addTask);
             conn.Insert(new ZTask
             {
                 Id=DateTime.Now.Ticks,
@@ -59,56 +47,41 @@ namespace ProjectManagmentApp.Data
         }
 
         public void AddTask(ZTask zTask)
-        { 
+        {
+            zTask.Id = DateTime.Now.Ticks;
             conn.Insert(zTask);
         }
 
         public List<ZTask> ListAllTasks()
         {
-            //return TaskList;
             return new List<ZTask>(conn.Table<ZTask>());
         }
 
         public ZTask GetZTask(long taskId)
         {
-            //return TaskList.Find(task => task.Id == taskId);
-            return (ZTask)conn.Table<ZTask>().FirstOrDefault(zTask => zTask.Id == taskId);
+            ZTask zTask = conn.Table<ZTask>().FirstOrDefault(ztask => ztask.Id == taskId);
+            zTask.Comment = commentManager.GetTaskComments(zTask.Id);
+            zTask.Reaction = reactionManager.GetReaction(taskId);
+            return zTask;
         }
 
         public void UpdateTask(ZTask updateTask)
         {
-            conn.Table<ZTask>().FirstOrDefault(zTask=>zTask.Id==updateTask.Id).Description=updateTask.Description;
-            foreach (var task in TaskList)
-            {
-                if (task.Id == updateTask.Id)
-                {
-                    task.Priority = updateTask.Priority;
-                    task.AssignedTo = updateTask.AssignedTo;
-                    task.AssignedDate = updateTask.AssignedDate;
-                    task.TaskName = updateTask.TaskName;
-                    task.DueDate = updateTask.DueDate;
-                    task.Comment = updateTask.Comment;
-                    task.Completed = updateTask.Completed;
-                    task.Reaction = updateTask.Reaction;
-                }
-            }
+            conn.InsertOrReplace(updateTask);
         }
 
         public void DeleteTask(long taskId)
         {
-            TaskList.RemoveAll(task => task.Id == taskId);
             conn.Table<ZTask>().Delete(zTask => zTask.Id == taskId);
         }
 
         public List<ZTask> GetUserTasks(long userId)
         {
-            //return TaskList.FindAll(task => task.AssignedTo == userId);
             return new List<ZTask>(conn.Table<ZTask>().Where(zTask=>zTask.AssignedTo==userId));
         }
 
         public List<ZTask> GetUserCreatedTasks(long userId)
         {
-            //return TaskList.FindAll(task => task.AssignedBy == userId);
             return new List<ZTask>(conn.Table<ZTask>().Where(zTask => zTask.AssignedBy == userId));
         }
         public void MarkCompleted(long taskId)

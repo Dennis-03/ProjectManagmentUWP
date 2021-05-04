@@ -21,8 +21,14 @@
             Style="{StaticResource TitleTextBlockStyle}"/>
         <local:TaskControls ZTask="{x:Bind _zTask,Mode=TwoWay}"/>
         <Button 
+            Padding="15,5"
             Name="CreateTask"
-            Content="Click ME"
+            Content="Create"
+            HorizontalAlignment="Center"
+            Background="{StaticResource PrimaryColor}"
+            Foreground="{StaticResource TertairyColor}"
+            BorderBrush="{StaticResource TertairyColor}"
+            CornerRadius="3"
             Click="CreateTask_Click"/>
     </StackPanel>
 

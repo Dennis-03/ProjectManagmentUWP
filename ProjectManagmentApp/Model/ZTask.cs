@@ -16,8 +16,8 @@ namespace ProjectManagmentApp.Model
         public long Id { get; set; }
         public string TaskName { get; set; }
         public string Description { get; set; }
-
-        public PriorityEnum Priority;
+        [TextBlob("Priority")]
+        public PriorityEnum Priority { get; set; }
         public long AssignedTo { get; set; }
         public long AssignedBy { get; set; }
         public DateTime AssignedDate { get; set; }

@@ -1,6 +1,7 @@
 ﻿using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,12 @@ namespace ProjectManagmentApp.Data
     class CommentManager
     {
         private static readonly CommentManager _instance = new CommentManager();
+        SQLite.Net.SQLiteConnection conn;
         private CommentManager()
         {
+            string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            conn.CreateTable<Comment>();
         }
         public static CommentManager GetCommentManager()
         {
@@ -19,6 +24,7 @@ namespace ProjectManagmentApp.Data
         }
 
         TaskManager taskManager = TaskManager.GetTaskManager();
+        ReactionManager reactionManager=ReactionManager.GetReactionManager();
 
         public void AddComment(long taskId, string commentString,long userId)
         {
@@ -26,8 +32,8 @@ namespace ProjectManagmentApp.Data
             {
                 CommentString = commentString,
                 TaskID = taskId,
-                UserId=userId,
-                ParentId=null,
+                UserId = userId,
+                ParentId = null,
                 commentedDateTime = DateTime.Now
             };
             ZTask zTask = taskManager.GetZTask(taskId);
@@ -45,15 +51,24 @@ namespace ProjectManagmentApp.Data
 
         public void AddComment(Comment comment)
         {
-            ZTask zTask = taskManager.GetZTask(comment.TaskID);
-            zTask.Comment.Add(comment);
-            taskManager.UpdateTask(zTask);
+            comment.Id = DateTime.Now.Ticks;
+            conn.Insert(comment);
         }
 
         public Comment GetComment(long commentId, long taskId)
         {
-            ZTask task = taskManager.GetZTask(taskId);
-            return task.Comment.Find(comment => comment.Id == commentId);
+            Comment returnComment = conn.Table<Comment>().FirstOrDefault(comment => comment.Id == commentId);
+            returnComment.Reaction = reactionManager.GetReaction(commentId);
+            return returnComment;
+        }
+        public List<Comment> GetTaskComments(long taskId)
+        {
+            List<Comment> comments = new List<Comment>(conn.Table<Comment>().Where(comment => comment.TaskID == taskId));
+            comments.ForEach(comment =>
+            {
+                comment.Reaction = reactionManager.GetReaction(comment.Id);
+            });
+            return comments;
         }
     }
 }

@@ -26,8 +26,6 @@ namespace ProjectManagmentApp.Data
             return _instance;
         }
 
-
-        long id = 1;
         public bool AddUser(string userName, string password)
         {
             User existingUser = conn.Table<User>().FirstOrDefault(user => user.UserName == userName);
@@ -39,7 +37,7 @@ namespace ProjectManagmentApp.Data
             {
                 Password = password,
                 UserName = userName,
-                Id = id++
+                Id = DateTime.Now.Ticks
             });
             return true;
         }

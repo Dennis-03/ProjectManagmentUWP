@@ -125,7 +125,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void LikeReaction_Click(object sender, RoutedEventArgs e)
         {
             LikeReaction.Content = HttpUtility.HtmlDecode("&#xE00B;");
-            bool status = reactionManager.AddReactionToTask(_userId, _ztask.Id);
+            bool status = reactionManager.AddReaction(_userId, _ztask.Id);
             if (status) {
                 _noOfLikes += 1;
                 NoOfLikesTB.Text = _noOfLikes.ToString();

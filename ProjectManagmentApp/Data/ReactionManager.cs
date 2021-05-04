@@ -1,6 +1,7 @@
 ﻿using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,12 @@ namespace ProjectManagmentApp.Data
     class ReactionManager
     {
         private static readonly ReactionManager _instance = new ReactionManager();
+        SQLite.Net.SQLiteConnection conn;
         private ReactionManager()
         {
+            string path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            conn = new SQLite.Net.SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            conn.CreateTable<Reaction>();
         }
         public static ReactionManager GetReactionManager()
         {
@@ -20,43 +25,25 @@ namespace ProjectManagmentApp.Data
         TaskManager taskManager = TaskManager.GetTaskManager();
         CommentManager commentManager = CommentManager.GetCommentManager();
 
-        public bool AddReactionToTask(long reactedById, long taskId)
-        {
-            ZTask task = taskManager.GetZTask(taskId);
-            foreach (var reaction in task.Reaction)
+        public bool AddReaction(long reactedById, long reactedToId)
+        {            
+            var status = conn.Table<Reaction>().Any(task => task.ReactedById == reactedById && task.ReactedToId == reactedToId);
+            if (status == true)
             {
-                if (reaction.ReactedById == reactedById)
-                {
-                    return false;
-                }
+                return false;
             }
-            Reaction newReaction = new Reaction
+            conn.Insert(new Reaction
             {
+                Id = DateTime.Now.Ticks,
                 ReactedById = reactedById,
-                ReactedToId = taskId
-            };
-            task.Reaction.Add(newReaction);
+                ReactedToId = reactedToId
+            });
             return true;
         }
 
-        public bool AddReactionToComment(long reactedById, long commentId, long taskId)
+        public List<Reaction> GetReaction(long reactedToId)
         {
-            Comment myComment = new Comment();
-            myComment = commentManager.GetComment(commentId, taskId);
-            foreach (var reaction in myComment.Reaction)
-            {
-                if (reaction.ReactedById == reactedById)
-                {
-                    return false;
-                }
-            }
-            Reaction newReaction = new Reaction
-            {
-                ReactedById = reactedById,
-                ReactedToId = taskId
-            };
-            myComment.Reaction.Add(newReaction);
-            return true;
+            return new List<Reaction>(conn.Table<Reaction>().Where(reaction=>reaction.ReactedToId==reactedToId));
         }
     }
 }

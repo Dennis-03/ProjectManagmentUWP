@@ -47,7 +47,8 @@
         <TextBlock Text="{x:Bind _displayString}"
                    FontSize="24"
                    FontWeight="Bold"
-                   Margin="40,20,0,0"/>
+                   Margin="40,20,0,0"
+                   Grid.ColumnSpan="2"/>
 
         <ScrollViewer Name="TaskListContainer"
                       Grid.Row="2">
