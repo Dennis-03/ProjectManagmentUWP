@@ -28,21 +28,6 @@
                     Padding="10"
                     Click="Hamburger_button_Click"
                     Background="{StaticResource PrimaryColor}"/>
-            <Button Name="BackButton"
-                    Content="&#xE0A6;"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="14"
-                    Padding="10"
-                    Click="BackButton_Click"
-                    Background="{StaticResource PrimaryColor}"/>
-            <Button Name="ForwardButton"
-                    Content="&#xE0AD;"
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="14"
-                    Padding="10"
-                    Click="ForwardButton_Click"
-                    Background="{StaticResource PrimaryColor}"/>
-
             <TextBlock Name="TitleBlockText" 
                        Text="Project Managment"
                        Margin="10,0"

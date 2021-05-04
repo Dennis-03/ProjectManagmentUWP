@@ -33,7 +33,7 @@
                      AcceptsReturn="True" 
                      TextWrapping="Wrap"
                      MaxHeight="70"
-                     Text="{x:Bind ZTask.TaskName}"
+                     Text="{x:Bind ZTask.TaskName,Mode=TwoWay}"
                      TextChanged="ITaskName_TextChanged"
                      Margin="0,20"
                      Grid.Column="1"/>

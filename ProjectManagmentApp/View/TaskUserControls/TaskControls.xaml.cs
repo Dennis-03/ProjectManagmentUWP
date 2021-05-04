@@ -94,20 +94,15 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void ITaskDescripion_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = (TextBox)sender;
-            _zTask.Description = textBox.Text;
+            _zTask.Description = textBox.Text.Trim();
             SetValue(ZTaskProperty, _zTask);
         }
 
         private void ITaskName_TextChanged(object sender, TextChangedEventArgs e)
         {
             var textBox = (TextBox)sender;
-            _zTask.TaskName = textBox.Text;
+            _zTask.TaskName = textBox.Text.Trim();
             SetValue(ZTaskProperty, _zTask);
-        }
-
-        private void CreateTask_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

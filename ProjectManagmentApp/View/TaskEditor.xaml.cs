@@ -43,8 +43,14 @@ namespace ProjectManagmentApp.View
 
         private void UpdateTask_Click(object sender, RoutedEventArgs e)
         {
-            taskManager.UpdateTask(ZTask); 
-            TaskEditorContainer.Visibility = Visibility.Collapsed;
+            if (!string.IsNullOrEmpty(ZTask.Description) && !string.IsNullOrEmpty(ZTask.TaskName))
+            {
+                taskManager.UpdateTask(ZTask);
+                TaskEditorContainer.Visibility = Visibility.Collapsed;
+            }
+            else
+                DisplayError.Visibility = Visibility.Visible;
+
         }
 
         private void DeleteTask_Click(object sender, RoutedEventArgs e)

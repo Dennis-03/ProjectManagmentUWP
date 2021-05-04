@@ -36,7 +36,13 @@ namespace ProjectManagmentApp.View
 
         private void CreateTask_Click(object sender, RoutedEventArgs e)
         {
-            taskManager.AddTask(_zTask);
+            if (!string.IsNullOrEmpty(_zTask.Description) && !string.IsNullOrEmpty(_zTask.TaskName) && _zTask.DueDate.Ticks != 0 && _zTask.AssignedTo != 0)
+            {
+                taskManager.AddTask(_zTask);
+                Frame.Navigate(typeof(EditTask));
+            }
+            else
+                DisplayError.Visibility = Visibility.Visible;
         }
     }
 }

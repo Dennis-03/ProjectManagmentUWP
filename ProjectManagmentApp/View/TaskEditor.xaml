@@ -34,7 +34,12 @@
                 RelativePanel.AlignHorizontalCenterWithPanel="True"
                 Style="{StaticResource TitleTextBlockStyle}"/>
         </RelativePanel>
-
+        <TextBlock 
+            Name="DisplayError"
+            Text="Fill all the fields"
+            HorizontalAlignment="Center"
+            Foreground="Red"
+            Visibility="Collapsed"/>
         <local:TaskControls ZTask="{x:Bind ZTask,Mode=TwoWay}"/>
         <StackPanel 
             Orientation="Horizontal"
