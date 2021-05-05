@@ -29,7 +29,10 @@ namespace ProjectManagmentApp
         public MainPage()
         {
             this.InitializeComponent();
+        }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             MainSplitView.OpenPaneLength = 200;
             MainSplitView.CompactPaneLength = 50;
             TitleBlock.Visibility = Visibility.Visible;
@@ -40,7 +43,6 @@ namespace ProjectManagmentApp
                 MainRenderFrame.Navigate(typeof(SignIn));
                 HideMenu();
             }
-
         }
 
         private void Hamburger_button_Click(object sender, RoutedEventArgs e)

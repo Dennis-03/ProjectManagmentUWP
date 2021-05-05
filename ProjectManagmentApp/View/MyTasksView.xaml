@@ -7,6 +7,8 @@
     xmlns:model="using:ProjectManagmentApp.Model" 
     xmlns:local="using:ProjectManagmentApp.View.TaskUserControls"
     mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded"
     Background="{StaticResource SecondaryColor}">
 
     <Grid>

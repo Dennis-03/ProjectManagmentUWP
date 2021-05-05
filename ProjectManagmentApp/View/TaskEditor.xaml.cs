@@ -27,6 +27,19 @@ namespace ProjectManagmentApp.View
         ZTask ZTask;
         TaskManager taskManager = TaskManager.GetTaskManager();
 
+        public static event Action<long> DeleteTaskEvent;
+        public static event Action<long> UpdateTaskEvent;
+
+        public static void NotifyDeleteTaskEvent(long taskId)
+        {
+            DeleteTaskEvent?.Invoke(taskId);
+        }
+
+        public static void NotifyUpdateTaskEvent(long taskId)
+        {
+            UpdateTaskEvent?.Invoke(taskId);
+        }
+
         public TaskEditor()
         {
             this.InitializeComponent();
@@ -47,6 +60,7 @@ namespace ProjectManagmentApp.View
             {
                 taskManager.UpdateTask(ZTask);
                 TaskEditorContainer.Visibility = Visibility.Collapsed;
+                NotifyUpdateTaskEvent(ZTask.Id);
             }
             else
                 DisplayError.Visibility = Visibility.Visible;
@@ -57,6 +71,7 @@ namespace ProjectManagmentApp.View
         {
             taskManager.DeleteTask(ZTask.Id); 
             TaskEditorContainer.Visibility = Visibility.Collapsed;
+            NotifyDeleteTaskEvent(ZTask.Id);
         }
     }
 }

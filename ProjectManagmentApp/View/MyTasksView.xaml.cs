@@ -1,5 +1,6 @@
 ﻿using ProjectManagmentApp.Data;
 using ProjectManagmentApp.Model;
+using ProjectManagmentApp.View.TaskUserControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -88,6 +89,23 @@ namespace ProjectManagmentApp.View
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
             TaskId = clickedItem.Id;
             TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted += TaskData_TaskCompleted;
+        }
+
+        private void TaskData_TaskCompleted(long taskId)
+        {
+            ZTask zTask = _taskList.First(task => task.Id == taskId);
+            _inCompleteTaskList.Remove(zTask);
+            _completedTaskList.Add(zTask);
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted -= TaskData_TaskCompleted;
         }
     }
 }

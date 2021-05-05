@@ -33,15 +33,13 @@ namespace ProjectManagmentApp.View
         UserManager userManager = UserManager.GetUserManager();
         private string _userName;
         private string _displayString;
+
         public TaskView()
         {
             this.InitializeComponent();
             _taskList = new ObservableCollection<ZTask>(taskManager.ListAllTasks());
             _userName = userManager.GetUser(userManager.GetUserId()).UserName;
-            if (!string.IsNullOrEmpty(_userName))
-            {
-                _displayString = String.Format("Welcome {0} !!!",_userName);
-            }
+            _displayString = String.Format("Welcome {0} !!!", _userName);
         }
 
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
@@ -49,6 +47,21 @@ namespace ProjectManagmentApp.View
             ZTask clickedItem = (ZTask)e.ClickedItem;
             ZTask zTask= taskManager.GetZTask(clickedItem.Id);
             TaskDetailsFrame.Navigate(typeof(TaskDetails),zTask);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted += HandleTaskCompleted;
+        }
+
+        private void HandleTaskCompleted(long taskId)
+        {
+            _taskList.Remove(_taskList.First(task=>task.Id==taskId));
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted -= HandleTaskCompleted;
         }
     }
 }

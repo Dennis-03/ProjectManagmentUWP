@@ -75,6 +75,14 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _userId = userManager.GetUserId();
         }
 
+        //public event EventHandler<long> RemoveCompletedTaskEvent;
+        public static event Action<long> TaskCompleted;
+
+        public static void NotifyTaskCompleted(long taskId)
+        {
+            TaskCompleted?.Invoke(taskId);
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _ztask = ZTask;
@@ -139,10 +147,10 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void MarkCompleted_Click(object sender, RoutedEventArgs e)
         {
+            NotifyTaskCompleted(ZTask.Id);
             _ztask.Completed = true;
             taskManager.MarkCompleted(_ztask.Id);
-            SetValue(ZTaskProperty, _ztask);
-            MarkCompleted.Visibility = Visibility.Collapsed;
+            TaskDataContent.Visibility = Visibility.Collapsed;
         }
     }
 }
