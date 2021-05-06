@@ -115,19 +115,22 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void SendClick_Click(object sender, RoutedEventArgs e)
         {
-            Comment comment = new Comment
+            if (!String.IsNullOrEmpty(AddComment.Text))
             {
-                CommentString = AddComment.Text,
-                TaskID = _ztask.Id,
-                UserId = _userId,
-                commentedDateTime=DateTime.Now
-            };
-            commentManager.AddComment(comment);
-            Comments.Add(comment);
-            CommentBox.Visibility = Visibility.Collapsed;
-            AddComment.Text = "";
-            _noOfComments += 1;
-            NoOfCommentsTB.Text = _noOfComments.ToString();
+                Comment comment = new Comment
+                {
+                    CommentString = AddComment.Text,
+                    TaskID = _ztask.Id,
+                    UserId = _userId,
+                    commentedDateTime = DateTime.Now
+                };
+                commentManager.AddComment(comment);
+                Comments.Add(comment);
+                CommentBox.Visibility = Visibility.Collapsed;
+                AddComment.Text = "";
+                _noOfComments += 1;
+                NoOfCommentsTB.Text = _noOfComments.ToString();
+            }
         }
 
         private void LikeReaction_Click(object sender, RoutedEventArgs e)

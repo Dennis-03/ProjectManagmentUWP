@@ -10,31 +10,33 @@
     Loaded="UserControl_Loaded">
 
     <ScrollViewer>
-        <StackPanel Name="TaskDataContent" 
-                Orientation="Vertical" 
-                Margin="50"
-                Padding="25"
-                Background="{StaticResource PrimaryColor}"
-                CornerRadius="3">
+        <StackPanel 
+            Name="TaskDataContent" 
+            Orientation="Vertical" 
+            Margin="50"
+            Padding="25"
+            Background="{StaticResource PrimaryColor}"
+            CornerRadius="3">
             <RelativePanel>
                 <TextBlock Text="{x:Bind ZTask.TaskName}"
                        FontSize="26"
                        FontWeight="Bold"/>
-                <Button Content="&#xE10A;"
+                <Button 
+                    Background="{StaticResource SecondaryColor}"
+                    Content="&#xE10A;"
                     Name="CloseTask"
                     FontFamily="Segoe MDL2 Assets"
                     HorizontalAlignment="Right"
                     RelativePanel.AlignRightWithPanel="True"
                     Padding="2"
+                    CornerRadius="3"
                     Width="30"
                     Height="30"
-                    CornerRadius="2"
                     Click="CloseTask_Click"/>
             </RelativePanel>
-            <TextBlock Name="result"/>
             <StackPanel Orientation="Horizontal"
                     Margin="0,15,0,0">
-                <TextBlock Text="Priority :" 
+                <TextBlock x:Uid="Priority"
                        Padding="0,0,5,0"/>
                 <Ellipse Name="PriorityCircle" 
                      Width="10" 
@@ -47,7 +49,7 @@
 
             <StackPanel Orientation="Horizontal"
                     Margin="0,10">
-                <TextBlock Text="Description : "
+                <TextBlock x:Uid="Description"
                        FontWeight="Bold"/>
                 <TextBlock Text="{x:Bind ZTask.Description}"
                            TextWrapping="WrapWholeWords"
@@ -65,24 +67,24 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Assigned Date" 
+                <TextBlock x:Uid="AssignedDate"
                        Margin="0,0,15,0"/>
                 <TextBlock Text="{x:Bind ZTask.AssignedDate.ToLongDateString()}"
                        Grid.Column="1"/>
 
-                <TextBlock Text="Due Date "
+                <TextBlock x:Uid="DueDate"
                        Grid.Row="1"/>
                 <TextBlock Text="{x:Bind ZTask.DueDate.ToLongDateString()}"
                        Grid.Row="1"
                        Grid.Column="1"/>
 
-                <TextBlock Text="Assigned By "
+                <TextBlock x:Uid="AssignedBy"
                        Grid.Row="2"/>
                 <TextBlock Text="{x:Bind AssignedBy}"
                        Grid.Column="1"
                        Grid.Row="2"/>
 
-                <TextBlock Text="Assigned To "
+                <TextBlock x:Uid="AssignedTo"
                        Grid.Row="3"/>
                 <TextBlock Text="{x:Bind AssignedTo}"
                        Grid.Column="1"
@@ -94,6 +96,7 @@
                     CornerRadius="3"
                     Padding="10,2">
                 <Button 
+                    Style="{StaticResource MyButtonStyle}"
                     Name="LikeReaction"
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="HotPink"
@@ -110,6 +113,8 @@
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Foreground="{ThemeResource SystemBaseMediumColor}"/>
                 <Button 
+                    x:Uid="CommentBtn"
+                    Style="{StaticResource MyButtonStyle}"
                     Name="ShowComment"
                     Click="ShowComment_Click"
                     Content="Comment"
@@ -119,9 +124,10 @@
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Background="{ThemeResource SecondaryColor}"/>
                 <Button 
+                    x:Uid="Completed"
+                    Style="{StaticResource MyButtonStyle}"
                     Name="MarkCompleted"
                     RelativePanel.AlignRightWithPanel="True"
-                    Content="Completed"
                     Background="{StaticResource PrimaryColor}"
                     Click="MarkCompleted_Click"
                     Foreground="Green"
@@ -135,12 +141,14 @@
             <RelativePanel Name="CommentBox"
                        Visibility="Collapsed">
                 <TextBox 
+                    x:Uid="AddComment"
                     Name="AddComment"
-                     PlaceholderText="Add a Comment"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     Margin="0,0,40,0"
-                     RelativePanel.AlignRightWith="SendClick"/>
-                <Button Name="SendClick"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    Margin="0,0,40,0"
+                    RelativePanel.AlignRightWith="SendClick"/>
+                <Button 
+                    Style="{StaticResource MyButtonStyle}"
+                    Name="SendClick"
                     Click="SendClick_Click"
                     Content="&#xE122;"
                     FontSize="28"
@@ -151,7 +159,7 @@
                     RelativePanel.AlignRightWithPanel="True"/>
             </RelativePanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Comments"
+                <TextBlock x:Uid="Comment"
                        FontSize="20"
                        FontWeight="Bold"/>
                 <Ellipse Width="5"
@@ -165,10 +173,13 @@
             </StackPanel>
 
 
-            <ListView x:Name="CommentsList" ItemsSource="{x:Bind Comments,Mode=OneWay}">
+            <ListView 
+                ItemContainerStyle="{StaticResource CommentsListStyle}"
+                x:Name="CommentsList"
+                ItemsSource="{x:Bind Comments,Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Comment">
-                        <local:CommentList />
+                        <local:CommentList/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

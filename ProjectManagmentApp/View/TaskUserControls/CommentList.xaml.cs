@@ -3,6 +3,7 @@ using ProjectManagmentApp.Data;
 using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -30,6 +31,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private long userId;
         private int NoOfLikes;
         private Comment _comment;
+        private ObservableCollection<Comment> Replies;
 
         public CommentList()
         {
@@ -46,6 +48,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
             NoOfLikes = _comment.Reaction.Count();
             LikeCountTB.Text = NoOfLikes.ToString();
             UserCommentTB.Text = _comment.CommentString;
+            Replies = new ObservableCollection<Comment>(_comment.Reply);
+            ReplyList.ItemsSource = Replies;
 
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             _comment.Reaction.ForEach(like=> {
@@ -68,16 +72,20 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            Comment addComment = new Comment
+            if (!String.IsNullOrEmpty(CommentTB.Text))
             {
-                TaskID = _comment.TaskID,
-                CommentString = CommentTB.Text,
-                ParentId = _comment.Id,
-                commentedDateTime=DateTime.Now,
-                UserId=userId
-            };
-            commentManager.AddComment(addComment);
-            ButtonFlyout.Hide();    
+                Comment addComment = new Comment
+                {
+                    TaskID = _comment.TaskID,
+                    CommentString = CommentTB.Text,
+                    ParentId = _comment.Id,
+                    commentedDateTime = DateTime.Now,
+                    UserId = userId
+                };
+                Replies.Add(addComment);
+                commentManager.AddComment(addComment);
+                ButtonFlyout.Hide();
+            }
         }
     }
 }

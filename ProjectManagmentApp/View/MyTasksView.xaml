@@ -51,6 +51,7 @@
             <StackPanel Orientation="Vertical"
                     Margin="0,20">
                 <Button Margin="40,0,0,10"
+                        Style="{StaticResource MyButtonStyle}"
                         Name="InCompleteTasksButton"
                         Foreground="{ThemeResource TertairyColor}"
                         Background="{StaticResource SecondaryColor}"
@@ -62,7 +63,21 @@
                                    VerticalAlignment="Center"
                                    Name="InCompleteDropLogo"
                                    Margin="0,0,10,0"/>
-                        <TextBlock Text="In-Complete Tasks"/>
+                        <TextBlock x:Uid="InCompleteTask"/>
+                        <StackPanel 
+                            Background="{StaticResource TertairyColor}" 
+                            Width="25" 
+                            Height="25" 
+                            CornerRadius="25" 
+                            Margin="10,0,0,0">
+                            <TextBlock 
+                                Text="{x:Bind _inCompleteTaskList.Count}" 
+                                Foreground="{StaticResource SecondaryColor}" 
+                                TextAlignment="Center" 
+                                Margin="2" 
+                                FontSize="14" 
+                                VerticalAlignment="Center"/>
+                        </StackPanel>
                     </StackPanel>
                 </Button>
                 <ListView Name="InCompleteTaskList"
@@ -80,6 +95,7 @@
                 </ListView>
 
                 <Button Margin="40,40,0,10"
+                        Style="{StaticResource MyButtonStyle}"
                         Name="CompletedTasksButton"
                         FontSize="18"
                         Foreground="{ThemeResource TertairyColor}"
@@ -92,7 +108,21 @@
                                    Text="&#xE017;"
                                    Name="CompletedDropLogo"
                                    Margin="0,0,10,0"/>
-                        <TextBlock Text="Completed Tasks"/>
+                        <TextBlock x:Uid="CompletedTask"/>
+                        <StackPanel 
+                            Background="{StaticResource TertairyColor}" 
+                            Width="25" 
+                            Height="25" 
+                            CornerRadius="25" 
+                            Margin="10,0,0,0">
+                            <TextBlock 
+                                Text="{x:Bind _completedTaskList.Count}" 
+                                Foreground="{StaticResource SecondaryColor}" 
+                                TextAlignment="Center" 
+                                Margin="2" 
+                                FontSize="14" 
+                                VerticalAlignment="Center"/>
+                        </StackPanel>
                     </StackPanel>
                 </Button>
                 <ListView Name="CompletedTaskList"

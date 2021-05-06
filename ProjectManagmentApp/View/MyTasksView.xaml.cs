@@ -31,14 +31,14 @@ namespace ProjectManagmentApp.View
 
         private ObservableCollection<ZTask> _inCompleteTaskList;
         private ObservableCollection<ZTask> _completedTaskList;
-        private ObservableCollection<ZTask> _taskList;
+        private List<ZTask> _taskList;
         public long TaskId;
 
         public MyTasksView()
         {
             long userId = userManager.GetUserId();
             this.InitializeComponent();
-            _taskList = new ObservableCollection<ZTask>(taskManager.GetUserTasks(userId));
+            _taskList = new List<ZTask>(taskManager.GetUserTasks(userId));
             _inCompleteTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed==false));
             _completedTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed==true));
             InCompleteDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");

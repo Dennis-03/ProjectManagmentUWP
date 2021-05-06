@@ -4,10 +4,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProjectManagmentApp">
     <Application.Resources>
-        <SolidColorBrush x:Key="PrimaryColor" Color="{ThemeResource SystemAltHighColor}"/>
-        <SolidColorBrush x:Key="SecondaryColor" Color="{ThemeResource SystemChromeLowColor}"/>
-        <SolidColorBrush x:Key="TertairyColor" Color="{ThemeResource SystemAccentColor}"/>
-        <SolidColorBrush x:Key="TextColor" Color="#ddf"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="PrimaryColor" Color="#001"/>
+                            <SolidColorBrush x:Key="SecondaryColor" Color="#11111f"/>
+                            <SolidColorBrush x:Key="TertairyColor" Color="#88f"/>
+                            <SolidColorBrush x:Key="ButtonTextColor" Color="#ddf"/>
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="PrimaryColor" Color="#eef"/>
+                            <SolidColorBrush x:Key="SecondaryColor" Color="#ccf"/>
+                            <SolidColorBrush x:Key="TertairyColor" Color="blue"/>
+                            <SolidColorBrush x:Key="TextColor" Color="Black"/>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+                <ResourceDictionary Source="Resource/MyButtonStyle.xaml"/>
+                <ResourceDictionary Source="Resource/CommentsListStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
-    
 </Application>

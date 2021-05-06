@@ -18,6 +18,7 @@
         CornerRadius="5">
         <RelativePanel>
             <Button 
+                Style="{StaticResource MyButtonStyle}"
                 Name="Close"
                 Content="&#xE10A;"
                 Background="{StaticResource SecondaryColor}"
@@ -30,13 +31,13 @@
                 CornerRadius="2"
                 Click="Close_Click"/>
             <TextBlock 
-                Text="Task Editor"
+                x:Uid="TaskEditor"
                 RelativePanel.AlignHorizontalCenterWithPanel="True"
                 Style="{StaticResource TitleTextBlockStyle}"/>
         </RelativePanel>
         <TextBlock 
             Name="DisplayError"
-            Text="Fill all the fields"
+            x:Uid="DisplayError"
             HorizontalAlignment="Center"
             Foreground="Red"
             Visibility="Collapsed"/>
@@ -45,8 +46,9 @@
             Orientation="Horizontal"
             HorizontalAlignment="Center">
             <Button 
+                Style="{StaticResource MyButtonStyle}"
+                x:Uid="UpdateBtn"
                 Name="UpdateTask"
-                Content="Update"
                 Background="{ThemeResource PrimaryColor}"
                 Foreground="Green"
                 Padding="10,5"
@@ -55,8 +57,9 @@
                 BorderBrush="Green"
                 Click="UpdateTask_Click"/>
             <Button 
+                Style="{StaticResource MyButtonStyle}"
+                x:Uid="DeleteBtn"
                 Name="DeleteTask"
-                Content="Delete"
                 Background="{ThemeResource PrimaryColor}"
                 Foreground="Red"
                 Padding="10,5"

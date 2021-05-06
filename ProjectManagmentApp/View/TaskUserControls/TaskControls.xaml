@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Task Name"
+            <TextBlock x:Uid="TaskNameTC"
                        VerticalAlignment="Center"/>
             
             <TextBox Name="ITaskName"
@@ -38,7 +38,7 @@
                      Margin="0,20"
                      Grid.Column="1"/>
 
-            <TextBlock Text="Description"
+            <TextBlock x:Uid="DescriptionTC"
                        VerticalAlignment="Center"
                        Grid.Row="1"/>
             <TextBox Name="ITaskDescripion"
@@ -51,7 +51,7 @@
                      Grid.Row="1"
                      Grid.Column="1"/>
 
-            <TextBlock Text="Priority" 
+            <TextBlock x:Uid="PriorityTC"
                        VerticalAlignment="Center"
                        Margin="0,0,40,0"
                        Grid.Row="2"/>
@@ -66,7 +66,7 @@
                 <ComboBoxItem Content="High"/>
             </ComboBox>
 
-            <TextBlock Text="Assign To"
+            <TextBlock x:Uid="AssignedToTC"
                        Grid.Row="3"/>
 
             <ComboBox Name="UserSelectCB"
@@ -81,7 +81,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Text="Due Date"
+            <TextBlock x:Uid="DueDateTC"
                        Grid.Row="4"
                        VerticalAlignment="Center"/>
             <DatePicker Name="IDueDate"

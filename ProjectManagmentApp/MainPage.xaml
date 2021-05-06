@@ -9,12 +9,6 @@
     Loaded="Page_Loaded"
     Background="{StaticResource PrimaryColor}">
 
-    <Page.Resources>
-        <Style TargetType="ListBoxItem">
-            <Setter Property="Foreground" Value="AliceBlue"/>
-        </Style>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -23,6 +17,7 @@
         <StackPanel x:Name="TitleBlock" 
                     Orientation="Horizontal">
             <Button Name="HamburgerButton"
+                    Style="{StaticResource MyButtonStyle}"
                     Content="&#xE700;"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="25"
