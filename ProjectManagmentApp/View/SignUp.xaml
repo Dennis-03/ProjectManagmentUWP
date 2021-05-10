@@ -4,14 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProjectManagmentApp.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:ProjectManagmentApp.Model"
     mc:Ignorable="d"
     Background="{StaticResource SecondaryColor}">
-
+    <Page.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </Page.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Height="350"
+                    Height="400"
                     Width="500"
                     Padding="20"
                     Background="{StaticResource PrimaryColor}"
@@ -25,13 +30,42 @@
                            Foreground="Red"
                            TextAlignment="Center"/>
             </StackPanel>
-            <TextBox Name="Username"
+            <TextBox Style="{StaticResource TransparentTextBox}"
+                     Name="Username"
                      x:Uid="Username"
-                     Margin="20"/>
+                     Margin="20,10"/>
+            <StackPanel 
+                Orientation="Horizontal"
+                BorderThickness="0,0,0,1"
+                BorderBrush="White"
+                Margin="20,10">
+                <TextBlock x:Uid="Avatar"
+                           VerticalAlignment="Center"/>
+                <ComboBox
+                    Name="AvatarCB"
+                    Height="40"
+                    Background="{StaticResource PrimaryColor}"
+                    Padding="0"
+                    Width="180"
+                    SelectionChanged="AvatarCB_SelectionChanged"
+                    ItemsSource="{x:Bind _avatarList}"
+                    Margin="20,0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="data:Avatar">
+                            <Image Source="{x:Bind Path}"
+                                   Width="30"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+            </StackPanel>
+
             <PasswordBox Name="Password"
+                         Style="{StaticResource PasswordBoxStyle}"
                          x:Uid="Password"
-                         Margin="20,0"/>
+                         Margin="20,10,20,0"/>
             <PasswordBox Name="RePassword"
+                         Style="{StaticResource PasswordBoxStyle}"
                          x:Uid="RePassword"
                          Margin="20"/>
             <Button Name="SignUpButton"

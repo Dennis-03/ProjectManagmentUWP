@@ -125,6 +125,10 @@
     <value>All Task</value>
     <comment>Add task message</comment>
   </data>
+  <data name="AppName.Text" xml:space="preserve">
+    <value>Project Managment</value>
+    <comment>Application name</comment>
+  </data>
   <data name="AssignedBy.Text" xml:space="preserve">
     <value>Assigned By</value>
     <comment>Task assigned by username</comment>
@@ -140,6 +144,9 @@
   <data name="AssignedToTC.Text" xml:space="preserve">
     <value>Assigned To</value>
     <comment>Assigned to Task control for creating and updating task</comment>
+  </data>
+  <data name="Avatar.Text" xml:space="preserve">
+    <value>Choose An Avatar</value>
   </data>
   <data name="Comment.Text" xml:space="preserve">
     <value>Comment</value>
@@ -165,6 +172,10 @@
     <value>Create New Task</value>
     <comment>Create new task header</comment>
   </data>
+  <data name="CreateTasksNav.Text" xml:space="preserve">
+    <value>Create Tasks</value>
+    <comment>Create Tasks navigation</comment>
+  </data>
   <data name="DeleteBtn.Content" xml:space="preserve">
     <value>Delete</value>
     <comment>Delete button text</comment>
@@ -189,6 +200,10 @@
     <value>Due Date</value>
     <comment>Due Date Task control for creating and updating task</comment>
   </data>
+  <data name="EditTasksNav.Text" xml:space="preserve">
+    <value>Edit Tasks</value>
+    <comment>Edit Tasks Navigation</comment>
+  </data>
   <data name="Greeting.Text" xml:space="preserve">
     <value>Welcome </value>
     <comment>Greeting message</comment>
@@ -204,6 +219,14 @@
   <data name="Login.Text" xml:space="preserve">
     <value>Login</value>
     <comment>Login Header</comment>
+  </data>
+  <data name="LogoutNav.Text" xml:space="preserve">
+    <value>Logout </value>
+    <comment>Logout Navigation</comment>
+  </data>
+  <data name="MyTasksNav.Text" xml:space="preserve">
+    <value>My Tasks</value>
+    <comment>My Tasks navigation</comment>
   </data>
   <data name="Password.PlaceholderText" xml:space="preserve">
     <value>Enter Your Password</value>
@@ -253,6 +276,10 @@
     <value>Tasks Assigned By Me</value>
     <comment>Tasks that are assigned but the user</comment>
   </data>
+  <data name="TasksNav.Text" xml:space="preserve">
+    <value>Tasks</value>
+    <comment>Tasks navigation</comment>
+  </data>
   <data name="UpdateBtn.Content" xml:space="preserve">
     <value>Update</value>
     <comment>Update button text</comment>
@@ -260,5 +287,9 @@
   <data name="Username.PlaceholderText" xml:space="preserve">
     <value>Enter Your Username</value>
     <comment>Username Field</comment>
+  </data>
+  <data name="Welcome.Text" xml:space="preserve">
+    <value>Welcome</value>
+    <comment>Greeting message</comment>
   </data>
 </root>

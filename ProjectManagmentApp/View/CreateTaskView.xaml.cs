@@ -31,7 +31,6 @@ namespace ProjectManagmentApp.View
         public CreateTaskView()
         {
             this.InitializeComponent();
-            _zTask.Priority = PriorityEnum.Low;
         }
 
         private void CreateTask_Click(object sender, RoutedEventArgs e)
@@ -43,6 +42,11 @@ namespace ProjectManagmentApp.View
             }
             else
                 DisplayError.Visibility = Visibility.Visible;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            _zTask.Priority = PriorityEnum.Low;
         }
     }
 }

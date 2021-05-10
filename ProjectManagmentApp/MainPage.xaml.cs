@@ -38,7 +38,7 @@ namespace ProjectManagmentApp
             TitleBlock.Visibility = Visibility.Visible;
             NavigationMenu.Visibility = Visibility.Visible;
             TasksMenu.IsSelected = true;
-            if (userManager.GetUserId() == 0)
+            if (userManager.GetUserId() == 0) 
             {
                 MainRenderFrame.Navigate(typeof(SignIn));
                 HideMenu();
@@ -68,10 +68,6 @@ namespace ProjectManagmentApp
             {
                 MainRenderFrame.Navigate(typeof(EditTask));
             }
-            if (Logout.IsSelected)
-            {
-                LogoutUser();
-            }
 
         }
 
@@ -96,6 +92,11 @@ namespace ProjectManagmentApp
             MainSplitView.OpenPaneLength = 0;
             TitleBlock.Visibility = Visibility.Collapsed;
             NavigationMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LogoutUser();
         }
     }
 }

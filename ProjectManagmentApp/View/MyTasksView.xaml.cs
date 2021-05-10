@@ -36,15 +36,17 @@ namespace ProjectManagmentApp.View
 
         public MyTasksView()
         {
-            long userId = userManager.GetUserId();
             this.InitializeComponent();
-            _taskList = new List<ZTask>(taskManager.GetUserTasks(userId));
-            _inCompleteTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed==false));
-            _completedTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed==true));
+            _taskList = new List<ZTask>(taskManager.GetUserTasks(userManager.GetUserId()));
+            _inCompleteTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed == false));
+            _completedTaskList = new ObservableCollection<ZTask>(_taskList.Where(task => task.Completed == true));
             InCompleteDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");
             CompletedDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");
         }
-
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted += TaskData_TaskCompleted;
+        }
         private void InCompleteTasksButton_Click(object sender, RoutedEventArgs e)
         {
             if (InCompleteTaskList.Visibility == Visibility.Visible)
@@ -89,11 +91,6 @@ namespace ProjectManagmentApp.View
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
             TaskId = clickedItem.Id;
             TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            TaskData.TaskCompleted += TaskData_TaskCompleted;
         }
 
         private void TaskData_TaskCompleted(long taskId)

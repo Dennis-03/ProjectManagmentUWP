@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{StaticResource SecondaryColor}">
-
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
@@ -24,12 +23,16 @@
                            Foreground="Red"
                            TextAlignment="Center"/>
             </StackPanel>
-            <TextBox Name="Username"
+            <TextBox Style="{StaticResource TransparentTextBox}"
+                     Name="Username"
                      x:Uid="Username"
                      Margin="20"/>
             <PasswordBox Name="Password"
+                         Style="{StaticResource PasswordBoxStyle}"
+                         PasswordRevealMode="Peek"
                          x:Uid="Password"
                          Margin="20,0"/>
+
             <Button Name="Submit"
                     x:Uid="Submit"
                     Style="{StaticResource MyButtonStyle}"

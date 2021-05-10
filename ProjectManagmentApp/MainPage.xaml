@@ -8,8 +8,40 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{StaticResource PrimaryColor}">
+    <Page.Resources>
+        <Style x:Key="Icons" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="7"/>
+        </Style>
+        <Style x:Key="NavSyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainSplitView.DisplayMode" Value="CompactOverlay"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainSplitView.DisplayMode" Value="CompactInline"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -25,86 +57,70 @@
                     Click="Hamburger_button_Click"
                     Background="{StaticResource PrimaryColor}"/>
             <TextBlock Name="TitleBlockText" 
-                       Text="Project Managment"
+                       x:Uid="AppName"
                        Margin="10,0"
                        FontSize="18"
                        VerticalAlignment="Center"/>
         </StackPanel>
-        <SplitView DisplayMode="CompactInline"
-                   Grid.Row="1"
+        <SplitView Grid.Row="1"
                    Name="MainSplitView"
                    PaneBackground="{StaticResource PrimaryColor}">
             <SplitView.Pane>
-                <StackPanel Orientation="Vertical">
+                <RelativePanel>
                     <ListBox Name="NavigationMenu"
+                             ItemContainerStyle="{StaticResource NavItemStyle}"
                              CornerRadius="5"
                              Background="{StaticResource PrimaryColor}"
+                             Margin="0,10,0,0"
                              SelectionChanged="NavigationMenu_SelectionChanged">
                         <ListBoxItem Name="TasksMenu">
                             <StackPanel Orientation="Horizontal" >
-                                <TextBlock Text="&#xE160;"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="20"
-                                           Padding="7"/>
-                                <TextBlock Margin="10,0" 
-                                           Text="Tasks" 
-                                           VerticalAlignment="Center"
-                                           FontSize="16"/>
+                                <TextBlock Style="{StaticResource Icons}" 
+                                           Text="&#xE160;"/>
+                                <TextBlock x:Uid="TasksNav"
+                                           Style="{StaticResource NavSyle}"/>
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem Name="MyTasksMenu">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE8CF;"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="20"
-                                           Padding="7"/>
-                                <TextBlock Margin="10,0" 
-                                           Text="My Tasks" 
-                                           VerticalAlignment="Center"
-                                           FontSize="16"/>
+                                           Style="{StaticResource Icons}" />
+                                <TextBlock x:Uid="MyTasksNav"
+                                           Style="{StaticResource NavSyle}"/>
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem Name="CreateTaskMenu">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE109;"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="20"
-                                           Padding="7"/>
-                                <TextBlock Margin="10,0" 
-                                           Text="Create Tasks" 
-                                           VerticalAlignment="Center"
-                                           FontSize="16"/>
+                                           Style="{StaticResource Icons}" />
+                                <TextBlock x:Uid="CreateTasksNav"
+                                           Style="{StaticResource NavSyle}"/>
                             </StackPanel>
                         </ListBoxItem>
                         <ListBoxItem Name="EditTask">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE75C;"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="20"
-                                           Padding="7"/>
-                                <TextBlock Margin="10,0" 
-                                           Text="Edit Task" 
-                                           VerticalAlignment="Center"
-                                           FontSize="16"/>
-                            </StackPanel>
-                        </ListBoxItem>
-                        <ListBoxItem Name="Logout">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE7EA;"
-                                           FontFamily="Segoe MDL2 Assets"
-                                           FontSize="20"
-                                           Padding="7"/>
-                                <TextBlock Margin="10,0" 
-                                           Text="Logout" 
-                                           VerticalAlignment="Center"
-                                           FontSize="16"/>
+                                           Style="{StaticResource Icons}" />
+                                <TextBlock x:Uid="EditTasksNav"
+                                           Style="{StaticResource NavSyle}"/>
                             </StackPanel>
                         </ListBoxItem>
                     </ListBox>
-                </StackPanel>
+                    <Button Style="{StaticResource MyButtonStyle}"
+                            RelativePanel.AlignBottomWithPanel="True"
+                            Margin="0,0,0,10"
+                            Click="Button_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7EA;"
+                                   Style="{StaticResource Icons}" />
+                            <TextBlock x:Uid="LogoutNav"
+                                   Style="{StaticResource NavSyle}"/>
+                        </StackPanel>
+                    </Button>
+                </RelativePanel>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="MainRenderFrame"/>
+                <Frame Name="MainRenderFrame" Margin="0,10" CornerRadius="0,0,40,40"/>
             </SplitView.Content>
         </SplitView>
     </Grid>

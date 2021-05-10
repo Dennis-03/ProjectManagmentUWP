@@ -72,7 +72,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
         public TaskData()
         {
             this.InitializeComponent();
-            _userId = userManager.GetUserId();
         }
 
         //public event EventHandler<long> RemoveCompletedTaskEvent;
@@ -86,6 +85,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _ztask = ZTask;
+            _userId = userManager.GetUserId();
             _noOfLikes = _ztask.Reaction.Count;
             NoOfLikesTB.Text = _noOfLikes.ToString();
             _noOfComments = Comments.Count;
@@ -119,7 +119,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             {
                 Comment comment = new Comment
                 {
-                    CommentString = AddComment.Text,
+                    CommentString = AddComment.Text.Trim(),
                     TaskID = _ztask.Id,
                     UserId = _userId,
                     commentedDateTime = DateTime.Now

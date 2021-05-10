@@ -10,7 +10,7 @@
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Dark">
                             <SolidColorBrush x:Key="PrimaryColor" Color="#001"/>
-                            <SolidColorBrush x:Key="SecondaryColor" Color="#11111f"/>
+                            <SolidColorBrush x:Key="SecondaryColor" Color="#111122"/>
                             <SolidColorBrush x:Key="TertairyColor" Color="#88f"/>
                             <SolidColorBrush x:Key="ButtonTextColor" Color="#ddf"/>
                         </ResourceDictionary>
@@ -24,6 +24,10 @@
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resource/MyButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resource/CommentsListStyle.xaml"/>
+                <ResourceDictionary Source="Resource/TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="Resource/NavStyle.xaml"/>
+                <ResourceDictionary Source="Resource/PasswordBoxStyle.xaml"/>
+                <ResourceDictionary Source="Resource/TaskListStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -43,13 +44,19 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {   
             _comment = CommentData;
             userId = userManager.GetUserId();
-            UserNameTB.Text = userManager.GetUser(_comment.UserId).UserName;
+            var user = userManager.GetUser(_comment.UserId);
+            UserNameTB.Text = user.UserName;
+
             CommentedDateTimeTB.Text = _comment.commentedDateTime.ToShortTimeString();
             NoOfLikes = _comment.Reaction.Count();
             LikeCountTB.Text = NoOfLikes.ToString();
             UserCommentTB.Text = _comment.CommentString;
+
             Replies = new ObservableCollection<Comment>(_comment.Reply);
             ReplyList.ItemsSource = Replies;
+
+            Uri uri = new Uri(user.AvatarPath, UriKind.Absolute);
+            CommenterAvatar.Source = new BitmapImage(uri);
 
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             _comment.Reaction.ForEach(like=> {

@@ -127,6 +127,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Avatar.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Reaction.cs" />
     <Compile Include="Model\User.cs" />
@@ -175,6 +176,12 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Avatar\female-01.png" />
+    <Content Include="Assets\Avatar\female-02.png" />
+    <Content Include="Assets\Avatar\female-03.png" />
+    <Content Include="Assets\Avatar\male-01.png" />
+    <Content Include="Assets\Avatar\male-02.png" />
+    <Content Include="Assets\Avatar\male-03.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -198,6 +205,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resource\MyButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\NavStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\PasswordBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\TaskListStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\TextBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,7 +33,6 @@ namespace ProjectManagmentApp.View
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            _userId = userManager.GetUserId();
             TaskEditor.DeleteTaskEvent += TaskEditor_DeleteTaskEvent;
             TaskEditor.UpdateTaskEvent += TaskEditor_UpdateTaskEvent;
         }

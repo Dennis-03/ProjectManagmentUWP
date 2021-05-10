@@ -12,17 +12,30 @@
     d:DesignWidth="400">
 
     <StackPanel>
-        <Grid Margin="10,10,0,0">
+        <Grid Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Line Stroke="#33ffffff" X1="0" X2="1000" Margin="10,0"/>
+            <Line 
+                Stroke="Gray" 
+                X1="0" 
+                X2="1000" 
+                Grid.ColumnSpan="2"/>
+            <Image 
+                Name="CommenterAvatar"
+                Width="40" 
+                Height="40" 
+                Margin="0,10,10,0" 
+                Grid.RowSpan="2" 
+                VerticalAlignment="Top" />
             <StackPanel Orientation="Horizontal"
+                        Grid.Column="1"
                         Margin="0,5">
                 <TextBlock 
                     Name="UserNameTB"
@@ -35,7 +48,8 @@
             </StackPanel>
             <StackPanel 
                 Orientation="Horizontal"
-                Grid.Row="1">
+                Grid.Row="1"
+                Grid.Column="1">
                 <TextBlock 
                     Name="CommentedDateTimeTB"
                     FontSize="10"
@@ -71,7 +85,8 @@
                                     Name="Send"
                                     Click="Send_Click"
                                     FontFamily="Segoe MDL2 Assets"
-                                    FontSize="18"
+                                    FontSize="26"
+                                    Padding="5,0"
                                     Content="&#xE122;"/>
                             </StackPanel>
                         </Flyout>
@@ -86,11 +101,11 @@
                 Click="LikeComment_Click"
                 Background="{StaticResource PrimaryColor}"
                 FontSize="10"
-                Grid.Column="1"
+                Grid.Column="2"
                 Grid.RowSpan="2"/>
         </Grid>
         <ListView 
-            x:Name="ReplyList" 
+            x:Name="ReplyList"
             ItemsSource="{x:Bind Replies,Mode=OneWay}"
             ItemContainerStyle="{StaticResource CommentsListStyle}">
             <ListView.ItemTemplate>
