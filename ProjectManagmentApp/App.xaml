@@ -13,12 +13,14 @@
                             <SolidColorBrush x:Key="SecondaryColor" Color="#111122"/>
                             <SolidColorBrush x:Key="TertairyColor" Color="#88f"/>
                             <SolidColorBrush x:Key="ButtonTextColor" Color="#ddf"/>
+                            <SolidColorBrush x:Key="BorderColor" Color="White"/>
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Light">
                             <SolidColorBrush x:Key="PrimaryColor" Color="#eef"/>
                             <SolidColorBrush x:Key="SecondaryColor" Color="#ccf"/>
                             <SolidColorBrush x:Key="TertairyColor" Color="blue"/>
-                            <SolidColorBrush x:Key="TextColor" Color="Black"/>
+                            <SolidColorBrush x:Key="ButtonTextColor" Color="DarkBlue"/>
+                            <SolidColorBrush x:Key="BorderColor" Color="Black"/>
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
                 </ResourceDictionary>

@@ -71,7 +71,6 @@
                              ItemContainerStyle="{StaticResource NavItemStyle}"
                              CornerRadius="5"
                              Background="{StaticResource PrimaryColor}"
-                             Margin="0,10,0,0"
                              SelectionChanged="NavigationMenu_SelectionChanged">
                         <ListBoxItem Name="TasksMenu">
                             <StackPanel Orientation="Horizontal" >
@@ -120,7 +119,7 @@
                 </RelativePanel>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="MainRenderFrame" Margin="0,10" CornerRadius="0,0,40,40"/>
+                <Frame Name="MainRenderFrame" Margin="0,0,0,10" CornerRadius="0,0,40,40"/>
             </SplitView.Content>
         </SplitView>
     </Grid>

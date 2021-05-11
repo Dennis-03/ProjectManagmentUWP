@@ -2,6 +2,7 @@
 using ProjectManagmentApp.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,17 +28,19 @@ namespace ProjectManagmentApp.View
 
         UserManager userManager = UserManager.GetUserManager();
         private string _avatar;
-        private List<Avatar> _avatarList;
+        private ObservableCollection<Avatar> _avatarList;
         public SignUp()
         {
             this.InitializeComponent();
-            _avatarList = new List<Avatar>();
-            _avatarList.Add(new Avatar { Path= "ms-appx:/Assets/Avatar/male-01.png", AvatarName="Male 1"});
-            _avatarList.Add(new Avatar { Path= "ms-appx:/Assets/Avatar/male-02.png", AvatarName="Male 2"});
-            _avatarList.Add(new Avatar { Path= "ms-appx:/Assets/Avatar/male-03.png", AvatarName="Male 3"});
-            _avatarList.Add(new Avatar { Path= "ms-appx:/Assets/Avatar/female-01.png", AvatarName="Female 1"});
-            _avatarList.Add(new Avatar { Path= "ms-appx:/Assets/Avatar/female-02.png", AvatarName="Female 2"});
-            _avatarList.Add(new Avatar { Path= "ms-appx:/Assets/Avatar/female-03.png", AvatarName="Female 3"});
+            _avatarList = new ObservableCollection<Avatar>
+            {
+                new Avatar { Path = "ms-appx:/Assets/Avatar/male-01.png", AvatarName = "Male 1" },
+                new Avatar { Path = "ms-appx:/Assets/Avatar/male-02.png", AvatarName = "Male 2" },
+                new Avatar { Path = "ms-appx:/Assets/Avatar/male-03.png", AvatarName = "Male 3" },
+                new Avatar { Path = "ms-appx:/Assets/Avatar/female-01.png", AvatarName = "Female 1" },
+                new Avatar { Path = "ms-appx:/Assets/Avatar/female-02.png", AvatarName = "Female 2" },
+                new Avatar { Path = "ms-appx:/Assets/Avatar/female-03.png", AvatarName = "Female 3" }
+            };
         }
 
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
@@ -46,7 +49,11 @@ namespace ProjectManagmentApp.View
             var password = Password.Password;
             var rePassword = RePassword.Password;
 
-             if (rePassword == password)
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(rePassword) || string.IsNullOrEmpty(_avatar))
+            {
+                ResponseTextBlock.Text = "Fill all the Fields";
+            }
+            else if (rePassword == password)
             {
                 var status = userManager.AddUser(userName, password,_avatar);
                 if (status == false)

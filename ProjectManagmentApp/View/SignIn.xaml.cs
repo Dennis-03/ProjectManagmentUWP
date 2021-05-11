@@ -35,7 +35,7 @@ namespace ProjectManagmentApp.View
         {
             var name = Username.Text;
             var password = Password.Password;
-            if(!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(name))
+            if(!string.IsNullOrEmpty(password) || !string.IsNullOrEmpty(name))
             {
                 User user = userManager.VerifyUser(name, password);
 

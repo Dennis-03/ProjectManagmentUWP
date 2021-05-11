@@ -34,7 +34,7 @@ namespace ProjectManagmentApp
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MainSplitView.OpenPaneLength = 200;
-            MainSplitView.CompactPaneLength = 50;
+            MainSplitView.CompactPaneLength = 48;
             TitleBlock.Visibility = Visibility.Visible;
             NavigationMenu.Visibility = Visibility.Visible;
             TasksMenu.IsSelected = true;
@@ -77,14 +77,12 @@ namespace ProjectManagmentApp
             HideMenu();
         }
 
-
         public void LogoutUser()
         {
             userManager.Logout();
             MainRenderFrame.Navigate(typeof(SignIn));
             HideMenu();
         }
-
 
         public void HideMenu()
         {

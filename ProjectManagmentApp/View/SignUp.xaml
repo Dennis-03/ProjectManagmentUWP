@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ProjectManagmentApp.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:ProjectManagmentApp.Model"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:ProjectManagmentApp.Model"
     mc:Ignorable="d"
     Background="{StaticResource SecondaryColor}">
     <Page.Resources>
@@ -52,8 +53,12 @@
                     Margin="20,0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="data:Avatar">
-                            <Image Source="{x:Bind Path}"
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{x:Bind Path}"
                                    Width="30"/>
+                                <TextBlock Text="{x:Bind AvatarName}"
+                                           Margin="10,0"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

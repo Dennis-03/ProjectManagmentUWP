@@ -35,7 +35,7 @@ namespace ProjectManagmentApp.Data
             conn.Insert(new ZTask
             {
                 Id=DateTime.Now.Ticks,
-                TaskName = taskString,
+                TaskName = taskString,  
                 Description = description,
                 AssignedTo = assignedTo,
                 AssignedBy = assignedBy,
@@ -54,7 +54,7 @@ namespace ProjectManagmentApp.Data
 
         public List<ZTask> ListAllTasks()
         {
-            return new List<ZTask>(conn.Table<ZTask>());
+            return new List<ZTask>(conn.Table<ZTask>().Where(task=>task.Completed==false).OrderByDescending(task=>task.AssignedDate));
         }
 
         public ZTask GetZTask(long taskId)
@@ -77,12 +77,12 @@ namespace ProjectManagmentApp.Data
 
         public List<ZTask> GetUserTasks(long userId)
         {
-            return new List<ZTask>(conn.Table<ZTask>().Where(zTask=>zTask.AssignedTo==userId));
+            return new List<ZTask>(conn.Table<ZTask>().Where(zTask=>zTask.AssignedTo==userId).OrderByDescending(task => task.AssignedDate));
         }
 
         public List<ZTask> GetUserCreatedTasks(long userId)
         {
-            return new List<ZTask>(conn.Table<ZTask>().Where(zTask => zTask.AssignedBy == userId));
+            return new List<ZTask>(conn.Table<ZTask>().Where(zTask => zTask.AssignedBy == userId).OrderByDescending(task => task.AssignedDate));
         }
         public void MarkCompleted(long taskId)
         {
