@@ -24,10 +24,10 @@
             </Grid.ColumnDefinitions>
             <Line 
                 Margin="1"
-                Stroke="Gray" 
+                Stroke="#4fff" 
                 X1="0" 
                 X2="1000" 
-                Grid.ColumnSpan="2"/>
+                Grid.ColumnSpan="3"/>
             <Image 
                 Name="CommenterAvatar"
                 Width="40" 
@@ -71,7 +71,7 @@
                     Padding="0"
                     Margin="20,0,0,0"
                     FontSize="10"
-                    Background="{StaticResource PrimaryColor}">
+                    Background="{ThemeResource PrimaryColor}">
                     <Button.Flyout>
                         <Flyout 
                             Placement="BottomEdgeAlignedLeft"
@@ -100,7 +100,7 @@
                 FontFamily="Segoe MDL2 Assets"
                 Foreground="HotPink"
                 Click="LikeComment_Click"
-                Background="{StaticResource PrimaryColor}"
+                Background="{ThemeResource PrimaryColor}"
                 FontSize="10"
                 Grid.Column="2"
                 Grid.RowSpan="2"/>

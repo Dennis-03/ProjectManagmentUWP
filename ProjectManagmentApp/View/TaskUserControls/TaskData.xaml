@@ -14,14 +14,14 @@
             Orientation="Vertical" 
             Margin="50"
             Padding="25"
-            Background="{StaticResource PrimaryColor}"
+            Background="{ThemeResource PrimaryColor}"
             CornerRadius="3">
         <RelativePanel>
             <TextBlock Text="{x:Bind ZTask.TaskName}"
                        FontSize="26"
                        FontWeight="Bold"/>
             <Button 
-                    Background="{StaticResource SecondaryColor}"
+                    Background="{ThemeResource SecondaryColor}"
                     Content="&#xE10A;"
                     Name="CloseTask"
                     FontFamily="Segoe MDL2 Assets"
@@ -91,7 +91,7 @@
         </Grid>
         <RelativePanel
                     Margin="0,10"
-                    Background="{StaticResource SecondaryColor}"
+                    Background="{ThemeResource SecondaryColor}"
                     CornerRadius="3"
                     Padding="10,2">
             <Button 
@@ -99,7 +99,7 @@
                     Name="LikeReaction"
                     FontFamily="Segoe MDL2 Assets"
                     Foreground="HotPink"
-                    Background="{StaticResource SecondaryColor}"
+                    Background="{ThemeResource SecondaryColor}"
                     FontSize="20"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Click="LikeReaction_Click"
@@ -127,7 +127,7 @@
                     Style="{StaticResource MyButtonStyle}"
                     Name="MarkCompleted"
                     RelativePanel.AlignRightWithPanel="True"
-                    Background="{StaticResource PrimaryColor}"
+                    Background="{ThemeResource PrimaryColor}"
                     Click="MarkCompleted_Click"
                     Foreground="Green"
                     BorderBrush="Green"
@@ -152,7 +152,7 @@
                     Click="SendClick_Click"
                     Content="&#xE122;"
                     FontSize="28"
-                    Background="{StaticResource PrimaryColor}"
+                    Background="{ThemeResource PrimaryColor}"
                     FontFamily="Segoe MDL2 Assets"
                     Padding="0"
                     VerticalAlignment="Center"

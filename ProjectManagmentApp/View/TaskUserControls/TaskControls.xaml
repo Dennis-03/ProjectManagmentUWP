@@ -13,7 +13,7 @@
     <UserControl.Resources>
         <Style TargetType="ComboBox">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
         </Style>
     </UserControl.Resources>
@@ -94,7 +94,7 @@
                        Grid.Row="4"
                        VerticalAlignment="Center"/>
             <DatePicker Name="IDueDate"
-                        Background="{StaticResource PrimaryColor}"
+                        Background="{ThemeResource PrimaryColor}"
                         BorderBrush="Transparent"
                         BorderThickness="0"
                         Margin="0,20"

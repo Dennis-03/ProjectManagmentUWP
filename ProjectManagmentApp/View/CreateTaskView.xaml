@@ -13,13 +13,13 @@
         Margin="0,50,0,20"
         VerticalAlignment="Center"
         HorizontalAlignment="Center"
-        Background="{StaticResource PrimaryColor}"
+        Background="{ThemeResource PrimaryColor}"
         Padding="20"
         CornerRadius="5">
         <TextBlock 
             x:Uid="CreateTaskHeader"
             TextAlignment="Center"
-            Style="{StaticResource TitleTextBlockStyle}"/>
+            Style="{ThemeResource TitleTextBlockStyle}"/>
         <TextBlock 
             Name="DisplayError"
             x:Uid="DisplayError"
@@ -33,9 +33,9 @@
             Padding="15,5"
             Name="CreateTask"
             HorizontalAlignment="Center"
-            Background="{StaticResource PrimaryColor}"
-            Foreground="{StaticResource TertairyColor}"
-            BorderBrush="{StaticResource TertairyColor}"
+            Background="{ThemeResource PrimaryColor}"
+            Foreground="{ThemeResource TertairyColor}"
+            BorderBrush="{ThemeResource TertairyColor}"
             CornerRadius="3"
             Click="CreateTask_Click"/>
     </StackPanel>

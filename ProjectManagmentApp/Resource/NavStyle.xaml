@@ -57,7 +57,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SecondaryColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SecondaryColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}"/>
@@ -67,17 +67,17 @@
                                 <VisualState x:Name="SelectedUnfocused">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SecondaryColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SecondaryColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TertairyColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TertairyColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="SelectedPointerOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SecondaryColor}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SecondaryColor}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TertairyColor}"/>

@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
-    Background="{StaticResource PrimaryColor}">
+    Background="{ThemeResource PrimaryColor}">
     <Page.Resources>
         <Style x:Key="Icons" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
@@ -55,7 +55,7 @@
                     FontSize="25"
                     Padding="10"
                     Click="Hamburger_button_Click"
-                    Background="{StaticResource PrimaryColor}"/>
+                    Background="{ThemeResource PrimaryColor}"/>
             <TextBlock Name="TitleBlockText" 
                        x:Uid="AppName"
                        Margin="10,0"
@@ -64,13 +64,13 @@
         </StackPanel>
         <SplitView Grid.Row="1"
                    Name="MainSplitView"
-                   PaneBackground="{StaticResource PrimaryColor}">
+                   PaneBackground="{ThemeResource PrimaryColor}">
             <SplitView.Pane>
                 <RelativePanel>
                     <ListBox Name="NavigationMenu"
                              ItemContainerStyle="{StaticResource NavItemStyle}"
                              CornerRadius="5"
-                             Background="{StaticResource PrimaryColor}"
+                             Background="{ThemeResource PrimaryColor}"
                              SelectionChanged="NavigationMenu_SelectionChanged">
                         <ListBoxItem Name="TasksMenu">
                             <StackPanel Orientation="Horizontal" >
@@ -96,7 +96,7 @@
                                            Style="{StaticResource NavSyle}"/>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem Name="EditTask">
+                        <ListBoxItem Name="EditTask" CornerRadius="5">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#xE75C;"
                                            Style="{StaticResource Icons}" />
@@ -119,7 +119,7 @@
                 </RelativePanel>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="MainRenderFrame" Margin="0,0,0,10" CornerRadius="0,0,40,40"/>
+                <Frame Name="MainRenderFrame" Margin="0,0,0,10" CornerRadius="0,0,0,40"/>
             </SplitView.Content>
         </SplitView>
     </Grid>
