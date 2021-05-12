@@ -25,12 +25,14 @@ namespace ProjectManagmentApp.View
             _userId = userManager.GetUserId();
             _taskList = new ObservableCollection<ZTask>(taskManager.GetUserCreatedTasks(_userId));
         }
+
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
         {
             ZTask clickedItem = (ZTask)e.ClickedItem;
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
             TaskDetailsFrameEdit.Navigate(typeof(TaskEditor), zTask);
         }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TaskEditor.DeleteTaskEvent += TaskEditor_DeleteTaskEvent;

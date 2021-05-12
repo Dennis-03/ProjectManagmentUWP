@@ -9,35 +9,68 @@
     Loaded="Page_Loaded"
     Background="{ThemeResource SecondaryColor}">
 
-    <StackPanel
-        Margin="0,50,0,20"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
-        Background="{ThemeResource PrimaryColor}"
-        Padding="20"
-        CornerRadius="5">
-        <TextBlock 
-            x:Uid="CreateTaskHeader"
-            TextAlignment="Center"
-            Style="{ThemeResource TitleTextBlockStyle}"/>
-        <TextBlock 
-            Name="DisplayError"
-            x:Uid="DisplayError"
-            HorizontalAlignment="Center"
-            Foreground="Red"
-            Visibility="Collapsed"/>
-        <local:TaskControls ZTask="{x:Bind _zTask,Mode=TwoWay}"/>
-        <Button 
-            Style="{StaticResource MyButtonStyle}"
-            x:Uid="CreateTask"
-            Padding="15,5"
-            Name="CreateTask"
-            HorizontalAlignment="Center"
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TaskDetailsSV.Visibility" Value="Collapsed"/>
+                        <Setter Target="TaskCreate.(Grid.ColumnSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Name="TaskCreate"
+            Margin="50"
+            VerticalAlignment="Top"
             Background="{ThemeResource PrimaryColor}"
-            Foreground="{ThemeResource TertairyColor}"
-            BorderBrush="{ThemeResource TertairyColor}"
-            CornerRadius="3"
-            Click="CreateTask_Click"/>
-    </StackPanel>
-
+            Padding="20"
+            CornerRadius="5">
+            <TextBlock 
+                x:Uid="CreateTaskHeader"
+                TextAlignment="Center"
+                Style="{ThemeResource TitleTextBlockStyle}"/>
+            <TextBlock 
+                Name="DisplayError"
+                x:Uid="DisplayError"
+                HorizontalAlignment="Center"
+                Foreground="Red"
+                Visibility="Collapsed"/>
+            <local:TaskControls ZTask="{x:Bind _zTask,Mode=TwoWay}"/>
+            <Button 
+                Style="{StaticResource MyButtonStyle}"
+                x:Uid="CreateTask"
+                Padding="15,5"
+                Name="CreateTask"
+                HorizontalAlignment="Center"
+                Background="{ThemeResource PrimaryColor}"
+                Foreground="{ThemeResource TertairyColor}"
+                BorderBrush="{ThemeResource TertairyColor}"
+                CornerRadius="3"
+                Click="CreateTask_Click"/>
+        </StackPanel>
+        <ScrollViewer 
+            Name="TaskDetailsSV">
+            <Frame Name="TaskDetailsFrame"/>
+        </ScrollViewer>
+    </Grid>
 </Page>

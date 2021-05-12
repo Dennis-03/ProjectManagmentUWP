@@ -181,7 +181,7 @@
     <comment>Delete button text</comment>
   </data>
   <data name="Description.Text" xml:space="preserve">
-    <value>Description :</value>
+    <value>Description </value>
     <comment>Description of a task</comment>
   </data>
   <data name="DescriptionTC.Text" xml:space="preserve">
@@ -233,7 +233,7 @@
     <comment>Password Field</comment>
   </data>
   <data name="Priority.Text" xml:space="preserve">
-    <value>Priority :</value>
+    <value>Priority </value>
     <comment>Priority of a task</comment>
   </data>
   <data name="PriorityTC.Text" xml:space="preserve">

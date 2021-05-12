@@ -33,30 +33,11 @@
                     Height="30"
                     Click="CloseTask_Click"/>
         </RelativePanel>
-        <StackPanel Orientation="Horizontal"
-                    Margin="0,15,0,0">
-            <TextBlock x:Uid="Priority"
-                       Padding="0,0,5,0"/>
-            <Ellipse Name="PriorityCircle" 
-                     Width="10" 
-                     Fill="{x:Bind PriorityColor}"
-                     Height="10" 
-                     HorizontalAlignment="Center"/>
-            <TextBlock Text="{x:Bind ZTask.Priority}"
-                       Padding="5,0,0,0"/>
-        </StackPanel>
 
-        <StackPanel Orientation="Horizontal"
-                    Margin="0,10">
-            <TextBlock x:Uid="Description"
-                       FontWeight="Bold"/>
-            <TextBlock Text="{x:Bind ZTask.Description}"
-                           TextWrapping="WrapWholeWords"
-                           FontWeight="Bold"/>
-        </StackPanel>
-
-        <Grid>
+        <Grid Margin="0,20,0,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -66,74 +47,99 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
+            <TextBlock x:Uid="Description"
+                       Margin="0,0,15,0"/>
+            <TextBlock Text="{x:Bind ZTask.Description}"
+                       TextWrapping="WrapWholeWords"
+                       FontWeight="Bold"
+                       Grid.Column="1"/>
+
+            <TextBlock x:Uid="Priority"
+                       Margin="0,0,15,0"
+                       Grid.Row="1"/>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Grid.Column="1">
+                <Ellipse Name="PriorityCircle" 
+                     Width="10" 
+                     Fill="{x:Bind PriorityColor}"
+                     Height="10" 
+                     HorizontalAlignment="Center"/>
+                <TextBlock Text="{x:Bind ZTask.Priority}"
+                       Padding="5,0,0,0"/>
+            </StackPanel>
+
             <TextBlock x:Uid="AssignedDate"
+                       Grid.Row="2"
                        Margin="0,0,15,0"/>
             <TextBlock Text="{x:Bind ZTask.AssignedDate.ToLongDateString()}"
+                       Grid.Row="2"
                        Grid.Column="1"/>
 
             <TextBlock x:Uid="DueDate"
-                       Grid.Row="1"/>
+                       Grid.Row="3"/>
             <TextBlock Text="{x:Bind ZTask.DueDate.ToLongDateString()}"
-                       Grid.Row="1"
+                       Grid.Row="3"
                        Grid.Column="1"/>
 
             <TextBlock x:Uid="AssignedBy"
-                       Grid.Row="2"/>
+                       Grid.Row="4"/>
             <TextBlock Text="{x:Bind AssignedBy}"
                        Grid.Column="1"
-                       Grid.Row="2"/>
+                       Grid.Row="4"/>
 
             <TextBlock x:Uid="AssignedTo"
-                       Grid.Row="3"/>
+                       Grid.Row="5"/>
             <TextBlock Text="{x:Bind AssignedTo}"
                        Grid.Column="1"
-                       Grid.Row="3"/>
+                       Grid.Row="5"/>
         </Grid>
         <RelativePanel
-                    Margin="0,10"
-                    Background="{ThemeResource SecondaryColor}"
-                    CornerRadius="3"
-                    Padding="10,2">
+                Margin="0,10"
+                Background="{ThemeResource SecondaryColor}"
+                CornerRadius="3"
+                Padding="10,2">
             <Button 
-                    Style="{StaticResource MyButtonStyle}"
-                    Name="LikeReaction"
-                    FontFamily="Segoe MDL2 Assets"
-                    Foreground="HotPink"
-                    Background="{ThemeResource SecondaryColor}"
-                    FontSize="20"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Click="LikeReaction_Click"
-                    Padding="0"/>
+                Style="{StaticResource MyButtonStyle}"
+                Name="LikeReaction"
+                FontFamily="Segoe MDL2 Assets"
+                Foreground="HotPink"
+                Background="{ThemeResource SecondaryColor}"
+                FontSize="20"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Click="LikeReaction_Click"
+                Padding="0"/>
             <TextBlock 
-                    Name="NoOfLikesTB"
-                    VerticalAlignment="Center" 
-                    Padding="5,0"
-                    RelativePanel.RightOf="LikeReaction"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Foreground="{ThemeResource SystemBaseMediumColor}"/>
+                Name="NoOfLikesTB"
+                VerticalAlignment="Center" 
+                Padding="5,0"
+                RelativePanel.RightOf="LikeReaction"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Foreground="{ThemeResource SystemBaseMediumColor}"/>
             <Button 
-                    x:Uid="CommentBtn"
-                    Style="{StaticResource MyButtonStyle}"
-                    Name="ShowComment"
-                    Click="ShowComment_Click"
-                    Content="Comment"
-                    Margin="10,0"
-                    Padding="0"
-                    RelativePanel.RightOf="NoOfLikesTB"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Background="{ThemeResource SecondaryColor}"/>
+                x:Uid="CommentBtn"
+                Style="{StaticResource MyButtonStyle}"
+                Name="ShowComment"
+                Click="ShowComment_Click"
+                Content="Comment"
+                Margin="10,0"
+                Padding="0"
+                RelativePanel.RightOf="NoOfLikesTB"
+                RelativePanel.AlignVerticalCenterWithPanel="True"
+                Background="{ThemeResource SecondaryColor}"/>
             <Button 
-                    x:Uid="Completed"
-                    Style="{StaticResource MyButtonStyle}"
-                    Name="MarkCompleted"
-                    RelativePanel.AlignRightWithPanel="True"
-                    Background="{ThemeResource PrimaryColor}"
-                    Click="MarkCompleted_Click"
-                    Foreground="Green"
-                    BorderBrush="Green"
-                    HorizontalAlignment="Right"
-                    CornerRadius="4"
-                    Visibility="Collapsed"/>
+                x:Uid="Completed"
+                Style="{StaticResource MyButtonStyle}"
+                Name="MarkCompleted"
+                RelativePanel.AlignRightWithPanel="True"
+                Background="{ThemeResource PrimaryColor}"
+                Click="MarkCompleted_Click"
+                Foreground="Green"
+                BorderBrush="Green"
+                HorizontalAlignment="Right"
+                CornerRadius="4"
+                Visibility="Collapsed"/>
         </RelativePanel>
 
 
@@ -143,40 +149,44 @@
                 x:Uid="AddComment"
                 Style="{StaticResource TransparentTextBox}"
                 Name="AddComment"
+                TextWrapping="Wrap"
                 RelativePanel.AlignLeftWithPanel="True"
                 Margin="0,0,40,0"
                 RelativePanel.AlignRightWith="SendClick"/>
             <Button 
-                    Style="{StaticResource MyButtonStyle}"
-                    Name="SendClick"
-                    Click="SendClick_Click"
-                    Content="&#xE122;"
-                    FontSize="28"
-                    Background="{ThemeResource PrimaryColor}"
-                    FontFamily="Segoe MDL2 Assets"
-                    Padding="0"
-                    VerticalAlignment="Center"
-                    RelativePanel.AlignRightWithPanel="True"/>
+                Style="{StaticResource MyButtonStyle}"
+                Name="SendClick"
+                Click="SendClick_Click"
+                Content="&#xE122;"
+                FontSize="28"
+                Background="{ThemeResource PrimaryColor}"
+                FontFamily="Segoe MDL2 Assets"
+                Padding="0"
+                VerticalAlignment="Center"
+                RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock x:Uid="Comment"
-                       FontSize="20"
-                       FontWeight="Bold"/>
-            <Ellipse Width="5"
-                     Height="5"
-                     Fill="{ThemeResource SystemBaseMediumColor}"
-                     Margin="10,0"
-                     VerticalAlignment="Center"/>
-            <TextBlock Name="NoOfCommentsTB"
-                       Foreground="{ThemeResource SystemBaseMediumColor}"
-                       VerticalAlignment="Center"/>
+            <TextBlock 
+                x:Uid="Comment"
+                FontSize="20"
+                FontWeight="Bold"/>
+            <Ellipse 
+                Width="5"
+                Height="5"
+                Fill="{ThemeResource SystemBaseMediumColor}"
+                Margin="10,0"
+                VerticalAlignment="Center"/>
+            <TextBlock 
+                Name="NoOfCommentsTB"
+                Foreground="{ThemeResource SystemBaseMediumColor}"
+                VerticalAlignment="Center"/>
         </StackPanel>
 
 
         <ListView 
-                ItemContainerStyle="{StaticResource CommentsListStyle}"
-                x:Name="CommentsList"
-                ItemsSource="{x:Bind Comments,Mode=OneWay}">
+            ItemContainerStyle="{StaticResource CommentsListStyle}"
+            x:Name="CommentsList"
+            ItemsSource="{x:Bind Comments,Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Comment">
                     <local:CommentList/>

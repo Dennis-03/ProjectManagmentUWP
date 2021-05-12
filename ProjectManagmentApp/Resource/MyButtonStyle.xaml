@@ -6,7 +6,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
         <Setter Property="FontWeight" Value="SemiBold" />

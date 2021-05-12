@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -43,14 +44,47 @@ namespace ProjectManagmentApp.View
         {
             ZTask clickedItem = (ZTask)e.ClickedItem;
             ZTask zTask= taskManager.GetZTask(clickedItem.Id);
-            TaskDetailsFrame.Navigate(typeof(TaskDetails),zTask);
+            TaskDetailsFrame.Navigate(typeof(TaskDetails),zTask, new SuppressNavigationTransitionInfo());
+            TaskDetailsSV.Visibility = Visibility.Visible;
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskListContainer.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TaskData.TaskCompleted += HandleTaskCompleted;
+            TaskData.SelectNextZtask += TaskData_SelectNextZtask;
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskData.MobileSupport += TaskData_MobileSupport;
+            }
             _userName = userManager.GetUser(userManager.GetUserId()).UserName;
+            SelectNextAvailable();
             WelcomeUserName.Text = String.Format(" {0} !!!", _userName);
+        }
+
+        private void TaskData_MobileSupport(bool status)
+        {
+            TaskDetailsSV.Visibility = Visibility.Collapsed;
+            TaskListContainer.Visibility = Visibility.Visible;
+        }
+
+        private void TaskData_SelectNextZtask(bool obj)
+        {
+            SelectNextAvailable();
+        }
+
+        private void SelectNextAvailable()
+        {
+            TaskList.SelectedIndex = 0;
+            var selectedItem = (ZTask)TaskList.SelectedItem;
+            if (selectedItem != null)
+            {
+                ZTask zTask = taskManager.GetZTask(selectedItem.Id);
+                TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask, new SuppressNavigationTransitionInfo());
+            }
         }
 
         private void HandleTaskCompleted(long taskId)

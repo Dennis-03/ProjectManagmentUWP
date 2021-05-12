@@ -46,7 +46,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalMinutes}h";
 
             NoOfLikes = _comment.Reaction.Count();
-            LikeCountTB.Text = NoOfLikes.ToString();
+            if (NoOfLikes != 0)
+                LikeCountTB.Text = NoOfLikes.ToString();
             UserCommentTB.Text = _comment.CommentString;
 
             Replies = new ObservableCollection<Comment>(_comment.Reply);

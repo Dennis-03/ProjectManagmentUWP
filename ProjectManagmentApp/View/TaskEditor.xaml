@@ -11,8 +11,6 @@
     <StackPanel
         Margin="0,50,0,20"
         Name="TaskEditorContainer"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
         Background="{ThemeResource PrimaryColor}"
         Padding="40"
         CornerRadius="5">

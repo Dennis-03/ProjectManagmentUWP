@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -43,9 +44,54 @@ namespace ProjectManagmentApp.View
             InCompleteDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");
             CompletedDropLogo.Text = HttpUtility.HtmlDecode("&#xE019;");
         }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            SelectNextAvailableTask();
             TaskData.TaskCompleted += TaskData_TaskCompleted;
+            TaskData.SelectNextZtask += TaskData_SelectNextZtask;
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskData.MobileSupport += TaskData_MobileSupport;
+            }
+        }
+
+        private void TaskData_MobileSupport(bool obj)
+        {
+            TaskDetailsSV.Visibility = Visibility.Collapsed;
+            TaskListContainer.Visibility = Visibility.Visible;
+        }
+
+        private void TaskData_SelectNextZtask(bool status)
+        {
+            SelectNextAvailableTask();
+        }
+
+        public void SelectNextAvailableTask()
+        {
+            ZTask selectedItem;
+            if (_inCompleteTaskList.Count != 0)
+            {
+                InCompleteTaskList.SelectedIndex = 0;
+                selectedItem = (ZTask)InCompleteTaskList.SelectedItem;
+            }
+            else
+            {
+                CompletedTaskList.SelectedIndex = 0;
+                selectedItem = (ZTask)CompletedTaskList.SelectedItem;
+            }
+            if (selectedItem != null)
+            {
+                ZTask zTask = taskManager.GetZTask(selectedItem.Id);
+                TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask, new SuppressNavigationTransitionInfo());
+            }
+        }
+
+        private void TaskData_TaskCompleted(long taskId)
+        {
+            ZTask zTask = _taskList.First(task => task.Id == taskId);
+            _inCompleteTaskList.Remove(zTask);
+            _completedTaskList.Add(zTask);
         }
         private void InCompleteTasksButton_Click(object sender, RoutedEventArgs e)
         {
@@ -79,25 +125,26 @@ namespace ProjectManagmentApp.View
         {
             CompletedTaskList.SelectedItem = null;
             ZTask clickedItem = (ZTask)e.ClickedItem;
-            ZTask zTask = taskManager.GetZTask(clickedItem.Id);
-            TaskId = clickedItem.Id;
-            TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
+            DisplayTask(clickedItem);
         }
 
         private void CompletedTaskList_ItemClick(object sender, ItemClickEventArgs e)
         {
             InCompleteTaskList.SelectedItem = null;
             ZTask clickedItem = (ZTask)e.ClickedItem;
-            ZTask zTask = taskManager.GetZTask(clickedItem.Id);
-            TaskId = clickedItem.Id;
-            TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
+            DisplayTask(clickedItem);
         }
 
-        private void TaskData_TaskCompleted(long taskId)
+        private void DisplayTask(ZTask zTask)
         {
-            ZTask zTask = _taskList.First(task => task.Id == taskId);
-            _inCompleteTaskList.Remove(zTask);
-            _completedTaskList.Add(zTask);
+            ZTask myZTask = taskManager.GetZTask(zTask.Id);
+            TaskId = zTask.Id;
+            TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskListContainer.Visibility = Visibility.Collapsed;
+            }
+            TaskDetailsSV.Visibility = Visibility.Visible;
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)

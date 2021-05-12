@@ -74,8 +74,18 @@ namespace ProjectManagmentApp.View.TaskUserControls
             this.InitializeComponent();
         }
 
-        //public event EventHandler<long> RemoveCompletedTaskEvent;
         public static event Action<long> TaskCompleted;
+        public static event Action<bool> SelectNextZtask;
+        public static event Action<bool> MobileSupport;
+
+        public static void NotifyMobileSupport()
+        {
+            MobileSupport?.Invoke(true);
+        }
+        public static void NotifySelectNextZtask()
+        {
+            SelectNextZtask?.Invoke(true);
+        }
 
         public static void NotifyTaskCompleted(long taskId)
         {
@@ -87,7 +97,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _ztask = ZTask;
             _userId = userManager.GetUserId();
             _noOfLikes = _ztask.Reaction.Count;
-            NoOfLikesTB.Text = _noOfLikes.ToString();
+            if (_noOfLikes != 0)
+                NoOfLikesTB.Text = _noOfLikes.ToString();
             _noOfComments = Comments.Count;
             NoOfCommentsTB.Text = _noOfComments.ToString();
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
@@ -98,7 +109,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 }
             });
             LikeReaction.Content = buttonIcon;
-            if (_ztask.Completed==false&&_ztask.AssignedTo==_userId)
+            if (_ztask.Completed == false && _ztask.AssignedTo == _userId)
             {
                 MarkCompleted.Visibility = Visibility.Visible;
             }
@@ -146,11 +157,13 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void CloseTask_Click(object sender, RoutedEventArgs e)
         {
             TaskDataContent.Visibility = Visibility.Collapsed;
+            NotifyMobileSupport();
         }
 
         private void MarkCompleted_Click(object sender, RoutedEventArgs e)
         {
             NotifyTaskCompleted(ZTask.Id);
+            NotifySelectNextZtask();
             _ztask.Completed = true;
             taskManager.MarkCompleted(_ztask.Id);
             TaskDataContent.Visibility = Visibility.Collapsed;

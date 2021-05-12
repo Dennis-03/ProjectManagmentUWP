@@ -1,6 +1,7 @@
 ﻿using ProjectManagmentApp.Constants;
 using ProjectManagmentApp.Data;
 using ProjectManagmentApp.Model;
+using ProjectManagmentApp.View.TaskUserControls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +39,7 @@ namespace ProjectManagmentApp.View
             if (!string.IsNullOrEmpty(_zTask.Description) && !string.IsNullOrEmpty(_zTask.TaskName) && _zTask.DueDate.Ticks != 0 && _zTask.AssignedTo != 0)
             {
                 taskManager.AddTask(_zTask);
-                Frame.Navigate(typeof(EditTask));
+                TaskDetailsFrame.Navigate(typeof(TaskDetails),_zTask);
             }
             else
                 DisplayError.Visibility = Visibility.Visible;
@@ -47,6 +48,7 @@ namespace ProjectManagmentApp.View
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             _zTask.Priority = PriorityEnum.Low;
+            _zTask.DueDate = DateTime.Now;
         }
     }
 }

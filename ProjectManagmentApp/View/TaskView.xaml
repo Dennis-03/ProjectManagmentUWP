@@ -19,10 +19,10 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="1"/>
-                        <Setter Target="TaskDetailsSV.(Grid.Column)" Value="0"/>
+                        <Setter Target="TaskDetailsSV.Visibility" Value="Collapsed"/>
                         <Setter Target="TaskDetailsSV.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="TaskListContainer.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="1"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -30,14 +30,13 @@
                         <AdaptiveTrigger MinWindowWidth="900"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.Row)" Value="1"/>
                         <Setter Target="TaskDetailsSV.(Grid.Column)" Value="1"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -58,9 +57,9 @@
                 FontWeight="Bold"/>
         </StackPanel>
         <ScrollViewer Name="TaskListContainer"
-                      Grid.Row="2">
-            <StackPanel Orientation="Vertical"
-                    Margin="0,20">
+                      Margin="0,20,0,0"
+                      Grid.Row="1">
+            <StackPanel Orientation="Vertical">
                 <TextBlock x:Uid="AllTask"
                            Margin="40,0,0,10"
                            FontSize="18"
@@ -81,9 +80,7 @@
             </StackPanel>
         </ScrollViewer>
         <ScrollViewer 
-            Name="TaskDetailsSV"
-            Grid.Row="2" 
-            Grid.Column="1">
+            Name="TaskDetailsSV">
             <Frame Name="TaskDetailsFrame"/>
         </ScrollViewer>
     </Grid>
