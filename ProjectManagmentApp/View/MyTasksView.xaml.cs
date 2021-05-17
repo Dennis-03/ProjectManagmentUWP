@@ -20,8 +20,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace ProjectManagmentApp.View
 {
 
@@ -50,19 +48,26 @@ namespace ProjectManagmentApp.View
             SelectNextAvailableTask();
             TaskData.TaskCompleted += TaskData_TaskCompleted;
             TaskData.SelectNextZtask += TaskData_SelectNextZtask;
+            TaskData.DeselectItem += TaskData_DeselectItem;
             if (Window.Current.Bounds.Width < 900)
             {
                 TaskData.MobileSupport += TaskData_MobileSupport;
             }
         }
 
-        private void TaskData_MobileSupport(bool obj)
+        private void TaskData_DeselectItem()
+        {
+            InCompleteTaskList.SelectedItem = null;
+            CompletedTaskList.SelectedItem = null;
+        }
+
+        private void TaskData_MobileSupport()
         {
             TaskDetailsSV.Visibility = Visibility.Collapsed;
             TaskListContainer.Visibility = Visibility.Visible;
         }
 
-        private void TaskData_SelectNextZtask(bool status)
+        private void TaskData_SelectNextZtask()
         {
             SelectNextAvailableTask();
         }
@@ -150,6 +155,20 @@ namespace ProjectManagmentApp.View
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             TaskData.TaskCompleted -= TaskData_TaskCompleted;
+            TaskData.SelectNextZtask -= TaskData_SelectNextZtask;
+            TaskData.MobileSupport -= TaskData_MobileSupport;
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskData.MobileSupport += TaskData_MobileSupport;
+            }
+            else
+            {
+                TaskListContainer.Visibility = Visibility.Visible;
+            }
         }
     }
 }

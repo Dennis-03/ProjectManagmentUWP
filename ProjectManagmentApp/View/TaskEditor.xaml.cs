@@ -29,6 +29,12 @@ namespace ProjectManagmentApp.View
 
         public static event Action<long> DeleteTaskEvent;
         public static event Action<long> UpdateTaskEvent;
+        public static event Action DeselectSelectedItem;
+
+        public static void NotifyDeselectSelectedItem()
+        {
+            DeselectSelectedItem?.Invoke();
+        }
 
         public static void NotifyDeleteTaskEvent(long taskId)
         {
@@ -52,6 +58,7 @@ namespace ProjectManagmentApp.View
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             TaskEditorContainer.Visibility = Visibility.Collapsed;
+            NotifyDeselectSelectedItem();
         }
 
         private void UpdateTask_Click(object sender, RoutedEventArgs e)

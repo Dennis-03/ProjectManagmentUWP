@@ -38,7 +38,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="625"/>
         </Grid.ColumnDefinitions>
             <ScrollViewer Name="TaskListContainer">
             <StackPanel Orientation="Vertical"

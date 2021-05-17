@@ -56,6 +56,7 @@ namespace ProjectManagmentApp.View
         {
             TaskData.TaskCompleted += HandleTaskCompleted;
             TaskData.SelectNextZtask += TaskData_SelectNextZtask;
+            TaskData.DeselectItem += TaskData_DeselectItem; ;
             if (Window.Current.Bounds.Width < 900)
             {
                 TaskData.MobileSupport += TaskData_MobileSupport;
@@ -65,13 +66,26 @@ namespace ProjectManagmentApp.View
             WelcomeUserName.Text = String.Format(" {0} !!!", _userName);
         }
 
-        private void TaskData_MobileSupport(bool status)
+        private void TaskData_DeselectItem()
         {
-            TaskDetailsSV.Visibility = Visibility.Collapsed;
-            TaskListContainer.Visibility = Visibility.Visible;
+            TaskList.SelectedItem = null;
         }
 
-        private void TaskData_SelectNextZtask(bool obj)
+        private void TaskData_MobileSupport()
+        {
+            if (TaskList.SelectedItem == null)
+            {
+                TaskDetailsSV.Visibility = Visibility.Collapsed;
+                TaskListContainer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TaskListContainer.Visibility = Visibility.Collapsed;
+                TaskDetailsSV.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void TaskData_SelectNextZtask()
         {
             SelectNextAvailable();
         }
@@ -95,6 +109,18 @@ namespace ProjectManagmentApp.View
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             TaskData.TaskCompleted -= HandleTaskCompleted;
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskData.MobileSupport += TaskData_MobileSupport;
+            }
+            else
+            {
+                TaskListContainer.Visibility = Visibility.Visible;
+            }
         }
     }
 }

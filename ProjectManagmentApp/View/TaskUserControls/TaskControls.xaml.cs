@@ -43,11 +43,10 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             _zTask = ZTask;
-            _users = new List<User>(userManager.GetAllUsers());
+            _users = new List<User>(userManager.GetAllUsers().Where(task=>task.Id!=userManager.GetUserId()));
             UserSelectCB.ItemsSource = _users;
             _zTask.AssignedBy = userManager.GetUserId();
             _zTask.AssignedDate = DateTime.Now;
-            //PriorityComboBox.SelectedItem = ZTask.Priority.ToString();
             if (ZTask.Priority == PriorityEnum.High)
             {
                 PriorityComboBox.SelectedIndex = 2;
@@ -60,7 +59,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             {
                 PriorityComboBox.SelectedIndex = 0;
             }
-            int index =_users.FindIndex(user=> user.Id==ZTask.AssignedTo);
+            int index = _users.FindIndex(user => user.Id == ZTask.AssignedTo);
             UserSelectCB.SelectedIndex = index;
             if (ZTask.DueDate.Year > 2000)
             {

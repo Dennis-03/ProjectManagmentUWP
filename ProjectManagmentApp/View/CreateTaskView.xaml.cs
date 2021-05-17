@@ -26,12 +26,22 @@ namespace ProjectManagmentApp.View
     /// </summary>
     public sealed partial class CreateTaskView : Page
     {
-        private ZTask _zTask= new ZTask();
+        private ZTask _zTask;
         TaskManager taskManager = TaskManager.GetTaskManager();
+
+        public static event Action ResetTaskControls;
+
+        public static void NotifyResetTaskControls()
+        {
+            ResetTaskControls?.Invoke();
+        }
 
         public CreateTaskView()
         {
             this.InitializeComponent();
+            _zTask = new ZTask();
+            _zTask.Priority = PriorityEnum.Low;
+            _zTask.DueDate = DateTime.Now;
         }
 
         private void CreateTask_Click(object sender, RoutedEventArgs e)
@@ -40,15 +50,10 @@ namespace ProjectManagmentApp.View
             {
                 taskManager.AddTask(_zTask);
                 TaskDetailsFrame.Navigate(typeof(TaskDetails),_zTask);
+                NotifyResetTaskControls();
             }
             else
                 DisplayError.Visibility = Visibility.Visible;
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            _zTask.Priority = PriorityEnum.Low;
-            _zTask.DueDate = DateTime.Now;
         }
     }
 }

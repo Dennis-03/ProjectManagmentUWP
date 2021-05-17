@@ -63,7 +63,7 @@ namespace ProjectManagmentApp.Data
         }
         public List<Comment> GetTaskComments(long taskId)
         {
-            List<Comment> comments = new List<Comment>(conn.Table<Comment>().Where(comment => comment.TaskID == taskId && comment.ParentId == null).OrderBy(comment => comment.commentedDateTime));
+            List<Comment> comments = new List<Comment>(conn.Table<Comment>().Where(comment => comment.TaskID == taskId && comment.ParentId == null).OrderByDescending(comment => comment.commentedDateTime));
             comments.ForEach(comment =>
             {
                 comment.Reaction = reactionManager.GetReaction(comment.Id);

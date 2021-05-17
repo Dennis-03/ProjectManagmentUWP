@@ -75,16 +75,22 @@ namespace ProjectManagmentApp.View.TaskUserControls
         }
 
         public static event Action<long> TaskCompleted;
-        public static event Action<bool> SelectNextZtask;
-        public static event Action<bool> MobileSupport;
+        public static event Action SelectNextZtask;
+        public static event Action MobileSupport;
+        public static event Action DeselectItem;
+
+        public static void NotifyDeselectItem()
+        {
+            DeselectItem?.Invoke();
+        }
 
         public static void NotifyMobileSupport()
         {
-            MobileSupport?.Invoke(true);
+            MobileSupport?.Invoke();
         }
         public static void NotifySelectNextZtask()
         {
-            SelectNextZtask?.Invoke(true);
+            SelectNextZtask?.Invoke();
         }
 
         public static void NotifyTaskCompleted(long taskId)
@@ -136,7 +142,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                     commentedDateTime = DateTime.Now
                 };
                 commentManager.AddComment(comment);
-                Comments.Add(comment);
+                Comments.Insert(0, comment);
                 CommentBox.Visibility = Visibility.Collapsed;
                 AddComment.Text = "";
                 _noOfComments += 1;
@@ -157,6 +163,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private void CloseTask_Click(object sender, RoutedEventArgs e)
         {
             TaskDataContent.Visibility = Visibility.Collapsed;
+            NotifyDeselectItem();
             NotifyMobileSupport();
         }
 

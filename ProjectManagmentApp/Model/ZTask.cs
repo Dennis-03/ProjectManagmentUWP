@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagmentApp.Model
 {   
-    public class ZTask : INotifyPropertyChanged
+    public class ZTask 
     {
         [PrimaryKey]
         public long Id { get; set; }
@@ -22,17 +22,7 @@ namespace ProjectManagmentApp.Model
         public long AssignedBy { get; set; }
         public DateTime AssignedDate { get; set; }
         public DateTime DueDate { get; set; }
-
-        private bool completed;
-        public bool Completed
-        {
-            get { return completed; }
-            set
-            {
-                completed = value;
-                OnPropertyChange("Completed");
-            }
-        }
+        public bool Completed { get; set; }
 
         private List<Comment> _Comment = new List<Comment>();
         [Ignore]
@@ -41,14 +31,5 @@ namespace ProjectManagmentApp.Model
         private List<Reaction> _Reaction = new List<Reaction>();
         [Ignore]
         public List<Reaction> Reaction { get { return _Reaction; } set { _Reaction = value; } }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChange(string propertyname)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
-            }
-        }
     }
 }

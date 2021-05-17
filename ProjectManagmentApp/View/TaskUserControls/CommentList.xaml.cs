@@ -43,7 +43,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             else if(commentedDateTimeOffset.Hours >1 )
                 CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalHours}h";
             else
-                CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalMinutes}h";
+                CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalMinutes}m";
 
             NoOfLikes = _comment.Reaction.Count();
             if (NoOfLikes != 0)
@@ -87,7 +87,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                     commentedDateTime = DateTime.Now,
                     UserId = userId
                 };
-                Replies.Add(addComment);
+                Replies.Insert(0,addComment);
                 commentManager.AddComment(addComment);
                 ButtonFlyout.Hide();
             }

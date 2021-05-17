@@ -1,5 +1,6 @@
 ﻿using ProjectManagmentApp.Data;
 using ProjectManagmentApp.Model;
+using ProjectManagmentApp.View.TaskUserControls;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -35,20 +36,51 @@ namespace ProjectManagmentApp.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            SelectNextAvailable();
             TaskEditor.DeleteTaskEvent += TaskEditor_DeleteTaskEvent;
+            TaskEditor.DeselectSelectedItem += TaskEditor_DeselectSelectedItem;
             TaskEditor.UpdateTaskEvent += TaskEditor_UpdateTaskEvent;
+            if (Window.Current.Bounds.Width < 900)
+                TaskData.MobileSupport += TaskData_MobileSupport;
         }
+
+        private void TaskEditor_DeselectSelectedItem()
+        {
+            MyTaskList.SelectedItem = null;
+        }
+
+        private void TaskData_MobileSupport()
+        {
+            TaskDetailsSV.Visibility = Visibility.Collapsed;
+            TaskListContainer.Visibility = Visibility.Visible;
+        }
+
 
         private void TaskEditor_UpdateTaskEvent(long taskId)
         {
-            _taskList.Remove(_taskList.First(task => task.Id == taskId));
+            var oldTask = _taskList.First(task => task.Id == taskId);
+            var index = _taskList.IndexOf(oldTask);
+            _taskList.Remove(oldTask);
             ZTask zTask = taskManager.GetZTask(taskId);
-            _taskList.Add(zTask);
+            _taskList.Insert(index, zTask);
+            SelectNextAvailable();
         }
 
         private void TaskEditor_DeleteTaskEvent(long taskId)
         {
-            _taskList.Remove(_taskList.First(task => task.Id == taskId));
+            _taskList.Remove(_taskList.FirstOrDefault(task => task.Id == taskId));
+            SelectNextAvailable();
+        }
+
+        private void SelectNextAvailable()
+        {
+            if (_taskList.Count != 0)
+            {
+                MyTaskList.SelectedIndex = 0;
+                ZTask selecteditem = (ZTask)MyTaskList.SelectedItem;
+                ZTask completeZTask = taskManager.GetZTask(selecteditem.Id);
+                TaskDetailsFrameEdit.Navigate(typeof(TaskEditor), completeZTask);
+            }
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -56,5 +88,6 @@ namespace ProjectManagmentApp.View
             TaskEditor.DeleteTaskEvent -= TaskEditor_DeleteTaskEvent;
             TaskEditor.UpdateTaskEvent -= TaskEditor_UpdateTaskEvent;
         }
+
     }
 }

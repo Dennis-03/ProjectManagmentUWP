@@ -56,7 +56,7 @@
                      AcceptsReturn="True" 
                      TextWrapping="Wrap"
                      TextChanged="ITaskDescripion_TextChanged"
-                     Text="{x:Bind ZTask.Description}"
+                     Text="{x:Bind ZTask.Description,Mode=TwoWay}"
                      Grid.Row="1"
                      Grid.Column="1"/>
 
@@ -85,7 +85,7 @@
                       SelectionChanged="UserSelectCB_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="model:User">
-                        <TextBlock Text="{x:Bind UserName}"/>
+                        <TextBlock Text="{x:Bind UserName,Mode=TwoWay}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

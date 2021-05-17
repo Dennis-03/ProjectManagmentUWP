@@ -38,7 +38,7 @@ namespace ProjectManagmentApp
             TitleBlock.Visibility = Visibility.Visible;
             NavigationMenu.Visibility = Visibility.Visible;
             TasksMenu.IsSelected = true;
-            if (userManager.GetUserId() == 0) 
+            if (userManager.GetUserId() == 0 || userManager.GetUser(userManager.GetUserId()) == null) 
             {
                 MainRenderFrame.Navigate(typeof(SignIn));
                 HideMenu();
