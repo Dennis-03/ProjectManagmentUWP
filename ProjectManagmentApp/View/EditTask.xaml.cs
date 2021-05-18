@@ -25,6 +25,11 @@ namespace ProjectManagmentApp.View
             this.InitializeComponent();
             _userId = userManager.GetUserId();
             _taskList = new ObservableCollection<ZTask>(taskManager.GetUserCreatedTasks(_userId));
+            if (_taskList.Count > 0)
+            {
+                TaskDetailsFrameEdit.Navigate(typeof(TaskEditor), _taskList[0]);
+                MyTaskList.SelectedIndex = 0;
+            }
         }
 
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
@@ -32,27 +37,28 @@ namespace ProjectManagmentApp.View
             ZTask clickedItem = (ZTask)e.ClickedItem;
             ZTask zTask = taskManager.GetZTask(clickedItem.Id);
             TaskDetailsFrameEdit.Navigate(typeof(TaskEditor), zTask);
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskListContainer.Visibility = Visibility.Collapsed;
+                TaskDetailsSV.Visibility = Visibility.Visible;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            SelectNextAvailable();
             TaskEditor.DeleteTaskEvent += TaskEditor_DeleteTaskEvent;
             TaskEditor.DeselectSelectedItem += TaskEditor_DeselectSelectedItem;
             TaskEditor.UpdateTaskEvent += TaskEditor_UpdateTaskEvent;
-            if (Window.Current.Bounds.Width < 900)
-                TaskData.MobileSupport += TaskData_MobileSupport;
         }
 
         private void TaskEditor_DeselectSelectedItem()
         {
             MyTaskList.SelectedItem = null;
-        }
-
-        private void TaskData_MobileSupport()
-        {
-            TaskDetailsSV.Visibility = Visibility.Collapsed;
-            TaskListContainer.Visibility = Visibility.Visible;
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskDetailsSV.Visibility = Visibility.Collapsed;
+                TaskListContainer.Visibility = Visibility.Visible;
+            }
         }
 
 
@@ -89,5 +95,13 @@ namespace ProjectManagmentApp.View
             TaskEditor.UpdateTaskEvent -= TaskEditor_UpdateTaskEvent;
         }
 
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Window.Current.Bounds.Width > 900)
+            {
+                TaskDetailsSV.Visibility = Visibility.Visible;
+                TaskListContainer.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

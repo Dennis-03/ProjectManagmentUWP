@@ -30,6 +30,12 @@ namespace ProjectManagmentApp.View
         public static event Action<long> DeleteTaskEvent;
         public static event Action<long> UpdateTaskEvent;
         public static event Action DeselectSelectedItem;
+        public static event Action MobileSupport;
+
+        public static void NotifyMobileSupport()
+        {
+            MobileSupport?.Invoke();
+        }
 
         public static void NotifyDeselectSelectedItem()
         {

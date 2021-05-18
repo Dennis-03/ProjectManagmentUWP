@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Unloaded="Page_Unloaded"
+    SizeChanged="Page_SizeChanged"
     Background="{ThemeResource SecondaryColor}">
 
     <Grid>
@@ -21,6 +22,7 @@
                     <VisualState.Setters>
                         <Setter Target="TaskDetailsSV.Visibility" Value="Collapsed"/>
                         <Setter Target="TaskListContainer.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskDetailsSV.(Grid.ColumnSpan)" Value="2"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -37,8 +39,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="625"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
             <ScrollViewer Name="TaskListContainer">
             <StackPanel Orientation="Vertical"

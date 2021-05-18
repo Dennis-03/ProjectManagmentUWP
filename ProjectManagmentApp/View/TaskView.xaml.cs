@@ -55,11 +55,10 @@ namespace ProjectManagmentApp.View
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TaskData.TaskCompleted += HandleTaskCompleted;
-            TaskData.SelectNextZtask += TaskData_SelectNextZtask;
-            TaskData.DeselectItem += TaskData_DeselectItem; ;
+            TaskData.DeselectItem += TaskData_DeselectItem;
             if (Window.Current.Bounds.Width < 900)
             {
-                TaskData.MobileSupport += TaskData_MobileSupport;
+                TaskDetailsSV.Visibility = Visibility.Collapsed;
             }
             _userName = userManager.GetUser(userManager.GetUserId()).UserName;
             SelectNextAvailable();
@@ -69,25 +68,11 @@ namespace ProjectManagmentApp.View
         private void TaskData_DeselectItem()
         {
             TaskList.SelectedItem = null;
-        }
-
-        private void TaskData_MobileSupport()
-        {
-            if (TaskList.SelectedItem == null)
+            if (Window.Current.Bounds.Width < 900)
             {
-                TaskDetailsSV.Visibility = Visibility.Collapsed;
                 TaskListContainer.Visibility = Visibility.Visible;
+                TaskDetailsSV.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                TaskListContainer.Visibility = Visibility.Collapsed;
-                TaskDetailsSV.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void TaskData_SelectNextZtask()
-        {
-            SelectNextAvailable();
         }
 
         private void SelectNextAvailable()
@@ -104,18 +89,29 @@ namespace ProjectManagmentApp.View
         private void HandleTaskCompleted(long taskId)
         {
             _taskList.Remove(_taskList.First(task=>task.Id==taskId));
+            SelectNextAvailable();
         }
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             TaskData.TaskCompleted -= HandleTaskCompleted;
+            TaskData.DeselectItem -= TaskData_DeselectItem;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Window.Current.Bounds.Width < 900)
             {
-                TaskData.MobileSupport += TaskData_MobileSupport;
+                if (TaskList.SelectedItem == null)
+                {
+                    TaskDetailsSV.Visibility = Visibility.Collapsed;
+                    TaskListContainer.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    TaskListContainer.Visibility = Visibility.Collapsed;
+                    TaskDetailsSV.Visibility = Visibility.Visible;
+                }
             }
             else
             {

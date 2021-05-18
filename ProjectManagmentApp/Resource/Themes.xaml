@@ -11,7 +11,7 @@
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="PrimaryColor" Color="#eef"/>
-            <SolidColorBrush x:Key="SecondaryColor" Color="#ccf"/>
+            <SolidColorBrush x:Key="SecondaryColor" Color="#ddd"/>
             <SolidColorBrush x:Key="TertairyColor" Color="blue"/>
             <SolidColorBrush x:Key="ButtonTextColor" Color="DarkBlue"/>
             <SolidColorBrush x:Key="BorderColor" Color="Black"/>
