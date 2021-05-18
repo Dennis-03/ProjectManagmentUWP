@@ -51,7 +51,8 @@ namespace ProjectManagmentApp.View
             TaskData.DeselectItem += TaskData_DeselectItem;
             if (Window.Current.Bounds.Width < 900)
             {
-                TaskData.MobileSupport += TaskData_MobileSupport;
+                TaskListContainer.Visibility = Visibility.Visible;
+                TaskDetailsSV.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -59,12 +60,11 @@ namespace ProjectManagmentApp.View
         {
             InCompleteTaskList.SelectedItem = null;
             CompletedTaskList.SelectedItem = null;
-        }
-
-        private void TaskData_MobileSupport()
-        {
-            TaskDetailsSV.Visibility = Visibility.Collapsed;
-            TaskListContainer.Visibility = Visibility.Visible;
+            if (Window.Current.Bounds.Width < 900)
+            {
+                TaskListContainer.Visibility = Visibility.Visible;
+                TaskDetailsSV.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void TaskData_SelectNextZtask()
@@ -98,6 +98,7 @@ namespace ProjectManagmentApp.View
             _inCompleteTaskList.Remove(zTask);
             _completedTaskList.Add(zTask);
         }
+
         private void InCompleteTasksButton_Click(object sender, RoutedEventArgs e)
         {
             if (InCompleteTaskList.Visibility == Visibility.Visible)
@@ -156,14 +157,22 @@ namespace ProjectManagmentApp.View
         {
             TaskData.TaskCompleted -= TaskData_TaskCompleted;
             TaskData.SelectNextZtask -= TaskData_SelectNextZtask;
-            TaskData.MobileSupport -= TaskData_MobileSupport;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Window.Current.Bounds.Width < 900)
             {
-                TaskData.MobileSupport += TaskData_MobileSupport;
+                if (CompletedTaskList.SelectedItem != null || InCompleteTaskList.SelectedItem == null)
+                {
+                    TaskDetailsSV.Visibility = Visibility.Visible;
+                    TaskListContainer.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    TaskDetailsSV.Visibility = Visibility.Collapsed;
+                    TaskListContainer.Visibility = Visibility.Visible;
+                }
             }
             else
             {

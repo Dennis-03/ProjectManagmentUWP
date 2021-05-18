@@ -79,12 +79,5 @@ namespace ProjectManagmentApp.View
                 DisplayError.Visibility = Visibility.Visible;
 
         }
-
-        private void DeleteTask_Click(object sender, RoutedEventArgs e)
-        {
-            taskManager.DeleteTask(ZTask.Id); 
-            TaskEditorContainer.Visibility = Visibility.Collapsed;
-            NotifyDeleteTaskEvent(ZTask.Id);
-        }
     }
 }

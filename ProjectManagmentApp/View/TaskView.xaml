@@ -83,7 +83,7 @@
         </ScrollViewer>
         <ScrollViewer 
             Name="TaskDetailsSV">
-            <Frame Name="TaskDetailsFrame"/>
+            <Frame Name="TaskDetailsFrame" />
         </ScrollViewer>
     </Grid>
 </Page>

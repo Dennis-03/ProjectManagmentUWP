@@ -64,11 +64,6 @@ namespace ProjectManagmentApp
             {
                 MainRenderFrame.Navigate(typeof(CreateTaskView));
             }
-            if (EditTask.IsSelected)
-            {
-                MainRenderFrame.Navigate(typeof(EditTask));
-            }
-
         }
 
         public void RedirectSignIn()

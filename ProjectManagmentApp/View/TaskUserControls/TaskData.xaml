@@ -9,6 +9,19 @@
     mc:Ignorable="d"
     Loaded="UserControl_Loaded">
 
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="Icons">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Background" Value="{ThemeResource SecondaryColor}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+    </UserControl.Resources>
+
     <StackPanel 
             Name="TaskDataContent" 
             Orientation="Vertical" 
@@ -21,17 +34,43 @@
                        FontSize="26"
                        FontWeight="Bold"/>
             <Button 
-                    Background="{ThemeResource SecondaryColor}"
-                    Content="&#xE10A;"
-                    Name="CloseTask"
-                    FontFamily="Segoe MDL2 Assets"
-                    HorizontalAlignment="Right"
-                    RelativePanel.AlignRightWithPanel="True"
-                    Padding="2"
-                    CornerRadius="3"
-                    Width="30"
-                    Height="30"
-                    Click="CloseTask_Click"/>
+                Style="{StaticResource Icons}"
+                Content="&#xE10A;"
+                Name="CloseTask"
+                RelativePanel.AlignRightWithPanel="True"
+                Click="CloseTask_Click"/>
+            <Button 
+                Style="{StaticResource Icons}"
+                Content="&#xE104;"
+                Name="EditTaskBtn"
+                RelativePanel.LeftOf="CloseTask"
+                Click="EditTaskBtn_Click"
+                Visibility="Collapsed"/>
+            <Button 
+                Style="{StaticResource Icons}"
+                Content="&#xE107;"
+                Name="DeleteTaskBtnFlyout"
+                RelativePanel.LeftOf="EditTaskBtn"
+                Visibility="Collapsed">
+                <Button.Flyout>
+                    <Flyout>
+                        <StackPanel>
+                            <TextBlock
+                                Text="Are you sure you want to delete"
+                                Margin="10,0,10,10"/>
+                            <Button
+                                Style="{StaticResource MyButtonStyle}"
+                                HorizontalAlignment="Right"
+                                Name="DeleteTaskBtn"
+                                Content="Delete"
+                                Background="Red"
+                                Foreground="White"
+                                CornerRadius="5"
+                                Click="DeleteTaskBtn_Click"/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </RelativePanel>
 
         <Grid Margin="0,20,0,0">
@@ -118,17 +157,6 @@
                 RelativePanel.AlignVerticalCenterWithPanel="True"
                 Foreground="{ThemeResource SystemBaseMediumColor}"/>
             <Button 
-                x:Uid="CommentBtn"
-                Style="{StaticResource MyButtonStyle}"
-                Name="ShowComment"
-                Click="ShowComment_Click"
-                Content="Comment"
-                Margin="10,0"
-                Padding="0"
-                RelativePanel.RightOf="NoOfLikesTB"
-                RelativePanel.AlignVerticalCenterWithPanel="True"
-                Background="{ThemeResource SecondaryColor}"/>
-            <Button 
                 x:Uid="Completed"
                 Style="{StaticResource MyButtonStyle}"
                 Name="MarkCompleted"
@@ -143,8 +171,7 @@
         </RelativePanel>
 
 
-        <RelativePanel Name="CommentBox"
-                       Visibility="Collapsed">
+        <RelativePanel Name="CommentBox">
             <TextBox 
                 x:Uid="AddComment"
                 Style="{StaticResource TransparentTextBox}"
@@ -165,7 +192,9 @@
                 VerticalAlignment="Center"
                 RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel 
+            Name="CommentsContainer"
+            Orientation="Horizontal">
             <TextBlock 
                 x:Uid="Comment"
                 FontSize="20"

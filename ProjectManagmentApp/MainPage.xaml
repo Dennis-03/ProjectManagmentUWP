@@ -96,14 +96,6 @@
                                            Style="{StaticResource NavSyle}"/>
                             </StackPanel>
                         </ListBoxItem>
-                        <ListBoxItem Name="EditTask" CornerRadius="5">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE75C;"
-                                           Style="{StaticResource Icons}" />
-                                <TextBlock x:Uid="EditTasksNav"
-                                           Style="{StaticResource NavSyle}"/>
-                            </StackPanel>
-                        </ListBoxItem>
                     </ListBox>
                     <Button Style="{StaticResource MyButtonStyle}"
                             RelativePanel.AlignBottomWithPanel="True"

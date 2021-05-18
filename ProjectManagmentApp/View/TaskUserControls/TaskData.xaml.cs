@@ -75,19 +75,26 @@ namespace ProjectManagmentApp.View.TaskUserControls
         }
 
         public static event Action<long> TaskCompleted;
+        public static event Action<long> TaskEditor;
+        public static event Action<long> DeleteTask;
         public static event Action SelectNextZtask;
-        public static event Action MobileSupport;
         public static event Action DeselectItem;
+
+        public static void NotifyTaskEditor(long taskId)
+        {
+            TaskEditor?.Invoke(taskId);
+        }
+
+        public static void NotifyDeleteTask(long taskId) 
+        {
+            DeleteTask?.Invoke(taskId);
+        }
 
         public static void NotifyDeselectItem()
         {
             DeselectItem?.Invoke();
         }
 
-        public static void NotifyMobileSupport()
-        {
-            MobileSupport?.Invoke();
-        }
         public static void NotifySelectNextZtask()
         {
             SelectNextZtask?.Invoke();
@@ -106,23 +113,26 @@ namespace ProjectManagmentApp.View.TaskUserControls
             if (_noOfLikes != 0)
                 NoOfLikesTB.Text = _noOfLikes.ToString();
             _noOfComments = Comments.Count;
+            if (_noOfComments == 0)
+                CommentsContainer.Visibility = Visibility.Collapsed;
+
             NoOfCommentsTB.Text = _noOfComments.ToString();
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             _ztask.Reaction.ForEach(like => {
                 if (like.ReactedById == _userId)
-                {
                     buttonIcon = HttpUtility.HtmlDecode("&#xE00B;");
-                }
             });
             LikeReaction.Content = buttonIcon;
+
             if (_ztask.Completed == false && _ztask.AssignedTo == _userId)
-            {
                 MarkCompleted.Visibility = Visibility.Visible;
-            }
-            else
+
+            if (_ztask.AssignedBy == userManager.GetUserId())
             {
-                MarkCompleted.Visibility = Visibility.Collapsed;
+                EditTaskBtn.Visibility = Visibility.Visible;
+                DeleteTaskBtnFlyout.Visibility = Visibility.Visible;
             }
+
         }
 
         private void ShowComment_Click(object sender, RoutedEventArgs e)
@@ -164,7 +174,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {
             TaskDataContent.Visibility = Visibility.Collapsed;
             NotifyDeselectItem();
-            NotifyMobileSupport();
         }
 
         private void MarkCompleted_Click(object sender, RoutedEventArgs e)
@@ -174,6 +183,17 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _ztask.Completed = true;
             taskManager.MarkCompleted(_ztask.Id);
             TaskDataContent.Visibility = Visibility.Collapsed;
+        }
+
+        private void DeleteTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            taskManager.DeleteTask(_ztask.Id);
+            NotifyTaskCompleted(_ztask.Id);
+        }
+
+        private void EditTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotifyTaskEditor(_ztask.Id);
         }
     }
 }

@@ -56,6 +56,8 @@ namespace ProjectManagmentApp.View
         {
             TaskData.TaskCompleted += HandleTaskCompleted;
             TaskData.DeselectItem += TaskData_DeselectItem;
+            TaskData.TaskEditor += TaskData_TaskEditor;
+            TaskEditor.UpdateTaskEvent += TaskEditor_UpdateTaskEvent;
             if (Window.Current.Bounds.Width < 900)
             {
                 TaskDetailsSV.Visibility = Visibility.Collapsed;
@@ -63,6 +65,19 @@ namespace ProjectManagmentApp.View
             _userName = userManager.GetUser(userManager.GetUserId()).UserName;
             SelectNextAvailable();
             WelcomeUserName.Text = String.Format(" {0} !!!", _userName);
+        }
+
+        private void TaskEditor_UpdateTaskEvent(long taskId)
+        {
+            var index = _taskList.IndexOf(_taskList.FirstOrDefault(task=>task.Id==taskId));
+            _taskList.RemoveAt(index);
+            _taskList.Insert(index, taskManager.GetZTask(taskId));
+            SelectNextAvailable();
+        }
+
+        private void TaskData_TaskEditor(long taskId)
+        {
+            TaskDetailsFrame.Navigate(typeof(TaskEditor), taskManager.GetZTask(taskId));
         }
 
         private void TaskData_DeselectItem()
@@ -96,6 +111,7 @@ namespace ProjectManagmentApp.View
         {
             TaskData.TaskCompleted -= HandleTaskCompleted;
             TaskData.DeselectItem -= TaskData_DeselectItem;
+            TaskData.TaskEditor -= TaskData_TaskEditor;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
