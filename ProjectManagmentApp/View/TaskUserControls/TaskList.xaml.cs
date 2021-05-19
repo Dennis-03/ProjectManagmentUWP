@@ -30,5 +30,22 @@ namespace ProjectManagmentApp.View.TaskUserControls
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ZTask != null)
+            {
+                var commentedDateTimeOffset = DateTime.Now.Subtract(ZTask.AssignedDate);
+
+                if (commentedDateTimeOffset.Days >= 7)
+                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalDays / 7}w ago";
+                else if (commentedDateTimeOffset.Days >= 1)
+                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalDays}d ago";
+                else if (commentedDateTimeOffset.Hours > 1)
+                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalHours}h ago";
+                else
+                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalMinutes}m ago";
+            }
+        }
     }
 }

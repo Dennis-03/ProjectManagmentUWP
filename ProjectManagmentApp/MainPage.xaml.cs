@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -54,14 +55,17 @@ namespace ProjectManagmentApp
         {
             if (TasksMenu.IsSelected)
             {
+                TitleBlockText.Text = "All Tasks";
                 MainRenderFrame.Navigate(typeof(TaskView));
             }
             if (MyTasksMenu.IsSelected)
             {
+                TitleBlockText.Text = "My Tasks";
                 MainRenderFrame.Navigate(typeof(MyTasksView));
             }
             if (CreateTaskMenu.IsSelected)
             {
+                TitleBlockText.Text = "Create Task";
                 MainRenderFrame.Navigate(typeof(CreateTaskView));
             }
         }

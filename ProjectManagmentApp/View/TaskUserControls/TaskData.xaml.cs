@@ -28,6 +28,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private int _noOfComments = 0;
         private ZTask _ztask;
         private long _userId;
+        private List<string> _reactersName =new List<string>();
+
 
         TaskManager taskManager = TaskManager.GetTaskManager();
         CommentManager commentManager = CommentManager.GetCommentManager();
@@ -76,18 +78,12 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         public static event Action<long> TaskCompleted;
         public static event Action<long> TaskEditor;
-        public static event Action<long> DeleteTask;
         public static event Action SelectNextZtask;
         public static event Action DeselectItem;
 
         public static void NotifyTaskEditor(long taskId)
         {
             TaskEditor?.Invoke(taskId);
-        }
-
-        public static void NotifyDeleteTask(long taskId) 
-        {
-            DeleteTask?.Invoke(taskId);
         }
 
         public static void NotifyDeselectItem()
@@ -109,9 +105,20 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {
             _ztask = ZTask;
             _userId = userManager.GetUserId();
+
+            _ztask.Reaction.ForEach(like =>
+            {
+                if (like.ReactedById == _userId)
+                    _reactersName.Insert(0, "You");
+                else
+                    _reactersName.Add(userManager.GetUser(like.ReactedById).UserName);
+            });
+
+            ReactersName.Text = string.Join(", ",_reactersName);
+
             _noOfLikes = _ztask.Reaction.Count;
             if (_noOfLikes != 0)
-                NoOfLikesTB.Text = _noOfLikes.ToString();
+                NoOfLikesTB.Content = _noOfLikes.ToString();
             _noOfComments = Comments.Count;
             if (_noOfComments == 0)
                 CommentsContainer.Visibility = Visibility.Collapsed;
@@ -166,7 +173,9 @@ namespace ProjectManagmentApp.View.TaskUserControls
             bool status = reactionManager.AddReaction(_userId, _ztask.Id);
             if (status) {
                 _noOfLikes += 1;
-                NoOfLikesTB.Text = _noOfLikes.ToString();
+                NoOfLikesTB.Content = _noOfLikes.ToString();
+                _reactersName.Insert(0, "You");
+                ReactersName.Text = string.Join(", ", _reactersName);
             }
         }
 
@@ -189,6 +198,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {
             taskManager.DeleteTask(_ztask.Id);
             NotifyTaskCompleted(_ztask.Id);
+            DeleteTaskBtnFlyout.Flyout.Hide();
         }
 
         private void EditTaskBtn_Click(object sender, RoutedEventArgs e)

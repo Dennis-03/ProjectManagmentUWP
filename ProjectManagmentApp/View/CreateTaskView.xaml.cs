@@ -51,9 +51,40 @@ namespace ProjectManagmentApp.View
                 taskManager.AddTask(_zTask);
                 TaskDetailsFrame.Navigate(typeof(TaskDetails),_zTask);
                 NotifyResetTaskControls();
+                TaskDetailsSV.Visibility = Visibility.Visible;
             }
             else
                 DisplayError.Visibility = Visibility.Visible;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted += TaskData_TaskCompleted;
+            TaskData.TaskEditor += TaskData_TaskEditor;
+            TaskEditor.UpdateTaskEvent += TaskEditor_UpdateTaskEvent;
+        }
+
+        private void TaskEditor_UpdateTaskEvent(long taskId)
+        {
+            ZTask zTask = taskManager.GetZTask(taskId);
+            TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
+        }
+
+        private void TaskData_TaskEditor(long taskId)
+        {
+            ZTask zTask = taskManager.GetZTask(taskId);
+            TaskDetailsFrame.Navigate(typeof(TaskEditor), zTask);
+        }
+
+        private void TaskData_TaskCompleted(long taskId)
+        {
+            TaskDetailsSV.Visibility = Visibility.Collapsed;
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            TaskData.TaskCompleted -= TaskData_TaskCompleted;
+            TaskData.TaskEditor += TaskData_TaskEditor;
         }
     }
 }

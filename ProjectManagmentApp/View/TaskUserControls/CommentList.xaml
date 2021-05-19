@@ -16,6 +16,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -51,60 +52,71 @@
                 Orientation="Horizontal"
                 Grid.Row="1"
                 Grid.Column="1">
-                <TextBlock 
-                    Name="CommentedDateTimeTB"
-                    FontSize="10"
-                    VerticalAlignment="Center"/>
-                <TextBlock 
-                    Name="LikeCountTB"
-                    Margin="20,0,5,0"
-                    FontSize="10"
-                    VerticalAlignment="Center"/>
-                <TextBlock 
-                    x:Uid="Like"
-                    FontSize="10"
-                    VerticalAlignment="Center"/>
-                <Button 
+                <Button
                     Style="{StaticResource MyButtonStyle}"
-                    x:Uid="Reply"
-                    Name="AddReply"
                     Padding="0"
-                    Margin="20,0,0,0"
+                    Name="LikeCommentBtn" 
+                    FontFamily="Segoe MDL2 Assets"
+                    Foreground="HotPink"
+                    Click="LikeComment_Click"
+                    Background="{ThemeResource PrimaryColor}"
+                    FontSize="10"/>
+                <Button
+                    Style="{StaticResource MyButtonStyle}"
+                    Name="LikeCountTB"
+                    Padding="0"
                     FontSize="10"
-                    Background="{ThemeResource PrimaryColor}">
+                    VerticalAlignment="Center">
                     <Button.Flyout>
-                        <Flyout
-                            Placement="BottomEdgeAlignedLeft"
-                            x:Name="ButtonFlyout">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBox 
-                                    Style="{StaticResource TransparentTextBox}"
-                                    Name="CommentTB"
-                                    PlaceholderText="Add a comment"
-                                    Width="300"/>
-                                <Button 
-                                    Style="{StaticResource MyButtonStyle}"
-                                    Name="Send"
-                                    Click="Send_Click"
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="26"
-                                    Padding="5,0"
-                                    Content="&#xE122;"/>
-                            </StackPanel>
+                        <Flyout>
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Background" Value="{ThemeResource PrimaryColor}"/>
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                    <Setter Property="BorderBrush" Value="{ThemeResource TertairyColor}"/>
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <TextBlock Name="ReactersName"/>
                         </Flyout>
                     </Button.Flyout>
                 </Button>
+                <Button 
+                    Style="{StaticResource MyButtonStyle}"
+                    x:Uid="Reply"
+                    Name="AddReplyHolder"
+                    Padding="0"
+                    Margin="8,0,0,0"
+                    FontSize="10"
+                    Click="AddReplyHolder_Click"
+                    Background="{ThemeResource PrimaryColor}"/>
             </StackPanel>
-            <Button
-                Style="{StaticResource MyButtonStyle}"
-                Name="LikeCommentBtn" 
-                FontFamily="Segoe MDL2 Assets"
-                Foreground="HotPink"
-                Click="LikeComment_Click"
-                Background="{ThemeResource PrimaryColor}"
+            <TextBlock 
+                Name="CommentedDateTimeTB"
                 FontSize="10"
                 Grid.Column="2"
-                Grid.RowSpan="2"/>
+                VerticalAlignment="Center"/>
+            <RelativePanel 
+                Name="AddReplyContainer"
+                Grid.Row="3" 
+                Grid.ColumnSpan="3"
+                Visibility="Collapsed">
+                <TextBox 
+                    Style="{StaticResource TransparentTextBox}"
+                    Name="CommentTB"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWith="Send"
+                    Margin="0,0,50,0"
+                    PlaceholderText="Add a comment"/>
+                <Button 
+                    Style="{StaticResource MyButtonStyle}"
+                    Name="Send"
+                    Click="Send_Click"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="26"
+                    Padding="5,0"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Content="&#xE122;"/>
+            </RelativePanel>
         </Grid>
         <ListView 
             x:Name="ReplyList"

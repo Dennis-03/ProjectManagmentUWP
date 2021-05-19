@@ -65,6 +65,13 @@ namespace ProjectManagmentApp.View.TaskUserControls
             {
                 IDueDate.Date = DateTime.SpecifyKind(ZTask.DueDate, DateTimeKind.Utc);
             }
+            CreateTaskView.ResetTaskControls += CreateTaskView_ResetTaskControls;
+        }
+
+        private void CreateTaskView_ResetTaskControls()
+        {
+            ITaskName.Text = "";
+            ITaskDescripion.Text = "";
         }
 
         private void IDueDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)

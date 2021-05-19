@@ -30,14 +30,15 @@ namespace ProjectManagmentApp.View
     public sealed partial class TaskView : Page
     {
         private ObservableCollection<ZTask> _taskList;
+        private List<ZTask> _allTasks;
         TaskManager taskManager = TaskManager.GetTaskManager();
         UserManager userManager = UserManager.GetUserManager();
-        private string _userName;
 
         public TaskView()
         {
             this.InitializeComponent();
-            _taskList = new ObservableCollection<ZTask>(taskManager.ListAllTasks());
+            _allTasks = new List<ZTask>(taskManager.ListAllTasks());
+            _taskList = new ObservableCollection<ZTask>(_allTasks);
         }
 
         private void TaskList_ItemClick(object sender, ItemClickEventArgs e)
@@ -62,9 +63,8 @@ namespace ProjectManagmentApp.View
             {
                 TaskDetailsSV.Visibility = Visibility.Collapsed;
             }
-            _userName = userManager.GetUser(userManager.GetUserId()).UserName;
             SelectNextAvailable();
-            WelcomeUserName.Text = String.Format(" {0} !!!", _userName);
+            Filter.SelectedIndex = 0;
         }
 
         private void TaskEditor_UpdateTaskEvent(long taskId)
@@ -98,12 +98,14 @@ namespace ProjectManagmentApp.View
             {
                 ZTask zTask = taskManager.GetZTask(selectedItem.Id);
                 TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask, new SuppressNavigationTransitionInfo());
+                TaskDetailsSV.Visibility = Visibility.Visible;
             }
         }
 
         private void HandleTaskCompleted(long taskId)
         {
             _taskList.Remove(_taskList.First(task=>task.Id==taskId));
+            TaskDetailsSV.Visibility = Visibility.Collapsed;
             SelectNextAvailable();
         }
 
@@ -112,6 +114,7 @@ namespace ProjectManagmentApp.View
             TaskData.TaskCompleted -= HandleTaskCompleted;
             TaskData.DeselectItem -= TaskData_DeselectItem;
             TaskData.TaskEditor -= TaskData_TaskEditor;
+            TaskEditor.UpdateTaskEvent -= TaskEditor_UpdateTaskEvent;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -132,6 +135,43 @@ namespace ProjectManagmentApp.View
             else
             {
                 TaskListContainer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            var item = (ComboBoxItem)combo.SelectedItem;
+            long userId = userManager.GetUserId();
+            if (item.Content.ToString() == "My Tasks")
+            {
+                _taskList.Clear();
+                _allTasks.ForEach(task =>
+                {
+                    if (task.AssignedTo == userId)
+                        _taskList.Add(task);
+                });
+                SelectNextAvailable();
+            }
+            if (item.Content.ToString() == "Tasks by me")
+            {
+                _taskList.Clear();
+                _allTasks.ForEach(task =>
+                {
+                    if (task.AssignedBy == userId)
+                        _taskList.Add(task);
+                });
+                SelectNextAvailable();
+            }
+            if (item.Content.ToString() == "All Tasks")
+            {
+                if (_taskList != null)
+                    _taskList.Clear();
+                _allTasks.ForEach(task =>
+                {
+                    _taskList.Add(task);
+                });
+                SelectNextAvailable();
             }
         }
     }
