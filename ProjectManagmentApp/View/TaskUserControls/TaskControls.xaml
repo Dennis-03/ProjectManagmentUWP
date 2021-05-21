@@ -19,6 +19,34 @@
     </UserControl.Resources>
 
     <StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ITaskName.Width" Value="350"/>
+                        <Setter Target="ITaskDescripion.Width" Value="350"/>
+                        <Setter Target="PriorityComboBox.Width" Value="350"/>
+                        <Setter Target="UserSelectCB.Width" Value="350"/>
+                        <Setter Target="IDueDate.MinWidth" Value="350"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ITaskName.Width" Value="250"/>
+                        <Setter Target="ITaskDescripion.Width" Value="250"/>
+                        <Setter Target="PriorityComboBox.Width" Value="250"/>
+                        <Setter Target="UserSelectCB.Width" Value="250"/>
+                        <Setter Target="IDueDate.Width" Value="250"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -37,7 +65,7 @@
             
             <TextBox Name="ITaskName"
                      Style="{StaticResource TransparentTextBox}"
-                     Width="350"
+                     Width="200"
                      AcceptsReturn="True" 
                      TextWrapping="Wrap"
                      MaxHeight="70"
@@ -51,7 +79,7 @@
                        Grid.Row="1"/>
             <TextBox Name="ITaskDescripion"
                      Style="{StaticResource TransparentTextBox}"
-                     Width="350"
+                     Width="200"
                      MaxHeight="150"
                      AcceptsReturn="True" 
                      TextWrapping="Wrap"
@@ -68,7 +96,7 @@
                       Grid.Column="1"
                       Grid.Row="2"
                       Margin="0,20"
-                      Width="350"
+                      Width="200"
                       SelectionChanged="PriorityComboBox_SelectionChanged">
                 <ComboBoxItem Content="Low"/>
                 <ComboBoxItem Content="Medium"/>
@@ -81,7 +109,7 @@
             <ComboBox Name="UserSelectCB"
                       Grid.Row="3"
                       Grid.Column="1"
-                      Width="350"
+                      Width="200"
                       SelectionChanged="UserSelectCB_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="model:User">
@@ -100,7 +128,6 @@
                         Margin="0,20"
                         Grid.Row="4"
                         Grid.Column="1"
-                        Width="350"
                         DateChanged="IDueDate_DateChanged"/>
         </Grid>
     </StackPanel>

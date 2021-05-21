@@ -22,30 +22,36 @@ namespace ProjectManagmentApp.View.TaskUserControls
 {
     public sealed partial class TaskList : UserControl
     {
-        public ZTask ZTask { get { return this.DataContext as ZTask; } }
-
         UserManager userManager = UserManager.GetUserManager();
+
+        public ZTask ZTask
+        {
+            get { return (ZTask)GetValue(ZTaskProperty); }
+            set { SetValue(ZTaskProperty, value); }
+        }
+        public static readonly DependencyProperty ZTaskProperty = DependencyProperty.Register("ZTask", typeof(ZTask), typeof(TaskList), null);
+
         public TaskList()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) => Bindings.Update();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        public static string TimeDifference(DateTime assignedDate)
         {
-            if (ZTask != null)
-            {
-                var commentedDateTimeOffset = DateTime.Now.Subtract(ZTask.AssignedDate);
+            var dateTimeDifference = DateTime.UtcNow - assignedDate;
 
-                if (commentedDateTimeOffset.Days >= 7)
-                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalDays / 7}w ago";
-                else if (commentedDateTimeOffset.Days >= 1)
-                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalDays}d ago";
-                else if (commentedDateTimeOffset.Hours > 1)
-                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalHours}h ago";
-                else
-                    DateTimeDifference.Text = $"{(int)commentedDateTimeOffset.TotalMinutes}m ago";
-            }
+            if (dateTimeDifference.Days >= 30)
+                return $"{(int)dateTimeDifference.TotalDays / 30}mon ago";
+            else if (dateTimeDifference.Days >= 7)
+                return $"{(int)dateTimeDifference.TotalDays / 7}w ago";
+            else if (dateTimeDifference.Days >= 1)
+                return $"{(int)dateTimeDifference.TotalDays}d ago";
+            else if (dateTimeDifference.Hours >= 1)
+                return $"{(int)dateTimeDifference.TotalHours}h ago";
+            else if (dateTimeDifference.Minutes >= 1)
+                return $"{(int)dateTimeDifference.TotalMinutes}m ago";
+            else
+                return $"{(int)dateTimeDifference.TotalSeconds}s ago";
         }
     }
 }

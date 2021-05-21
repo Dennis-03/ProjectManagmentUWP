@@ -15,31 +15,35 @@ namespace ProjectManagmentApp.View.TaskUserControls
 {
     public sealed partial class CommentList : UserControl
     {
-        public Comment CommentData { get; set; }
         UserManager userManager = UserManager.GetUserManager();
         ReactionManager reactionManager = ReactionManager.GetReactionManager();
         CommentManager commentManager = CommentManager.GetCommentManager();
         private long userId;
         private int NoOfLikes;
-        private Comment _comment;
         public ObservableCollection<Comment> Replies;
-        private List<string> _reactersName = new List<string>();
+        private List<string> _reactersName;
 
+        public Comment Comment
+        {
+            get { return (Comment)GetValue(CommentProperty); }
+            set { SetValue(CommentProperty, Comment); }
+        }
+
+        public static readonly DependencyProperty CommentProperty = DependencyProperty.Register("Comment", typeof(Comment), typeof(CommentList), null);
 
         public CommentList()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) => { CommentData = DataContext as Comment; };
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {   
-            _comment = CommentData;
+        {
             userId = userManager.GetUserId();
-            var user = userManager.GetUser(_comment.UserId);
+            var user = userManager.GetUser(Comment.UserId);
             UserNameTB.Text = user.UserName;
 
-            _comment.Reaction.ForEach(like =>
+            _reactersName = new List<string>();
+            Comment.Reaction.ForEach(like =>
             {
                 if (like.ReactedById == userId)
                     _reactersName.Insert(0, "You");
@@ -48,38 +52,48 @@ namespace ProjectManagmentApp.View.TaskUserControls
             });
             ReactersName.Text = string.Join(", ", _reactersName);
 
-
-            var commentedDateTimeOffset = DateTime.Now.Subtract(_comment.commentedDateTime);
-
-            if (commentedDateTimeOffset.Days >= 1)
-                CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalDays}d ago";
-            else if(commentedDateTimeOffset.Hours >=1 )
-                CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalHours}h ago";
-            else
-                CommentedDateTimeTB.Text = $"{(int)commentedDateTimeOffset.TotalMinutes}m ago";
-
-            NoOfLikes = _comment.Reaction.Count();
+            NoOfLikes = Comment.Reaction.Count();
             if (NoOfLikes != 0)
                 LikeCountTB.Content = NoOfLikes.ToString();
-            UserCommentTB.Text = _comment.CommentString;
-
-            Replies = new ObservableCollection<Comment>(_comment.Reply);
-            ReplyList.ItemsSource = Replies;
+            UserCommentTB.Text = Comment.CommentString;
 
             Uri uri = new Uri(user.AvatarPath, UriKind.Absolute);
             CommenterAvatar.Source = new BitmapImage(uri);
 
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
-            _comment.Reaction.ForEach(like=> {
+            Comment.Reaction.ForEach(like =>
+            {
                 if (like.ReactedById == userId)
                     buttonIcon = HttpUtility.HtmlDecode("&#xE00B;");
             });
             LikeCommentBtn.Content = buttonIcon;
+            Replies = new ObservableCollection<Comment>(Comment.Reply);
+            ReplyList.ItemsSource = Replies;
+        }
+
+        public static string TimeDifference(DateTime commentedTime)
+        {
+            var dateTimeDifference = DateTime.UtcNow - commentedTime;
+
+            if (dateTimeDifference.Days >= 30)
+                return $"{(int)dateTimeDifference.TotalDays / 30}mon ago";
+            else if (dateTimeDifference.Days >= 7)
+                return $"{(int)dateTimeDifference.TotalDays / 7}w ago";
+            else if (dateTimeDifference.Days >= 1)
+                return $"{(int)dateTimeDifference.TotalDays}d ago";
+            else if (dateTimeDifference.Hours >= 1)
+                return $"{(int)dateTimeDifference.TotalHours}h ago";
+            else if (dateTimeDifference.Minutes >= 1)
+                return $"{(int)dateTimeDifference.TotalMinutes}m ago";
+            else if (dateTimeDifference.Seconds >= 0)
+                return $"{(int)dateTimeDifference.TotalSeconds}s ago";
+            else
+                return $"1s ago";
         }
 
         private void LikeComment_Click(object sender, RoutedEventArgs e)
         {
-            bool status=reactionManager.AddReaction(userId, _comment.Id);
+            bool status = reactionManager.AddReaction(userId, Comment.Id);
             if (status)
             {
                 LikeCommentBtn.Content = HttpUtility.HtmlDecode("&#xE00B;");
@@ -93,17 +107,17 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(CommentTB.Text))
+            if (!string.IsNullOrEmpty(CommentTB.Text))
             {
                 Comment addComment = new Comment
                 {
-                    TaskID = _comment.TaskID,
+                    TaskID = Comment.TaskID,
                     CommentString = CommentTB.Text,
-                    ParentId = _comment.Id,
+                    ParentId = Comment.Id,
                     commentedDateTime = DateTime.Now,
                     UserId = userId
                 };
-                Replies.Insert(0,addComment);
+                Replies.Insert(0, addComment);
                 commentManager.AddComment(addComment);
                 AddReplyContainer.Visibility = Visibility.Collapsed;
             }

@@ -92,13 +92,16 @@ namespace ProjectManagmentApp.View
 
         private void SelectNextAvailable()
         {
-            TaskList.SelectedIndex = 0;
-            var selectedItem = (ZTask)TaskList.SelectedItem;
-            if (selectedItem != null)
+            if (Window.Current.Bounds.Width > 900)
             {
-                ZTask zTask = taskManager.GetZTask(selectedItem.Id);
-                TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask, new SuppressNavigationTransitionInfo());
-                TaskDetailsSV.Visibility = Visibility.Visible;
+                TaskList.SelectedIndex = 0;
+                var selectedItem = (ZTask)TaskList.SelectedItem;
+                if (selectedItem != null)
+                {
+                    ZTask zTask = taskManager.GetZTask(selectedItem.Id);
+                    TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask, new SuppressNavigationTransitionInfo());
+                    TaskDetailsSV.Visibility = Visibility.Visible;
+                }
             }
         }
 

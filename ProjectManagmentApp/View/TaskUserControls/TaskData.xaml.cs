@@ -142,11 +142,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         }
 
-        private void ShowComment_Click(object sender, RoutedEventArgs e)
-        {
-            CommentBox.Visibility = Visibility.Visible;
-        }
-
         private void SendClick_Click(object sender, RoutedEventArgs e)
         {
             if (!String.IsNullOrEmpty(AddComment.Text))
@@ -160,7 +155,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 };
                 commentManager.AddComment(comment);
                 Comments.Insert(0, comment);
-                CommentBox.Visibility = Visibility.Collapsed;
                 AddComment.Text = "";
                 _noOfComments += 1;
                 NoOfCommentsTB.Text = _noOfComments.ToString();

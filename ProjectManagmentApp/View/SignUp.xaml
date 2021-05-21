@@ -47,21 +47,24 @@
                     Height="40"
                     Background="{ThemeResource PrimaryColor}"
                     Padding="0"
-                    Width="180"
+                    Width="80"
                     SelectionChanged="AvatarCB_SelectionChanged"
                     ItemsSource="{x:Bind _avatarList}"
-                    Margin="20,0">
+                    Margin="30,0,10,0">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="data:Avatar">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{x:Bind Path}"
                                    Width="30"/>
-                                <TextBlock Text="{x:Bind AvatarName}"
-                                           Margin="10,0"/>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
+                <Button 
+                    Name="CustomAvatar"
+                    Style="{StaticResource MyButtonStyle}"
+                    Content="Choose custom avatar"
+                    Click="CustomAvatar_Click"/>
 
             </StackPanel>
 

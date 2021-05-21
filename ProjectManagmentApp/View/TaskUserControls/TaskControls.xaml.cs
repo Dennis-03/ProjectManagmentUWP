@@ -46,7 +46,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _users = new List<User>(userManager.GetAllUsers().Where(task=>task.Id!=userManager.GetUserId()));
             UserSelectCB.ItemsSource = _users;
             _zTask.AssignedBy = userManager.GetUserId();
-            _zTask.AssignedDate = DateTime.Now;
+            if(_zTask.AssignedDate==null)
+                _zTask.AssignedDate = DateTime.UtcNow;
             if (ZTask.Priority == PriorityEnum.High)
             {
                 PriorityComboBox.SelectedIndex = 2;

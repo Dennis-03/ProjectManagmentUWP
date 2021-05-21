@@ -82,7 +82,7 @@
                           ItemClick="TaskList_ItemClick">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ZTask">
-                            <local:TaskList/>
+                            <local:TaskList ZTask="{Binding}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.ItemContainerStyle>

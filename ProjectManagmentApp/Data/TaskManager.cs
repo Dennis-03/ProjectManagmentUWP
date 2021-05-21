@@ -49,6 +49,7 @@ namespace ProjectManagmentApp.Data
         public void AddTask(ZTask zTask)
         {
             zTask.Id = DateTime.Now.Ticks;
+            zTask.AssignedDate = DateTime.Now;
             conn.Insert(zTask);
         }
 

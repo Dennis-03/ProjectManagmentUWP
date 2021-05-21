@@ -20,6 +20,7 @@
                     <VisualState.Setters>
                         <Setter Target="TaskDetailsSV.Visibility" Value="Collapsed"/>
                         <Setter Target="TaskCreate.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TaskCreate.Width" Value="350"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -43,6 +44,7 @@
             Name="TaskCreate"
             Margin="50"
             VerticalAlignment="Top"
+            HorizontalAlignment="Left"
             Background="{ThemeResource PrimaryColor}"
             Padding="20"
             CornerRadius="5">
@@ -66,7 +68,7 @@
                 Background="{ThemeResource PrimaryColor}"
                 Foreground="{ThemeResource TertairyColor}"
                 BorderBrush="{ThemeResource TertairyColor}"
-                CornerRadius="3"
+                CornerRadius="5"
                 Click="CreateTask_Click"/>
         </StackPanel>
         <ScrollViewer 

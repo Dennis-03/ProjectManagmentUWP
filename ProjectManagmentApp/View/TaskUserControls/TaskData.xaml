@@ -54,6 +54,13 @@
                 Visibility="Collapsed">
                 <Button.Flyout>
                     <Flyout>
+                        <Flyout.FlyoutPresenterStyle>
+                            <Style TargetType="FlyoutPresenter">
+                                <Setter Property="Background" Value="{ThemeResource PrimaryColor}"/>
+                                <Setter Property="CornerRadius" Value="2"/>
+                                <Setter Property="BorderBrush" Value="{ThemeResource TertairyColor}"/>
+                            </Style>
+                        </Flyout.FlyoutPresenterStyle>
                         <StackPanel>
                             <TextBlock
                                 Text="Are you sure you want to delete?"
@@ -162,7 +169,7 @@
                         <Flyout.FlyoutPresenterStyle>
                             <Style TargetType="FlyoutPresenter">
                                 <Setter Property="Background" Value="{ThemeResource PrimaryColor}"/>
-                                <Setter Property="CornerRadius" Value="5"/>
+                                <Setter Property="CornerRadius" Value="2"/>
                                 <Setter Property="BorderBrush" Value="{ThemeResource TertairyColor}"/>
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
@@ -232,7 +239,7 @@
             ItemsSource="{x:Bind Comments,Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Comment">
-                    <local:CommentList/>
+                    <local:CommentList Comment="{Binding}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

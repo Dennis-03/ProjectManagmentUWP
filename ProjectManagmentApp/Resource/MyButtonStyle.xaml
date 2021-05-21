@@ -4,6 +4,7 @@
 
     <Style TargetType="Button" x:Key="MyButtonStyle">
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
