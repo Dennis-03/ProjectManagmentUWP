@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:ProjectManagmentApp.Model"
     mc:Ignorable="d"
+    Loaded="Page_Loaded"
     Background="{ThemeResource SecondaryColor}">
     <Page.Resources>
         <Style TargetType="ComboBox">
@@ -17,7 +18,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Height="400"
+                    Height="430"
                     Width="500"
                     Padding="20"
                     Background="{ThemeResource PrimaryColor}"
@@ -31,43 +32,62 @@
                            Foreground="Red"
                            TextAlignment="Center"/>
             </StackPanel>
-            <TextBox Style="{ThemeResource TransparentTextBox}"
-                     Name="Username"
-                     x:Uid="Username"
-                     Margin="20,10"/>
-            <StackPanel 
-                Orientation="Horizontal"
-                BorderThickness="0,0,0,1"
-                BorderBrush="White"
-                Margin="20,10">
-                <TextBlock x:Uid="Avatar"
-                           VerticalAlignment="Center"/>
-                <ComboBox
-                    Name="AvatarCB"
-                    Height="40"
-                    Background="{ThemeResource PrimaryColor}"
-                    Padding="0"
-                    Width="80"
-                    SelectionChanged="AvatarCB_SelectionChanged"
-                    ItemsSource="{x:Bind _avatarList}"
-                    Margin="30,0,10,0">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="data:Avatar">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="{x:Bind Path}"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBox 
+                    Style="{ThemeResource TransparentTextBox}"
+                    Name="Username"
+                    x:Uid="Username"
+                    Margin="20,10"/>
+                <StackPanel 
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    BorderThickness="0,0,0,1"
+                    BorderBrush="White"
+                    Margin="20,10">
+                    <TextBlock 
+                        x:Uid="Avatar"
+                        VerticalAlignment="Center"/>
+                    <ComboBox
+                        Name="AvatarCB"
+                        Height="40"
+                        Background="{ThemeResource PrimaryColor}"
+                        Padding="0"
+                        Width="80"
+                        SelectionChanged="AvatarCB_SelectionChanged"
+                        ItemsSource="{x:Bind _avatarList}"
+                        Margin="30,0,10,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="data:Avatar">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{x:Bind Path}"
                                    Width="30"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-                <Button 
-                    Name="CustomAvatar"
-                    Style="{StaticResource MyButtonStyle}"
-                    Content="Choose custom avatar"
-                    Click="CustomAvatar_Click"/>
-
-            </StackPanel>
-
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel 
+                    Grid.Column="1" 
+                    Grid.RowSpan="2">
+                    <Image 
+                        Name="DP" 
+                        Width="75"/>
+                    <Button 
+                        Style="{StaticResource MyButtonStyle}"
+                        Content="Custom Avatar" 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Click="GetPhotoButton_Click"/>
+                </StackPanel>
+            </Grid>
             <PasswordBox Name="Password"
                          Style="{ThemeResource PasswordBoxStyle}"
                          x:Uid="Password"

@@ -26,7 +26,7 @@ namespace ProjectManagmentApp.Data
         CommentManager commentManager = CommentManager.GetCommentManager();
 
         public bool AddReaction(long reactedById, long reactedToId)
-        {            
+        {
             var status = conn.Table<Reaction>().Any(task => task.ReactedById == reactedById && task.ReactedToId == reactedToId);
             if (status == true)
             {
@@ -40,6 +40,17 @@ namespace ProjectManagmentApp.Data
             });
             return true;
         }
+        public bool RemoveReaction(long reactedById, long reactedToId)
+        {
+            var status = conn.Table<Reaction>().Any(task => task.ReactedById == reactedById && task.ReactedToId == reactedToId);
+            if (status == false)
+            {
+                return false;
+            }
+            conn.Table<Reaction>().Delete(reaction => reaction.ReactedById == reactedById && reaction.ReactedToId == reactedToId);
+            return true;
+        }
+
 
         public List<Reaction> GetReaction(long reactedToId)
         {

@@ -136,9 +136,6 @@
     <Compile Include="View\CreateTaskView.xaml.cs">
       <DependentUpon>CreateTaskView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EditTask.xaml.cs">
-      <DependentUpon>EditTask.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MyTasksView.xaml.cs">
       <DependentUpon>MyTasksView.xaml</DependentUpon>
     </Compile>
@@ -182,6 +179,7 @@
     <Content Include="Assets\Avatar\male-01.png" />
     <Content Include="Assets\Avatar\male-02.png" />
     <Content Include="Assets\Avatar\male-03.png" />
+    <Content Include="Assets\Avatar\no_image.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -229,10 +227,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CreateTaskView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EditTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

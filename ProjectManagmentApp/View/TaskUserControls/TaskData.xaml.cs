@@ -28,6 +28,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         private int _noOfComments = 0;
         private ZTask _ztask;
         private long _userId;
+        private bool _liked;
         private List<string> _reactersName =new List<string>();
 
 
@@ -106,14 +107,19 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _ztask = ZTask;
             _userId = userManager.GetUserId();
 
+            var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             _ztask.Reaction.ForEach(like =>
             {
                 if (like.ReactedById == _userId)
+                {
                     _reactersName.Insert(0, "You");
+                    buttonIcon = HttpUtility.HtmlDecode("&#xE00B;");
+                    _liked = true;
+                }
                 else
                     _reactersName.Add(userManager.GetUser(like.ReactedById).UserName);
             });
-
+            LikeReaction.Content = buttonIcon;
             ReactersName.Text = string.Join(", ",_reactersName);
 
             _noOfLikes = _ztask.Reaction.Count;
@@ -122,14 +128,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _noOfComments = Comments.Count;
             if (_noOfComments == 0)
                 CommentsContainer.Visibility = Visibility.Collapsed;
-
             NoOfCommentsTB.Text = _noOfComments.ToString();
-            var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
-            _ztask.Reaction.ForEach(like => {
-                if (like.ReactedById == _userId)
-                    buttonIcon = HttpUtility.HtmlDecode("&#xE00B;");
-            });
-            LikeReaction.Content = buttonIcon;
 
             if (_ztask.Completed == false && _ztask.AssignedTo == _userId)
                 MarkCompleted.Visibility = Visibility.Visible;
@@ -163,14 +162,34 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void LikeReaction_Click(object sender, RoutedEventArgs e)
         {
-            LikeReaction.Content = HttpUtility.HtmlDecode("&#xE00B;");
-            bool status = reactionManager.AddReaction(_userId, _ztask.Id);
-            if (status) {
-                _noOfLikes += 1;
-                NoOfLikesTB.Content = _noOfLikes.ToString();
-                _reactersName.Insert(0, "You");
-                ReactersName.Text = string.Join(", ", _reactersName);
+            if (!_liked)
+            {
+                _liked = true;
+                bool status = reactionManager.AddReaction(_userId, _ztask.Id);
+                LikeReaction.Content = HttpUtility.HtmlDecode("&#xE00B;");
+                if (status)
+                {
+                    _noOfLikes += 1;
+                    _reactersName.Insert(0, "You");
+                }
             }
+            else
+            {
+                _liked = false;
+                LikeReaction.Content = HttpUtility.HtmlDecode("&#xE006;");
+                bool status = reactionManager.RemoveReaction(_userId, _ztask.Id);
+                if (status)
+                {
+                    _noOfLikes -= 1;
+                    _reactersName.RemoveAt(0);
+                }
+            }
+            ReactersName.Text = string.Join(", ", _reactersName);
+            NoOfLikesTB.Content = _noOfLikes.ToString();
+            if (_noOfLikes == 0)
+                NoOfLikesTB.Visibility = Visibility.Collapsed;
+            else
+                NoOfLikesTB.Visibility = Visibility.Visible;
         }
 
         private void CloseTask_Click(object sender, RoutedEventArgs e)

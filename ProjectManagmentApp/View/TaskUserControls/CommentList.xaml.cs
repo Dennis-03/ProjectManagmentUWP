@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -36,7 +38,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             this.InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             userId = userManager.GetUserId();
             var user = userManager.GetUser(Comment.UserId);
@@ -57,8 +59,29 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 LikeCountTB.Content = NoOfLikes.ToString();
             UserCommentTB.Text = Comment.CommentString;
 
-            Uri uri = new Uri(user.AvatarPath, UriKind.Absolute);
-            CommenterAvatar.Source = new BitmapImage(uri);
+            if (user.AvatarPath.Contains("Assets"))
+            {
+                Uri uri = new Uri(user.AvatarPath, UriKind.Absolute);
+                CommenterAvatar.Source = new BitmapImage(uri);
+            }
+            else
+            {
+                try
+                {
+                    BitmapImage image = new BitmapImage();
+                    var storageFile = await StorageFile.GetFileFromPathAsync(user.AvatarPath);
+                    using (IRandomAccessStream stream = await storageFile.OpenAsync(FileAccessMode.Read))
+                    {
+                        await image.SetSourceAsync(stream);
+                    }
+                    CommenterAvatar.Source = image;
+                }
+                catch(Exception exp)
+                {
+                    Uri uri = new Uri("ms-appx:/Assets/Avatar/no_image.png", UriKind.Absolute);
+                    CommenterAvatar.Source = new BitmapImage(uri);
+                }
+            }
 
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             Comment.Reaction.ForEach(like =>

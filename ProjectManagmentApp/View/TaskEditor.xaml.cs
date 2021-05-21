@@ -27,7 +27,6 @@ namespace ProjectManagmentApp.View
         ZTask ZTask;
         TaskManager taskManager = TaskManager.GetTaskManager();
 
-        public static event Action<long> DeleteTaskEvent;
         public static event Action<long> UpdateTaskEvent;
         public static event Action DeselectSelectedItem;
         public static event Action MobileSupport;
@@ -40,11 +39,6 @@ namespace ProjectManagmentApp.View
         public static void NotifyDeselectSelectedItem()
         {
             DeselectSelectedItem?.Invoke();
-        }
-
-        public static void NotifyDeleteTaskEvent(long taskId)
-        {
-            DeleteTaskEvent?.Invoke(taskId);
         }
 
         public static void NotifyUpdateTaskEvent(long taskId)

@@ -49,23 +49,16 @@ namespace ProjectManagmentApp.View.TaskUserControls
             if(_zTask.AssignedDate==null)
                 _zTask.AssignedDate = DateTime.UtcNow;
             if (ZTask.Priority == PriorityEnum.High)
-            {
                 PriorityComboBox.SelectedIndex = 2;
-            }
             else if (ZTask.Priority == PriorityEnum.Medium)
-            {
                 PriorityComboBox.SelectedIndex = 1;
-            }
             else
-            {
                 PriorityComboBox.SelectedIndex = 0;
-            }
+
             int index = _users.FindIndex(user => user.Id == ZTask.AssignedTo);
             UserSelectCB.SelectedIndex = index;
             if (ZTask.DueDate.Year > 2000)
-            {
                 IDueDate.Date = DateTime.SpecifyKind(ZTask.DueDate, DateTimeKind.Utc);
-            }
             CreateTaskView.ResetTaskControls += CreateTaskView_ResetTaskControls;
         }
 
@@ -73,6 +66,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {
             ITaskName.Text = "";
             ITaskDescripion.Text = "";
+            UserSelectCB.SelectedItem = "";
         }
 
         private void IDueDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)

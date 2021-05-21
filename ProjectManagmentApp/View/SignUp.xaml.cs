@@ -60,18 +60,12 @@ namespace ProjectManagmentApp.View
             {
                 var status = userManager.AddUser(userName, password,_avatar);
                 if (status == false)
-                {
                     ResponseTextBlock.Text = "Username Already exists";
-                }
                 else
-                {
                     Frame.Navigate(typeof(SignIn));
-                }
             }
             else
-            {
                 ResponseTextBlock.Text = "Passwords do not match";
-            }
         }
 
         private void SignIn_Click(object sender, RoutedEventArgs e)
@@ -83,8 +77,48 @@ namespace ProjectManagmentApp.View
         {
             var combo = (ComboBox)sender;
             var item = (Avatar)combo.SelectedItem;
-            _avatar = item.Path.ToString();
+            if (item != null)
+            {
+                _avatar = item.Path.ToString();
+                Uri uri = new Uri(_avatar, UriKind.Absolute);
+                DP.Source = new BitmapImage(uri);
+            }
+        }
+        private async void GetPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker openPicker =new FileOpenPicker();
+            openPicker.SuggestedStartLocation =PickerLocationId.PicturesLibrary;
+            openPicker.ViewMode =PickerViewMode.Thumbnail;
+
+            openPicker.FileTypeFilter.Clear();
+            openPicker.FileTypeFilter.Add(".png");
+            openPicker.FileTypeFilter.Add(".jpeg");
+            openPicker.FileTypeFilter.Add(".jpg");
+
+            StorageFile file =await openPicker.PickSingleFileAsync();
+            if (file != null)
+            {
+                using (Windows.Storage.Streams.IRandomAccessStream fileStream =await file.OpenAsync(FileAccessMode.Read))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.SetSource(fileStream);
+                    DP.Source = bitmapImage;
+                    _avatar= file.Path;
+                    AvatarCB.SelectedItem = null;
+                }
+            }
         }
 
+        private void CustomAvatar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            AvatarCB.SelectedIndex = 0;
+            Uri uri = new Uri("ms-appx:/Assets/Avatar/male-01.png", UriKind.Absolute);
+            DP.Source = new BitmapImage(uri);
+        }
     }
 }
