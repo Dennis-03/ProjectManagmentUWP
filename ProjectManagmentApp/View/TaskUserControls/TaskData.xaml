@@ -37,11 +37,13 @@
                 Style="{StaticResource Icons}"
                 Content="&#xE10A;"
                 Name="CloseTask"
+                Foreground="Red"
                 RelativePanel.AlignRightWithPanel="True"
                 Click="CloseTask_Click"/>
             <Button 
                 Style="{StaticResource Icons}"
                 Content="&#xE104;"
+                Foreground="Green"
                 Name="EditTaskBtn"
                 RelativePanel.LeftOf="CloseTask"
                 Click="EditTaskBtn_Click"
@@ -49,6 +51,7 @@
             <Button 
                 Style="{StaticResource Icons}"
                 Content="&#xE107;"
+                Foreground="Red"
                 Name="DeleteTaskBtnFlyout"
                 RelativePanel.LeftOf="EditTaskBtn"
                 Visibility="Collapsed">

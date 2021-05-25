@@ -38,6 +38,13 @@ namespace ProjectManagmentApp.View.TaskUserControls
             this.InitializeComponent();
         }
 
+        public static event Action UpdateNoOfComments;
+
+        public static void NotifyUpdateNoOfComments()
+        {
+            UpdateNoOfComments?.Invoke();
+        }
+
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             userId = userManager.GetUserId();
@@ -76,7 +83,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                     }
                     CommenterAvatar.Source = image;
                 }
-                catch(Exception exp)
+                catch
                 {
                     Uri uri = new Uri("ms-appx:/Assets/Avatar/no_image.png", UriKind.Absolute);
                     CommenterAvatar.Source = new BitmapImage(uri);
@@ -92,6 +99,11 @@ namespace ProjectManagmentApp.View.TaskUserControls
             LikeCommentBtn.Content = buttonIcon;
             Replies = new ObservableCollection<Comment>(Comment.Reply);
             ReplyList.ItemsSource = Replies;
+        }
+
+        private void Replies_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyUpdateNoOfComments();
         }
 
         public static string TimeDifference(DateTime commentedTime)
@@ -124,7 +136,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 LikeCountTB.Content = NoOfLikes.ToString();
                 _reactersName.Insert(0, "You");
                 ReactersName.Text = string.Join(", ", _reactersName);
-
             }
         }
 
@@ -142,6 +153,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 };
                 Replies.Insert(0, addComment);
                 commentManager.AddComment(addComment);
+                NotifyUpdateNoOfComments();
                 AddReplyContainer.Visibility = Visibility.Collapsed;
             }
         }

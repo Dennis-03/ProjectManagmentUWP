@@ -33,6 +33,7 @@ namespace ProjectManagmentApp.View
         private List<ZTask> _allTasks;
         TaskManager taskManager = TaskManager.GetTaskManager();
         UserManager userManager = UserManager.GetUserManager();
+        private long _userId;
 
         public TaskView()
         {
@@ -59,12 +60,18 @@ namespace ProjectManagmentApp.View
             TaskData.DeselectItem += TaskData_DeselectItem;
             TaskData.TaskEditor += TaskData_TaskEditor;
             TaskEditor.UpdateTaskEvent += TaskEditor_UpdateTaskEvent;
+            TaskEditor.DeselectSelectedItem += TaskEditor_DeselectSelectedItem;
             if (Window.Current.Bounds.Width < 900)
             {
                 TaskDetailsSV.Visibility = Visibility.Collapsed;
             }
             SelectNextAvailable();
-            Filter.SelectedIndex = 0;
+            _userId = userManager.GetUserId();
+        }
+
+        private void TaskEditor_DeselectSelectedItem()
+        {
+            TaskList.SelectedItem = null;
         }
 
         private void TaskEditor_UpdateTaskEvent(long taskId)
@@ -107,7 +114,8 @@ namespace ProjectManagmentApp.View
 
         private void HandleTaskCompleted(long taskId)
         {
-            _taskList.Remove(_taskList.First(task=>task.Id==taskId));
+            _allTasks.Remove(_allTasks.FirstOrDefault(task => task.Id == taskId));
+            _taskList.Remove(_taskList.FirstOrDefault(task => task.Id == taskId));
             TaskDetailsSV.Visibility = Visibility.Collapsed;
             SelectNextAvailable();
         }
@@ -118,6 +126,7 @@ namespace ProjectManagmentApp.View
             TaskData.DeselectItem -= TaskData_DeselectItem;
             TaskData.TaskEditor -= TaskData_TaskEditor;
             TaskEditor.UpdateTaskEvent -= TaskEditor_UpdateTaskEvent;
+            TaskEditor.DeselectSelectedItem -= TaskEditor_DeselectSelectedItem;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -141,41 +150,43 @@ namespace ProjectManagmentApp.View
             }
         }
 
-        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AllTasks_Click(object sender, RoutedEventArgs e)
         {
-            ComboBox combo = (ComboBox)sender;
-            var item = (ComboBoxItem)combo.SelectedItem;
-            long userId = userManager.GetUserId();
-            if (item.Content.ToString() == "My Tasks")
-            {
+            TaskListType.Text = "All Tasks";
+            if (_taskList != null)
                 _taskList.Clear();
-                _allTasks.ForEach(task =>
-                {
-                    if (task.AssignedTo == userId)
-                        _taskList.Add(task);
-                });
-                SelectNextAvailable();
-            }
-            if (item.Content.ToString() == "Tasks by me")
+            _allTasks.ForEach(task =>
             {
-                _taskList.Clear();
-                _allTasks.ForEach(task =>
-                {
-                    if (task.AssignedBy == userId)
-                        _taskList.Add(task);
-                });
-                SelectNextAvailable();
-            }
-            if (item.Content.ToString() == "All Tasks")
+                _taskList.Add(task);
+            });
+            SelectNextAvailable();
+            TaskListTypeSelect.Flyout.Hide();
+        }
+
+        private void MyTasks_Click(object sender, RoutedEventArgs e)
+        {
+            TaskListType.Text = "My Tasks";
+            _taskList.Clear();
+            _allTasks.ForEach(task =>
             {
-                if (_taskList != null)
-                    _taskList.Clear();
-                _allTasks.ForEach(task =>
-                {
+                if (task.AssignedTo == _userId)
                     _taskList.Add(task);
-                });
-                SelectNextAvailable();
-            }
+            });
+            SelectNextAvailable();
+            TaskListTypeSelect.Flyout.Hide();
+        }
+
+        private void TasksByMe_Click(object sender, RoutedEventArgs e)
+        {
+            TaskListType.Text = "Tasks By Me";
+            _taskList.Clear();
+            _allTasks.ForEach(task =>
+            {
+                if (task.AssignedBy == _userId)
+                    _taskList.Add(task);
+            });
+            SelectNextAvailable();
+            TaskListTypeSelect.Flyout.Hide();
         }
     }
 }

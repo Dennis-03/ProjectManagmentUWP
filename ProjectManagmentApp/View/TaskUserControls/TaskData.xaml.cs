@@ -104,9 +104,9 @@ namespace ProjectManagmentApp.View.TaskUserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            CommentList.UpdateNoOfComments += CommentList_UpdateNoOfComments;
             _ztask = ZTask;
             _userId = userManager.GetUserId();
-
             var buttonIcon = HttpUtility.HtmlDecode("&#xE006;");
             _ztask.Reaction.ForEach(like =>
             {
@@ -128,6 +128,8 @@ namespace ProjectManagmentApp.View.TaskUserControls
             _noOfComments = Comments.Count;
             if (_noOfComments == 0)
                 CommentsContainer.Visibility = Visibility.Collapsed;
+            else
+                CountComments(new List<Comment>(Comments));
             NoOfCommentsTB.Text = _noOfComments.ToString();
 
             if (_ztask.Completed == false && _ztask.AssignedTo == _userId)
@@ -138,7 +140,21 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 EditTaskBtn.Visibility = Visibility.Visible;
                 DeleteTaskBtnFlyout.Visibility = Visibility.Visible;
             }
+        }
 
+        private void CommentList_UpdateNoOfComments()
+        {
+            _noOfComments += 1;
+            NoOfCommentsTB.Text = _noOfComments.ToString();
+        }
+
+        public void CountComments(List<Comment> comments)
+        {
+            comments.ForEach(comment =>
+            {
+                _noOfComments+= comment.Reply.Count;
+                CountComments(comment.Reply);
+            });
         }
 
         private void SendClick_Click(object sender, RoutedEventArgs e)
