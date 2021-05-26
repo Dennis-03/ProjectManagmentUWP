@@ -78,7 +78,13 @@ namespace ProjectManagmentApp.Data
 
         public List<ZTask> GetUserTasks(long userId)
         {
-            return new List<ZTask>(conn.Table<ZTask>().Where(zTask=>zTask.AssignedTo==userId).OrderByDescending(task => task.AssignedDate));
+            List<ZTask> taskList = new List<ZTask>(conn.Table<ZTask>().Where(zTask=>zTask.AssignedTo==userId).OrderByDescending(task => task.AssignedDate));
+            taskList.ForEach(task =>
+            {
+                task.Reaction = reactionManager.GetReaction(task.Id);
+                task.Comment = commentManager.GetTaskComments(task.Id);
+            });
+            return taskList;
         }
 
         public List<ZTask> GetUserCreatedTasks(long userId)

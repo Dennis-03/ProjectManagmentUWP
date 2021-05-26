@@ -73,20 +73,17 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                </StackPanel>
-                <StackPanel 
-                    Grid.Column="1" 
-                    Grid.RowSpan="2">
-                    <Image 
-                        Name="DP" 
-                        Width="75"/>
-                    <Button 
+                    <Button
                         Style="{StaticResource MyButtonStyle}"
-                        Content="Custom Avatar" 
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xED25;"
                         Click="GetPhotoButton_Click"/>
                 </StackPanel>
+                <Image 
+                    Name="DP" 
+                    Width="75"
+                    Grid.Column="1" 
+                    Grid.RowSpan="2"/>
             </Grid>
             <PasswordBox Name="Password"
                          Style="{ThemeResource PasswordBoxStyle}"
@@ -96,15 +93,17 @@
                          Style="{ThemeResource PasswordBoxStyle}"
                          x:Uid="RePassword"
                          Margin="20"/>
-            <Button Name="SignUpButton"
-                    Style="{StaticResource MyButtonStyle}"
-                    x:Uid="Submit"
-                    Click="SignUpButton_Click"
-                    Background="{ThemeResource PrimaryColor}"
-                    Foreground="{ThemeResource TertairyColor}"
-                    BorderBrush="{ThemeResource TertairyColor}"
-                    CornerRadius="3"
-                    HorizontalAlignment="Center"/>
+            <StackPanel
+                BorderBrush="{ThemeResource TertairyColor}"
+                BorderThickness="1"
+                HorizontalAlignment="Center"
+                CornerRadius="3">
+                <Button Name="Submit"
+                        Foreground="{ThemeResource TertairyColor}"
+                        x:Uid="Submit"
+                        Style="{StaticResource MyButtonStyle}"
+                        Click="SignUpButton_Click"/>
+            </StackPanel>
             <Button Name="SignIn"
                     x:Uid="SignIn"
                     Style="{StaticResource MyButtonStyle}"

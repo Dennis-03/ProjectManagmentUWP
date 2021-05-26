@@ -33,16 +33,18 @@
                          x:Uid="Password"
                          Margin="20,0"/>
 
-            <Button Name="Submit"
-                    x:Uid="Submit"
-                    Style="{StaticResource MyButtonStyle}"
-                    Click="Submit_Click"
-                    HorizontalAlignment="Center"
-                    Background="{ThemeResource PrimaryColor}"
-                    Foreground="{ThemeResource TertairyColor}"
-                    BorderBrush="{ThemeResource TertairyColor}"
-                    CornerRadius="3"
-                    Margin="20"/>
+            <StackPanel
+                BorderBrush="{ThemeResource TertairyColor}"
+                BorderThickness="1"
+                HorizontalAlignment="Center"
+                Margin="0,25,0,15"
+                CornerRadius="3">
+                <Button Name="Submit"
+                        Foreground="{ThemeResource TertairyColor}"
+                        x:Uid="Submit"
+                        Style="{StaticResource MyButtonStyle}"
+                        Click="Submit_Click"/>
+            </StackPanel>
             <Button Name="SignUp"
                     x:Uid="SignUp"
                     Style="{StaticResource MyButtonStyle}"

@@ -145,9 +145,7 @@ namespace ProjectManagmentApp.View
                 }
             }
             else
-            {
                 TaskListContainer.Visibility = Visibility.Visible;
-            }
         }
 
         private void AllTasks_Click(object sender, RoutedEventArgs e)

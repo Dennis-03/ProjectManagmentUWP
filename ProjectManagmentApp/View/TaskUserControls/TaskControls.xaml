@@ -43,7 +43,7 @@
                                                             <VisualState x:Name="PointerOver">
                                                                 <Storyboard>
                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
-                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DatePickerButtonBackgroundPointerOver}"/>
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ProgressBarBackgroundThemeBrush}"/>
                                                                     </ObjectAnimationUsingKeyFrames>
                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DatePickerButtonForegroundPointerOver}"/>
@@ -259,15 +259,16 @@
             <TextBlock x:Uid="DueDateTC"
                        Grid.Row="4"
                        VerticalAlignment="Center"/>
-            <DatePicker Name="IDueDate"
-                        Style="{StaticResource DatePickerStyle}"
-                        Background="{ThemeResource PrimaryColor}"
-                        BorderBrush="Transparent"
-                        BorderThickness="0"
-                        Margin="0,20"
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        DateChanged="IDueDate_DateChanged"/>
+            <DatePicker
+                Name="IDueDate"
+                Style="{StaticResource DatePickerStyle}"
+                Background="{ThemeResource PrimaryColor}"
+                BorderBrush="Transparent"
+                BorderThickness="0"
+                Margin="0,20"
+                Grid.Row="4"
+                Grid.Column="1"
+                DateChanged="IDueDate_DateChanged"/>
         </Grid>
     </StackPanel>
 </UserControl>

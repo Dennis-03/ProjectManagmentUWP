@@ -59,17 +59,20 @@
                 Foreground="Red"
                 Visibility="Collapsed"/>
             <local:TaskControls ZTask="{x:Bind _zTask,Mode=TwoWay}"/>
-            <Button 
-                Style="{StaticResource MyButtonStyle}"
-                x:Uid="CreateTask"
-                Padding="15,5"
-                Name="CreateTask"
-                HorizontalAlignment="Center"
-                Background="{ThemeResource PrimaryColor}"
-                Foreground="{ThemeResource TertairyColor}"
+            <StackPanel
                 BorderBrush="{ThemeResource TertairyColor}"
-                CornerRadius="5"
-                Click="CreateTask_Click"/>
+                BorderThickness="1"
+                Padding="5,2"
+                HorizontalAlignment="Center"
+                CornerRadius="3">
+                <Button 
+                    Style="{StaticResource MyButtonStyle}"
+                    x:Uid="CreateTask"
+                    Padding="0"
+                    Name="CreateTask"
+                    Foreground="{ThemeResource TertairyColor}"
+                    Click="CreateTask_Click"/>
+            </StackPanel>
         </StackPanel>
         <ScrollViewer 
             Name="TaskDetailsSV">

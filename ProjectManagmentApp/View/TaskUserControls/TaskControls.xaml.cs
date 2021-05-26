@@ -54,6 +54,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
                 PriorityComboBox.SelectedIndex = 1;
             else
                 PriorityComboBox.SelectedIndex = 0;
+            IDueDate.MinYear=DateTime.Now;
 
             int index = _users.FindIndex(user => user.Id == ZTask.AssignedTo);
             UserSelectCB.SelectedIndex = index;
@@ -66,7 +67,6 @@ namespace ProjectManagmentApp.View.TaskUserControls
         {
             ITaskName.Text = "";
             ITaskDescripion.Text = "";
-            UserSelectCB.SelectedItem = "";
         }
 
         private void IDueDate_DateChanged(object sender, DatePickerValueChangedEventArgs e)

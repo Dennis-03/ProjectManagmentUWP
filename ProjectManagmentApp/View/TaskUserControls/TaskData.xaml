@@ -32,6 +32,7 @@
         <RelativePanel>
             <TextBlock Text="{x:Bind ZTask.TaskName}"
                        FontSize="26"
+                       TextWrapping="Wrap"
                        FontWeight="Bold"/>
             <Button 
                 Style="{StaticResource Icons}"
@@ -68,15 +69,18 @@
                             <TextBlock
                                 Text="Are you sure you want to delete?"
                                 Margin="10,0,10,10"/>
-                            <Button
-                                Style="{StaticResource MyButtonStyle}"
+                            <StackPanel
                                 HorizontalAlignment="Right"
-                                Name="DeleteTaskBtn"
-                                Content="Delete"
                                 Background="Red"
-                                Foreground="White"
-                                CornerRadius="5"
-                                Click="DeleteTaskBtn_Click"/>
+                                CornerRadius="3">
+                                <Button
+                                    Style="{StaticResource MyButtonStyle}"
+                                    HorizontalAlignment="Right"
+                                    Name="DeleteTaskBtn"
+                                    Content="Delete"
+                                    Foreground="White"
+                                    Click="DeleteTaskBtn_Click"/>
+                            </StackPanel>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -93,14 +97,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <TextBlock x:Uid="Description"
                        Margin="0,0,15,0"/>
             <TextBlock Text="{x:Bind ZTask.Description}"
-                       TextWrapping="WrapWholeWords"
+                       TextWrapping="Wrap"
                        FontWeight="Bold"
                        Grid.Column="1"/>
 
@@ -168,7 +172,7 @@
                 RelativePanel.AlignVerticalCenterWithPanel="True"
                 Foreground="{ThemeResource SystemBaseMediumColor}">
                 <Button.Flyout>
-                    <Flyout>
+                    <Flyout Placement="BottomEdgeAlignedLeft">
                         <Flyout.FlyoutPresenterStyle>
                             <Style TargetType="FlyoutPresenter">
                                 <Setter Property="Background" Value="{ThemeResource PrimaryColor}"/>
@@ -176,22 +180,29 @@
                                 <Setter Property="BorderBrush" Value="{ThemeResource TertairyColor}"/>
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
-                        <TextBlock Name="ReactersName"/>
+                        <TextBlock 
+                            Name="ReactersName" 
+                            Width="150" 
+                            TextWrapping="Wrap"/>
                     </Flyout>
                 </Button.Flyout>
             </Button>
-            <Button 
-                x:Uid="Completed"
-                Style="{StaticResource MyButtonStyle}"
-                Name="MarkCompleted"
+            <StackPanel
+                Name="MarkCompletedContainer"
+                BorderThickness="1"
+                BorderBrush="Green"
                 RelativePanel.AlignRightWithPanel="True"
                 Background="{ThemeResource PrimaryColor}"
-                Click="MarkCompleted_Click"
-                Foreground="Green"
-                BorderBrush="Green"
-                HorizontalAlignment="Right"
-                CornerRadius="4"
-                Visibility="Collapsed"/>
+                CornerRadius="3"
+                Visibility="Collapsed">
+                <Button 
+                    x:Uid="Completed"
+                    Style="{StaticResource MyButtonStyle}"
+                    Name="MarkCompleted"
+                    Click="MarkCompleted_Click"
+                    Foreground="Green"
+                    HorizontalAlignment="Right"/>
+            </StackPanel>
         </RelativePanel>
 
 

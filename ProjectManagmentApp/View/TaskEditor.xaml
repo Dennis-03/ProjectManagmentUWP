@@ -12,6 +12,7 @@
         HorizontalAlignment="Right"
         Width="550"
         Margin="50"
+        VerticalAlignment="Top"
         Name="TaskEditorContainer"
         Background="{ThemeResource PrimaryColor}"
         Padding="40"
@@ -43,17 +44,15 @@
         <local:TaskControls ZTask="{x:Bind ZTask,Mode=TwoWay}"/>
         <StackPanel 
             Orientation="Horizontal"
+            BorderBrush="Green"
+            BorderThickness="1"
+            CornerRadius="3"
             HorizontalAlignment="Center">
             <Button 
                 Style="{StaticResource MyButtonStyle}"
                 x:Uid="UpdateBtn"
                 Name="UpdateTask"
-                Background="{ThemeResource PrimaryColor}"
                 Foreground="Green"
-                Padding="10,5"
-                BorderThickness="2"
-                CornerRadius="2"
-                BorderBrush="Green"
                 Click="UpdateTask_Click"/>
         </StackPanel>
     </StackPanel>

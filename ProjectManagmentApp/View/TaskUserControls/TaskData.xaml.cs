@@ -133,7 +133,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             NoOfCommentsTB.Text = _noOfComments.ToString();
 
             if (_ztask.Completed == false && _ztask.AssignedTo == _userId)
-                MarkCompleted.Visibility = Visibility.Visible;
+                MarkCompletedContainer.Visibility = Visibility.Visible;
 
             if (_ztask.AssignedBy == userManager.GetUserId())
             {

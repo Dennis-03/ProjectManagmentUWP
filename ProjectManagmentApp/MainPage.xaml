@@ -111,7 +111,9 @@
                 </RelativePanel>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame Name="MainRenderFrame" Margin="0,0,10,10" CornerRadius="0,0,0,40"/>
+                <Frame 
+                    Name="MainRenderFrame"
+                    CornerRadius="0,0,0,40"/>
             </SplitView.Content>
         </SplitView>
     </Grid>

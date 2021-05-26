@@ -88,7 +88,7 @@ namespace ProjectManagmentApp.View
             if (selectedItem != null)
             {
                 ZTask zTask = taskManager.GetZTask(selectedItem.Id);
-                TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask, new SuppressNavigationTransitionInfo());
+                TaskDetailsFrame.Navigate(typeof(TaskDetails), zTask);
             }
         }
 
