@@ -11,11 +11,6 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="{ThemeResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-        </Style>
         <Style x:Key="DatePickerStyle" TargetType="DatePicker">
             <Setter Property="Orientation" Value="Horizontal"/>
             <Setter Property="IsTabStop" Value="False"/>
@@ -43,7 +38,7 @@
                                                             <VisualState x:Name="PointerOver">
                                                                 <Storyboard>
                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
-                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ProgressBarBackgroundThemeBrush}"/>
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PrimaryColor}"/>
                                                                     </ObjectAnimationUsingKeyFrames>
                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DatePickerButtonForegroundPointerOver}"/>
@@ -53,7 +48,7 @@
                                                             <VisualState x:Name="Pressed">
                                                                 <Storyboard>
                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Background">
-                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DatePickerButtonBackgroundPressed}"/>
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource PrimaryColor}"/>
                                                                     </ObjectAnimationUsingKeyFrames>
                                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
                                                                         <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DatePickerButtonBorderBrushPressed}"/>
@@ -92,7 +87,7 @@
                                                             <VisualState x:Name="PointerFocused"/>
                                                         </VisualStateGroup>
                                                     </VisualStateManager.VisualStateGroups>
-                                                    <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" Background="{ThemeResource DatePickerButtonBackground}" BorderThickness="0" BorderBrush="{ThemeResource DatePickerButtonBorderBrush}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                                                    <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" Background="{ThemeResource PrimaryColor}" BorderThickness="0" BorderBrush="{ThemeResource DatePickerButtonBorderBrush}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                                                 </Grid>
                                             </ControlTemplate>
                                         </Setter.Value>
@@ -235,6 +230,7 @@
                       Grid.Row="2"
                       Margin="0,20"
                       Width="200"
+                      Style="{StaticResource MyComboBoxStyle}"
                       SelectionChanged="PriorityComboBox_SelectionChanged">
                 <ComboBoxItem Content="Low"/>
                 <ComboBoxItem Content="Medium"/>
@@ -248,6 +244,7 @@
                       Grid.Row="3"
                       Grid.Column="1"
                       Width="200"
+                      Style="{StaticResource MyComboBoxStyle}"
                       SelectionChanged="UserSelectCB_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="model:User">

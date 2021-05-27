@@ -115,23 +115,21 @@
                           CornerRadius="5"
                           ItemsSource="{x:Bind _taskList,Mode=OneWay}"
                           IsItemClickEnabled="True"
+                          ItemContainerStyle="{StaticResource TaskListItemStyle}"
                           ItemClick="TaskList_ItemClick">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:ZTask">
                             <local:TaskList ZTask="{Binding}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
                 </ListView>
             </StackPanel>
-        </ScrollViewer>
+        </ScrollViewer> 
         <ScrollViewer 
             Name="TaskDetailsSV">
-            <Frame Name="TaskDetailsFrame" />
+            <Frame 
+                Name="TaskDetailsFrame"
+                Margin="0,20,0,0"/>
         </ScrollViewer>
     </Grid>
 </Page>

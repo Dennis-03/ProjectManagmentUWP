@@ -46,7 +46,7 @@
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
             Background="{ThemeResource PrimaryColor}"
-            Padding="20"
+            Padding="30"
             CornerRadius="5">
             <TextBlock 
                 x:Uid="CreateTaskHeader"

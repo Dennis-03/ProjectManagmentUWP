@@ -12,7 +12,8 @@
                 <ResourceDictionary Source="Resource/TextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resource/NavStyle.xaml"/>
                 <ResourceDictionary Source="Resource/PasswordBoxStyle.xaml"/>
-                <ResourceDictionary Source="Resource/TaskListStyle.xaml"/>
+                <ResourceDictionary Source="Resource/TaskListItemStyle.xaml"/>
+                <ResourceDictionary Source="Resource/ComboBoxStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

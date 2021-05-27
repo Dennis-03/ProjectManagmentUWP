@@ -1,4 +1,4 @@
-﻿<Page
+﻿    <Page
     x:Class="ProjectManagmentApp.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -102,7 +102,7 @@
                             Margin="0,0,0,10"
                             Click="Button_Click">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE7EA;"
+                            <TextBlock Text="&#xF3B1;"
                                    Style="{StaticResource Icons}" />
                             <TextBlock x:Uid="LogoutNav"
                                    Style="{StaticResource NavSyle}"/>

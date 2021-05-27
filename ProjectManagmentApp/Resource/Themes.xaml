@@ -5,14 +5,14 @@
         <ResourceDictionary x:Key="Dark">
             <SolidColorBrush x:Key="PrimaryColor" Color="#001"/>
             <SolidColorBrush x:Key="SecondaryColor" Color="#111122"/>
-            <SolidColorBrush x:Key="TertairyColor" Color="#88f"/>
+            <SolidColorBrush x:Key="TertairyColor" Color="#66f"/>
             <SolidColorBrush x:Key="ButtonTextColor" Color="#ddf"/>
             <SolidColorBrush x:Key="BorderColor" Color="White"/>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
-            <SolidColorBrush x:Key="PrimaryColor" Color="#eef"/>
+            <SolidColorBrush x:Key="PrimaryColor" Color="#eeeeef"/>
             <SolidColorBrush x:Key="SecondaryColor" Color="#ddd"/>
-            <SolidColorBrush x:Key="TertairyColor" Color="blue"/>
+            <SolidColorBrush x:Key="TertairyColor" Color="#77f"/>
             <SolidColorBrush x:Key="ButtonTextColor" Color="DarkBlue"/>
             <SolidColorBrush x:Key="BorderColor" Color="Black"/>
         </ResourceDictionary>

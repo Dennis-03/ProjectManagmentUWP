@@ -9,6 +9,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,6 +18,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -102,7 +105,7 @@ namespace ProjectManagmentApp.View.TaskUserControls
             TaskCompleted?.Invoke(taskId);
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             CommentList.UpdateNoOfComments += CommentList_UpdateNoOfComments;
             _ztask = ZTask;
@@ -139,6 +142,39 @@ namespace ProjectManagmentApp.View.TaskUserControls
             {
                 EditTaskBtn.Visibility = Visibility.Visible;
                 DeleteTaskBtnFlyout.Visibility = Visibility.Visible;
+            }
+
+            var assignedTo = userManager.GetUser(_ztask.AssignedTo);
+            SetImage(AssignedToDP, assignedTo.AvatarPath);
+
+            var assignedBy = userManager.GetUser(_ztask.AssignedBy);
+            SetImage(AssignedByDP, assignedBy.AvatarPath);
+        }
+
+        private async void SetImage(Image setImage,string imagePath)
+        {
+            if (imagePath.Contains("Assets"))
+            {
+                Uri uri = new Uri(imagePath, UriKind.Absolute);
+                setImage.Source = new BitmapImage(uri);
+            }
+            else
+            {
+                try
+                {
+                    BitmapImage image = new BitmapImage();
+                    var storageFile = await StorageFile.GetFileFromPathAsync(imagePath);
+                    using (IRandomAccessStream stream = await storageFile.OpenAsync(FileAccessMode.Read))
+                    {
+                        await image.SetSourceAsync(stream);
+                    }
+                    setImage.Source = image;
+                }
+                catch
+                {
+                    Uri uri = new Uri("ms-appx:/Assets/Avatar/no_image.png", UriKind.Absolute);
+                    setImage.Source = new BitmapImage(uri);
+                }
             }
         }
 
